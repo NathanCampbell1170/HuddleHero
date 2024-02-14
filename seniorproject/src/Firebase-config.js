@@ -4,13 +4,14 @@ import { getAuth } from 'firebase/auth'
 
 
 const firebaseConfig = {
-    apiKey: process.env.REACT_APP_APIKEY,
-    authDomain: process.env.REACT_APP_AUTHDOMAIN,
-    projectId: process.env.REACT_APP_PROJECTID,
-    storageBucket: process.env.REACT_APP_STORAGEBUCKET,
-    messagingSenderId: process.env.REACT_APP_IdMESSAGINGSENDERID,
-    appId: process.env.REACT_APP_APPID,
-    measurementId: process.env.REACT_APP_MEASUREMENTID
+  apiKey: "AIzaSyCn2qWcRCc-IMmA3CWOdUgbAQUTncg-4Ts",
+  authDomain: "huddlehero-2cf73.firebaseapp.com",
+  databaseURL: "https://huddlehero-2cf73-default-rtdb.firebaseio.com",
+  projectId: "huddlehero-2cf73",
+  storageBucket: "huddlehero-2cf73.appspot.com",
+  messagingSenderId: "535168775137",
+  appId: "1:535168775137:web:d89e5d53f5c4e08b4c58a0",
+  measurementId: "G-R8XVR7HD4V"
   };
 
   const app = initializeApp(firebaseConfig);
