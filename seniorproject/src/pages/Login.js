@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom"
 import { db, auth, signInWithGoogle } from "../Firebase-config";
 import { addDoc, collection, getDocs, query, where } from "firebase/firestore"; 
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "firebase/auth";
-import fetchUserDisplayName from "../Functions/fetchUserDisplayName";
+import fetchUserDisplayName from "../functions/fetchUserDisplayName";
 function Login() {
   const [registerEmail, setRegisterEmail] = useState("");
   const [registerPassword, setRegisterPassword] = useState("");
@@ -22,6 +22,9 @@ function Login() {
     setUserDisplayName(displayNameDocument.get("displayName"));
 }
 
+useEffect(() => {
+  document.title = "HuddleHero | Login";
+}, []);
 
   useEffect(() => {
     onAuthStateChanged(auth, (currentUser) => {
@@ -30,6 +33,14 @@ function Login() {
    if (user) {
     fetchUserDisplayName()
           console.log(userDisplayName)
+          localStorage.setItem('Displayname', userDisplayName)
+          console.log(localStorage.getItem('Displayname'));
+
+          
+
+   }
+   else {
+    setUserDisplayName("")
    }
     })})
  
@@ -45,10 +56,11 @@ function Login() {
     try {
       const user = await createUserWithEmailAndPassword(auth, registerEmail, registerPassword);
       console.log(user);
+      createFullUser()
       } catch (error) {
         console.log(error.message);
       }
-      createFullUser()
+      
   };
 
 
@@ -65,30 +77,32 @@ function Login() {
   const logOut = async () => {
     await setUserDisplayName("")
     await signOut(auth);
+    window.location.reload();
   
     
   };
 
     return <> <div>  </div>
     
-        <h3> Register User </h3>
+    {userDisplayName === "" && ( <>
+        <h3> Register User </h3> 
         <input placeholder="Email..." onChange={(event) => {setRegisterEmail(event.target.value)}} />
-        <input placeholder="Password..." onChange={(event) => {setRegisterPassword(event.target.value)}} />
+        <input type="password" placeholder="Password..." onChange={(event) => {setRegisterPassword(event.target.value)}} />
         <input placeholder="DisplayName" onChange={(event) => {setUserName(event.target.value)}} />
         <button onClick={register}> Register </button>
-      
+        </> )}
 
       <div>
+      {userDisplayName === "" && ( <> 
         <h3> Log in </h3>
         <input placeholder="Email..." onChange={(event) => {setloginEmail(event.target.value)}} />
-        <input placeholder="Password..."onChange={(event) => {setloginPassword(event.target.value)}} />
+        <input type="password" placeholder="Password..."onChange={(event) => {setloginPassword(event.target.value)}} />
 
         <button onClick={logIn}> Log in </button>
+
+        </> )}
       </div>
 
-        {/*
-        <button onClick={signInWithGoogle}> Sign in with Google </button>
-*/}
 
       <div>
       {userDisplayName !== "" && (
