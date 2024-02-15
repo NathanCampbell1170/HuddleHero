@@ -4,7 +4,8 @@ import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom"
 import { db, auth, signInWithGoogle } from "../Firebase-config";
 import { addDoc, collection, getDocs, query, where } from "firebase/firestore"; 
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "firebase/auth";
-import fetchUserDisplayName from "../functions/fetchUserDisplayName";
+import Fade from 'react-bootstrap/Fade';
+//import fetchUserDisplayName from "../functions/fetchUserDisplayName";
 function Login() {
   const [registerEmail, setRegisterEmail] = useState("");
   const [registerPassword, setRegisterPassword] = useState("");
@@ -14,6 +15,8 @@ function Login() {
   const [userDisplayName, setUserDisplayName] = useState("")
   const [user, setUser] = useState("")
   const userCollection = collection(db, "users");
+  const [show, setShow] = useState(false);
+
 
   async function fetchUserDisplayName() {
     const displayNameQuery = query(userCollection, where("email", '==', user.email))
@@ -21,6 +24,9 @@ function Login() {
     const displayNameDocument = querySnapshot.docs[0];
     setUserDisplayName(displayNameDocument.get("displayName"));
 }
+
+
+
 
 useEffect(() => {
   document.title = "HuddleHero | Login";
