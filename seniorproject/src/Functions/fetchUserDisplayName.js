@@ -1,4 +1,4 @@
-import { db, auth, signInWithGoogle } from "../Firebase-config";
+/*import { db, auth, signInWithGoogle } from "../Firebase-config";
 
 import { addDoc, collection, getDocs, query, where } from "firebase/firestore"; 
 
@@ -14,3 +14,4 @@ async function fetchUserDisplayName(email) {
 
 
 export default fetchUserDisplayName;
+*/
