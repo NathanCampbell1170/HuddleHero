@@ -102,7 +102,7 @@ const fetchImage = async () => {
         const [changeDisplayName, setChangeDisplayName] = useState("")
           const updateUserProfile = async () => {
             if (changeDisplayName==="") {
-                setChangeDisplayName(displayName)
+                setChangeDisplayName(localStorage.getItem("displayName"))
 
             }
             const fetchUserQuery = query(userCollection, where("email", '==', user.email));
@@ -113,6 +113,7 @@ const fetchImage = async () => {
 
             try {
                 await updateDoc(userRef, { displayName: changeDisplayName, beginnerMode: changeBeginnerMode });
+                localStorage.setItem("Displayname", changeDisplayName)
                 window.location.reload();
             } catch (error) {
                 console.error("Error updating user: ", error);
