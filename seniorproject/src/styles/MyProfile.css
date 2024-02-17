@@ -1,0 +1,20 @@
+#myProfile .nav-tabs {
+    flex-direction: column;
+  }
+  
+  #myProfile .tab-content {
+    width: 100%;
+    flex-direction: column;
+
+  }
+
+  .profileTab {
+    display: flex;
+    justify-content: center;
+    
+  }
+  
+  .updateProfileTab {
+      display: flex;
+     justify-content: center;  
+  }

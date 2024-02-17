@@ -8,6 +8,7 @@ import Alert from 'react-bootstrap/Alert';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import SignInToast from "../toasts/SignInToast";
 import Toast from 'react-bootstrap/Toast';
+import Spinner from 'react-bootstrap/Spinner';
 
 //import fetchUserDisplayName from "../functions/fetchUserDisplayName";
 function Login() {
@@ -102,8 +103,9 @@ useEffect(() => {
     try {
       const user = await signInWithEmailAndPassword(auth, loginEmail, loginPassword);
       console.log(user);
-      setSignInToast(true)
-      setTimeout(() => setSignInToast(false), 5000)
+      window.location.href = "/"
+      //setSignInToast(true)
+      //setTimeout(() => setSignInToast(false), 5000)
       } catch (error) {
         if (error.code === 'auth/invalid-credential') {
           console.log('invalid log in')
@@ -111,6 +113,7 @@ useEffect(() => {
         }
         console.log(error.message);
       }
+      
   };
 
   const toggleSignInToast = () => setSignInToast(!signInToast)
@@ -119,13 +122,12 @@ useEffect(() => {
     await setUserDisplayName("")
     await signOut(auth);
     localStorage.clear()
-    window.location.reload();
+    window.location.href = "/";
   
     
   };
-
-    return <> <div>  </div>
-    
+if (!user) {
+    return <> <div>  </div>  
     { userDisplayName === "" && ( <>
         <h3> Register User </h3> 
         <input placeholder="Email..." onChange={(event) => {setRegisterEmail(event.target.value)}} />
@@ -147,46 +149,46 @@ useEffect(() => {
           </Alert>
          </>)}
         </> )}
-
       <div>
-      {userDisplayName === "" && ( <> 
         <h3> Log in </h3>
         <input placeholder="Email..." onChange={(event) => {setloginEmail(event.target.value)}} />
         <input type="password" placeholder="Password..."onChange={(event) => {setloginPassword(event.target.value)}} />
-
         <button onClick={logIn}> Log in </button>
-        {badSignIn === true && ( <>
+        {badSignIn === true && (
           <Alert variant='danger' onClose={() => setBadSignIn(false)} dismissible>
             Email/password was incorrect.
           </Alert>
-         </>)}
-
-      
-
-        </> )}
+        )}
        {/* <SignInToast show={signInToast} toggleShow={toggleSignInToast} /> */}
-        
       </div>
-
-
       <div>
-      {userDisplayName !== "" && (
-  <h4>
-    Welcome back, {userDisplayName}!
-  </h4>
-)}
-        <button onClick={logOut}> Log out </button>
-
     </div> 
     
-    {SignInToast}
     </>
   ;
-
-    
-
 }
 
-
+else if (user) {
+  return <> <div>  </div>  
+    <div>
+    {userDisplayName !== "" && (
+<h4>
+  Welcome back, {userDisplayName}!
+</h4>
+)}
+      <button onClick={logOut}> Log out </button>
+  </div> 
+  </>
+;
+} else {
+  return (
+    <>
+      <Spinner animation="border" role="status">
+        <span className="visually-hidden">Loading...</span>
+      </Spinner>
+    </>
+  );
+}
+}
 
 export default Login
