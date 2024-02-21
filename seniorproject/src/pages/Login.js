@@ -2,13 +2,14 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom"
 import { db, auth, signInWithGoogle } from "../Firebase-config";
-import { addDoc, collection, getDocs, query, where } from "firebase/firestore"; 
+import { addDoc, collection, getDocs, query, where, doc, updateDoc } from "firebase/firestore"; 
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "firebase/auth";
 import Alert from 'react-bootstrap/Alert';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import SignInToast from "../toasts/SignInToast";
 import Toast from 'react-bootstrap/Toast';
 import Spinner from 'react-bootstrap/Spinner';
+import { getStorage } from "firebase/storage";
 
 //import fetchUserDisplayName from "../functions/fetchUserDisplayName";
 function Login() {
@@ -36,6 +37,13 @@ function Login() {
     const querySnapshot = await getDocs(displayNameQuery);
     const displayNameDocument = querySnapshot.docs[0];
     setUserDisplayName(displayNameDocument.get("displayName"));
+    localStorage.setItem('BeginnerMode', displayNameDocument.get("beginnerMode"))
+    if (querySnapshot.userUID == null)
+    {
+      console.log("No user UID")
+      const userRef = doc(db, 'users', displayNameDocument.id)
+      await updateDoc(userRef, { userUID: user.uid })
+    }
 }
 
 
@@ -46,7 +54,7 @@ useEffect(() => {
 }, []);
 
   useEffect(() => {
-    onAuthStateChanged(auth, (currentUser) => {
+  onAuthStateChanged(auth, (currentUser) => {
    
    setUser(currentUser)
    if (user) {
@@ -65,34 +73,43 @@ useEffect(() => {
     })})
  
 
-  const createFullUser = async () => { 
-    await addDoc(userCollection, {
-    email: registerEmail,
-    displayName: userName,
-    beginnerMode: beginnerMode,
-    userUID: localStorage.getItem('UserID'),
-    leagueCount: 0
-  })
-}
-  
+    const createFullUser = async () => { 
+      await addDoc(userCollection, {
+      email: registerEmail,
+      displayName: userName,
+      beginnerMode: beginnerMode,
+      userUID: localStorage.getItem("UserID"),
+      leagueCount: 0
+    })
+  }
+    
   const register = async () => {
     try {
       const user = await createUserWithEmailAndPassword(auth, registerEmail, registerPassword);
       console.log(user);
-      createFullUser()
-      } catch (error) {
+      
+        if (user) {
+        // User logged in already or has just logged in.
+        console.log(user.uid);}
+
+      // Call the createFullUser function here, after the user is created
+    } catch (error) {
       if (error.code === 'auth/email-already-in-use') {
-          //console.log ("Nathan, that email is already in use. Good Test")
           setEmailAlreadyExists(true)
           console.log(error.message)
-        }
+      }
       if (error.code === 'auth/weak-password') {
           setPasswordTooShort(true)
           console.log(error.message);
       }
       console.log(error.message)
     }
+    finally {
+      createFullUser()
+    }
   };
+  
+  
 
   const handleCheckboxChange = (event) => {
     setBeginnerMode(event.target.checked);
@@ -113,7 +130,7 @@ useEffect(() => {
         }
         console.log(error.message);
       }
-      
+      localStorage.setItem('UserID', user.uid)
   };
 
   const toggleSignInToast = () => setSignInToast(!signInToast)

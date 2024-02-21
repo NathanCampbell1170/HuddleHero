@@ -6,12 +6,14 @@ import Home from './pages/Home'
 import CreatePost from "./pages/CreatePost";
 import Login from "./pages/Login";
 import MyProfile from "./pages/MyProfile";
-import { auth } from "./Firebase-config";
-import { UserContext } from './functions/UserContext';
+import { auth, db } from "./Firebase-config";
+import UserContext from './Functions/UserContext';
 import Spinner from 'react-bootstrap/Spinner';
+import { addDoc, collection, getDocs, query, where, doc, updateDoc } from "firebase/firestore"; 
 
 function App() {
   const [user, setUser] = useState(null);
+  const userCollection = collection(db, "users");
 
   useEffect(() => {
     document.title = "HuddleHero | Home";
@@ -21,6 +23,8 @@ function App() {
     return () => unsubscribe();
   }, []);
 
+  const [userDisplayName, setUserDisplayName] = useState("")
+  
 
   if (user) {
     return (
@@ -34,7 +38,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />}/>
             <Route path="/createpost" element={<CreatePost />}/>
-            <Route path="/myprofile" element ={<MyProfile />}/>
+            <Route path="/MyProfile" element ={<MyProfile />}/>
             <Route path="/login" element={<Login />}/>
           </Routes>
         </Router>
