@@ -7,46 +7,70 @@ import CreatePost from "./pages/CreatePost";
 import Login from "./pages/Login";
 import MyProfile from "./pages/MyProfile";
 import { auth, db } from "./Firebase-config";
-import UserContext from './Functions/UserContext';
 import Spinner from 'react-bootstrap/Spinner';
 import { addDoc, collection, getDocs, query, where, doc, updateDoc } from "firebase/firestore"; 
+import LoadingWrapper from "./components/LoadingWrapper"
 
 function App() {
   const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true); 
   const userCollection = collection(db, "users");
 
   useEffect(() => {
     document.title = "HuddleHero | Home";
     const unsubscribe = auth.onAuthStateChanged((user) => {
       setUser(user);
+      if (user) {
+        fetchUser(user)
+      } else {
+        console.error("No User is logged in")
+      }
     });
+    //setTimeout(() => setLoading(false), 1000); 
     return () => unsubscribe();
   }, []);
 
-  const [userDisplayName, setUserDisplayName] = useState("")
-  
+  async function fetchUser(user) {
+    const fetchUserQuery = query(userCollection, where("email", '==', user.email));
+            const querySnapshot = await getDocs(fetchUserQuery);
+            const userSettingsDocument = querySnapshot.docs[0];
+            setDisplayName(userSettingsDocument.data().displayName)
+  }
 
-  if (user) {
+  const [displayName, setDisplayName] = useState("")
+  
+  
+   if (user) {
     return (
-      <UserContext.Provider value={user}>
         <Router>
           <nav>
             <Link to="/"> Home </Link>
             {/*<Link to="/createpost"> CreatePost </Link>*/}
             <Link to="/myprofile">My Profile</Link>
-          </nav>
+            </nav>
           <Routes>
-            <Route path="/" element={<Home />}/>
-            <Route path="/createpost" element={<CreatePost />}/>
-            <Route path="/MyProfile" element ={<MyProfile />}/>
-            <Route path="/login" element={<Login />}/>
+          <Route path="/" element={<LoadingWrapper><Home /></LoadingWrapper>}/>
+
+            
+            <Route path="/MyProfile" element ={<LoadingWrapper><MyProfile /></LoadingWrapper>}/>
+            <Route path="/login" element={<LoadingWrapper><Login /></LoadingWrapper>}/>
           </Routes>
-        </Router>
-      </UserContext.Provider>
+        
+        
+        
+          <div>
+      <h1 style={{display: 'flex', justifyContent: 'center', alignItems: 'center', paddingTop: '10px'}}>
+      Welcome to HuddleHero, {displayName}
+      </h1>
+    </div>
+         
+         
+         
+         </Router> 
+
     );
   } else if (!user) {
     return (
-      <UserContext.Provider value={user}>
         <Router>
           <nav>
             <Link to="/"> Home </Link>
@@ -57,17 +81,8 @@ function App() {
             <Route path="/login" element={<Login />}/>
           </Routes>
         </Router>
-      </UserContext.Provider>
-    );
-  } else {
-    return (
-      <>
-        <Spinner animation="border" role="status">
-          <span className="visually-hidden">Loading...</span>
-        </Spinner>
-      </>
+
     );
   }
 }
-
 export default App;

@@ -1,13 +1,12 @@
 import React from "react";
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useRef } from "react";
 import { db, auth, signInWithGoogle } from "../Firebase-config";
 import { addDoc, collection, getDocs, query, where, doc, updateDoc } from "firebase/firestore";
 import { storage } from "../Firebase-config";
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "firebase/auth";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import UserContext from "../Functions/UserContext";
 
-import defaultImage from '../Images/DefaultPFPExperienced.jpeg';
+import defaultImage from '../images/DefaultPFPExperienced.jpeg';
 
 import '../styles/MyProfile.css';
 
@@ -29,23 +28,27 @@ import Tabs from 'react-bootstrap/Tabs';
 
 function MyProfile() {
 
-    const loggedUser = useContext(UserContext)
 
-const [beginnerModeDefaultToggle, setbeginnerModeDefaultToggle] = useState(Boolean)
-    async function fetchUserSettings() {
-        const fetchUserQuery = query(userCollection, where("email", '==', user.email))
-        const querySnapshot = await getDocs(fetchUserQuery);
-        const userSettingsDocument = querySnapshot.docs[0];
-        setDisplayName(userSettingsDocument.get("displayName"));
-        if (userSettingsDocument.get("beginnerMode") ===true){
-            setBeginnerModeSetting("Enabled")
-            setbeginnerModeDefaultToggle(true)
+const [beginnerModeDefaultToggle, setbeginnerModeDefaultToggle] = useState(false)
+const isFirstRender = useRef(true); // This will be true only for the first render
+
+async function fetchUserSettings() {
+    const fetchUserQuery = query(userCollection, where("email", '==', user.email));
+    const querySnapshot = await getDocs(fetchUserQuery);
+    const userSettingsDocument = querySnapshot.docs[0];
+    setDisplayName(userSettingsDocument.get("displayName"));
+
+    if (isFirstRender.current) { // Only run on the first render
+        if (userSettingsDocument.data().beginnerMode == true) {
+            setBeginnerModeSetting("Enabled");
+            setbeginnerModeDefaultToggle(true);
+        } else {
+            setBeginnerModeSetting("Disabled");
+            setbeginnerModeDefaultToggle(false);
         }
-        else {
-            setBeginnerModeSetting("Disabled")
-            setbeginnerModeDefaultToggle(false)
-        }
+        isFirstRender.current = false; // Set to false after running
     }
+}
 
     const userCollection = collection(db, "users");
 
@@ -59,18 +62,49 @@ const [imageUrl, setImageUrl] = useState("");
 const [pfp, setPfp] = useState(null);
 
 const fetchImage = async () => {
-    const userId = localStorage.getItem("UserID");
-    const imageRef = ref(storage, `ProfilePictures/${userId}`);
+    const imageRef = ref(storage, `ProfilePictures/${user.uid}`);
+    const fetchUserQuery = query(userCollection, where("email", '==', user.email));
+            const querySnapshot = await getDocs(fetchUserQuery);
+            const userSettingsDocument = querySnapshot.docs[0];
+
+            const userRef = doc(db, 'users', userSettingsDocument.id)
     try {
         const url = await getDownloadURL(imageRef);
         if (!url) {
             throw new Error('Image not found');
         }
         setImageUrl(url);
+        
     } catch (error) {
-        console.error(error);
-        setImageUrl(defaultImage); // Replace with your placeholder image URL
+    
+        const defaultImageRefBeginner = ref(storage, 'ProfilePictures/DefaultPFPBeginner.jpeg');
+        const defaultImageRefExperienced = ref(storage, 'ProfilePictures/DefaultPFPExperienced.jpeg');
+        if (userSettingsDocument.data().beginnerMode == true) {
+            console.log("reached checkpoint 1")
+        const url = await getDownloadURL(defaultImageRefBeginner)
+        setImageUrl(url); // Replace with your placeholder image URL
+        try {
+            await updateDoc(userRef, { profilePicture: imageUrl });
+        } catch (error) {
+            console.error(error)
+        }
+    } else if (userSettingsDocument.data().beginnerMode == false) {
+            console.log("reached checkpoint 1")
+        const url = await getDownloadURL(defaultImageRefExperienced)
+        setImageUrl(url); // Replace with your placeholder image URL
+        try {
+            await updateDoc(userRef, { profilePicture: imageUrl });
+        } catch (error) {
+            console.error(error)
+        }
     }
+            try {
+                await updateDoc(userRef, { profilePicture: imageUrl });
+            } catch (error) {
+                console.error(error)
+            }
+        }
+    
 }
 
 
@@ -82,9 +116,10 @@ const fetchImage = async () => {
        setUser(currentUser)
 
        if (user) {
-              console.log(localStorage.getItem('Displayname'));
               setUserDisplayName(localStorage.getItem('Displayname'))
               fetchUserSettings()
+              fetchImage()
+              
        }
        else {
         setUserDisplayName("")
@@ -115,36 +150,41 @@ const fetchImage = async () => {
           };
           
 
-        useEffect(() => {
-            fetchImage();
-        }, []);
-        
-        const [changeBeginnerMode,setChangeBeginnerMode] = useState(false);
+      
+          const [changeBeginnerMode,setChangeBeginnerMode] = useState(false);
+        const [finalNameChange,setFinalNameChange] = useState(false);
         const handleCheckboxChange = (event) => {
-            setChangeBeginnerMode(event.target.checked);
+            setbeginnerModeDefaultToggle(event.target.checked);
+            setChangeBeginnerMode(event.target.checked)
           };
+        
 
 
         const [changeDisplayName, setChangeDisplayName] = useState("")
-          const updateUserProfile = async () => {
-            if (changeDisplayName==="") {
-                setChangeDisplayName(localStorage.getItem("displayName"))
-
-            }
+        
+        const updateUserProfile = async () => {
             const fetchUserQuery = query(userCollection, where("email", '==', user.email));
             const querySnapshot = await getDocs(fetchUserQuery);
             const userSettingsDocument = querySnapshot.docs[0];
-
-            const userRef = doc(db, 'users', userSettingsDocument.id)
-
+        
+            const userRef = doc(db, 'users', userSettingsDocument.id);
+            let updateData = { beginnerMode: changeBeginnerMode };
+        
+            // Only add displayName to updateData if changeDisplayName is not an empty string
+            if (changeDisplayName !== "") {
+                updateData.displayName = changeDisplayName;
+                localStorage.setItem("Displayname", changeDisplayName);
+            }
+        
             try {
-                await updateDoc(userRef, { displayName: changeDisplayName, beginnerMode: changeBeginnerMode });
-                localStorage.setItem("Displayname", changeDisplayName)
+                await updateDoc(userRef, updateData);
                 window.location.reload();
             } catch (error) {
                 console.error("Error updating user: ", error);
             }
-          }
+        };
+        
+        
 
 
 
@@ -168,7 +208,7 @@ const fetchImage = async () => {
                     <Card.Text style={{textAlign: "center"}}>
                         <label>Email: </label> {user.email}
                         <label> Beginner Mode: </label> {beginnerModeSetting}
-                        <label> Display Name: </label> {loggedUser.displayName}
+                        <label> Display Name: </label> {displayName}
                         <button onClick={logOut}>Log Out</button>
                     </Card.Text>
                 
@@ -185,7 +225,7 @@ const fetchImage = async () => {
                     <Card.Text style={{textAlign: "center"}}>
                         
                     </Card.Text>
-                    Display Name: <input placeholder={loggedUser.displayName} onChange={(event) => {setChangeDisplayName(event.target.value)}}/>
+                    Display Name: <input placeholder={displayName} onChange={(event) => {setChangeDisplayName(event.target.value)}}/>
                     <input type="checkbox" checked={beginnerModeDefaultToggle} onChange={handleCheckboxChange}/> {"Beginner Mode"}
                     <button onClick={updateUserProfile} >Upload Changes</button>
            </Card>

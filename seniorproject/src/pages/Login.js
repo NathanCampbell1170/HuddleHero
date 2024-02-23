@@ -78,7 +78,6 @@ useEffect(() => {
       email: registerEmail,
       displayName: userName,
       beginnerMode: beginnerMode,
-      userUID: localStorage.getItem("UserID"),
       leagueCount: 0
     })
   }
@@ -119,7 +118,6 @@ useEffect(() => {
   const logIn = async () => {
     try {
       const user = await signInWithEmailAndPassword(auth, loginEmail, loginPassword);
-      console.log(user);
       window.location.href = "/"
       //setSignInToast(true)
       //setTimeout(() => setSignInToast(false), 5000)
@@ -130,7 +128,6 @@ useEffect(() => {
         }
         console.log(error.message);
       }
-      localStorage.setItem('UserID', user.uid)
   };
 
   const toggleSignInToast = () => setSignInToast(!signInToast)
