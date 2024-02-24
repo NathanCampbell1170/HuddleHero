@@ -10,6 +10,7 @@ import { auth, db } from "./Firebase-config";
 import Spinner from 'react-bootstrap/Spinner';
 import { addDoc, collection, getDocs, query, where, doc, updateDoc } from "firebase/firestore"; 
 import LoadingWrapper from "./components/LoadingWrapper"
+import Logo from './images/Logo.jpeg'
 
 function App() {
   const [user, setUser] = useState(null);
@@ -43,7 +44,8 @@ function App() {
    if (user) {
     return (
         <Router>
-          <nav>
+          <nav style={{ display: 'flex', justifyContent: 'center' }}>
+          <img src={Logo} alt="Logo" style={{width: "150px", height: "150px", position: 'absolute', left: '0px'}} />
             <Link to="/"> Home </Link>
             {/*<Link to="/createpost"> CreatePost </Link>*/}
             <Link to="/myprofile">My Profile</Link>
@@ -59,9 +61,7 @@ function App() {
         
         
           <div>
-      <h1 style={{display: 'flex', justifyContent: 'center', alignItems: 'center', paddingTop: '10px'}}>
-      Welcome to HuddleHero, {displayName}
-      </h1>
+      
     </div>
          
          

@@ -10,7 +10,7 @@ function LoadingWrapper({ children }) {
     setLoading(true); // Set loading to true when the location changes
     const timer = setTimeout(() => {
       setLoading(false);
-    }, 800);
+    }, 0);
     return () => clearTimeout(timer);
   }, [location]); // Add location dependency here
 
