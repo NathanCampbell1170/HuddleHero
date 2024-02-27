@@ -216,6 +216,7 @@ function CreateLeague() {
               creator: displayName,
               members: allMembers,
               leagueName: leagueName,
+              commissioner: user.email,
               settings: {
                 rosterSettings: {
                   startQB: QB,

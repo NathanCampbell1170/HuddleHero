@@ -8,12 +8,14 @@ import Tabs from 'react-bootstrap/Tabs';
 import Tab from 'react-bootstrap/Tab';
 import {Row, Col} from 'react-bootstrap'
 import "../styles/LeagueCards.css";
+import EditLeagueSettings from './EditLeagueSettings';
 
 
 function LeagueCards({ user }) {
   const [leagues, setLeagues] = useState([]);
   const [selectedLeague, setSelectedLeague] = useState(null);
   const scoringSettingsOrder = ['Passing', 'Rushing', 'Receiving', 'Defence', 'Kicking']
+  const isUserCommissioner = selectedLeague && selectedLeague.commissioner === user.email;
 
   useEffect(() => {
     const fetchLeagues = async () => {
@@ -153,7 +155,9 @@ function LeagueCards({ user }) {
                                 </Card.Body>
                             </Card>
                         </Tab>
-
+                        <Tab eventKey="leagueDetails" title="League Details">
+                           <EditLeagueSettings selectedLeague={selectedLeague} user={user} />
+                        </Tab>
                     </Tabs>
         </Modal.Body>
             </Modal>
