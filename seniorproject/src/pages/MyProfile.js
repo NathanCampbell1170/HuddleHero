@@ -89,7 +89,7 @@ const fetchImage = async () => {
             console.error(error)
         }
     } else if (userSettingsDocument.data().beginnerMode == false) {
-            console.log("reached checkpoint 1")
+            console.log("reached checkpoint 2")
         const url = await getDownloadURL(defaultImageRefExperienced)
         setImageUrl(url); // Replace with your placeholder image URL
         try {

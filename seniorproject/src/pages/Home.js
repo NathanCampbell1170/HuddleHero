@@ -48,8 +48,8 @@ function Home() {
       </h1>
 
       <div>
-      <button onClick={handleClick}>Create League</button>
-      {showComponent && <CreateLeague />}
+
+      <CreateLeague />
     </div>
 
     <LeagueCards user={user} setSelectedLeague={setSelectedLeague} />

@@ -155,7 +155,7 @@ function LeagueCards({ user }) {
                                 </Card.Body>
                             </Card>
                         </Tab>
-                        <Tab eventKey="leagueDetails" title="League Details">
+                        <Tab eventKey="leagueDetails" title="Edit League Settings">
                            <EditLeagueSettings selectedLeague={selectedLeague} user={user} />
                         </Tab>
                     </Tabs>

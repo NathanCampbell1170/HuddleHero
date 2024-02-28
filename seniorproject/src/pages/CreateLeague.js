@@ -6,12 +6,22 @@ import Button from 'react-bootstrap/Button';
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 import Card from 'react-bootstrap/Card';
+import { v4 as uuidv4 } from 'uuid';
 
 function CreateLeague() {
     const [user, setUser] = useState(null);
     const [key, setKey] = useState('leagueInfo');
     const [displayName, setDisplayName] = useState("")
     const userCollection = collection(db, "users");
+    const [showModal, setShowModal] = useState(false);
+
+    const handleClick = () => {
+      setShowModal(true);
+    };
+  
+    const handleClose = () => {
+      setShowModal(false);
+    };
 
     //League Settings useStates
     const [leagueName, setLeagueName] = useState("League Name")
@@ -212,7 +222,9 @@ function CreateLeague() {
 
 
         try {
+          const id = uuidv4();
             const docRef = await addDoc(leaguesRef, {
+              id: id,
               creator: displayName,
               members: allMembers,
               leagueName: leagueName,
@@ -281,6 +293,10 @@ function CreateLeague() {
 
 return (
     <div className="createLeague" style={{ display: 'block', position: 'initial' }}>
+      <Button onClick={handleClick}>Create League</Button>
+
+      {/* Modal */}
+      <Modal show={showModal} onHide={handleClose}>
       <Modal.Dialog>
         <Modal.Header closeButton>
           <Modal.Title>Create League</Modal.Title>
@@ -426,6 +442,7 @@ return (
           </Tab>
         </Tabs>
       </Modal.Dialog>
+      </Modal>
     </div>
   );
 }
