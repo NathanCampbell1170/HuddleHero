@@ -9,6 +9,7 @@ import Tab from 'react-bootstrap/Tab';
 import {Row, Col} from 'react-bootstrap'
 import "../styles/LeagueCards.css";
 import EditLeagueSettings from './EditLeagueSettings';
+import LeagueChat from './LeagueChat'
 
 
 function LeagueCards({ user }) {
@@ -100,7 +101,7 @@ function LeagueCards({ user }) {
       ))}
 
       {/* Modal for displaying league details */}
-      <Modal show={selectedLeague !== null} onHide={() => setSelectedLeague(null)} size="xl">
+      <Modal show={selectedLeague !== null} onHide={() => setSelectedLeague(null)} size="xl" dialogClassName="leagueModal">
                 <Modal.Header closeButton>
                 <Modal.Title>{selectedLeague?.leagueName}</Modal.Title>
                 </Modal.Header>
@@ -117,6 +118,7 @@ function LeagueCards({ user }) {
                         </Tab>
                         <Tab eventKey="leagueChat" title="League Chat">
                         {/* Content for League Chat tab */}
+                        <LeagueChat selectedLeague={selectedLeague} user={user} />
                         </Tab>
                         <Tab eventKey="leagueSettings" title="League Settings">
                             {/* Content for League Settings tab */}

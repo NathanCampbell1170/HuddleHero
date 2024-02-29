@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { addDoc, collection, query, where, getDocs } from "firebase/firestore";
+import { addDoc, collection, query, where, getDocs, serverTimestamp } from "firebase/firestore";
 import { db, auth } from "../Firebase-config";
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
@@ -281,6 +281,12 @@ function CreateLeague() {
                   
                 }
               }
+            });
+            const messagesRef = collection(docRef, 'messages');
+            await addDoc(messagesRef, {
+                sender: 'HuddleHero',
+                message: 'Welcome to the league! This is your chat space. Feel free to communicate here.',
+                timestamp: serverTimestamp() // import this from firebase.firestore.FieldValue
             });
             console.log("League created with ID: ", docRef.id);
           } catch (e) {

@@ -2,3 +2,8 @@
     display: flex;
     justify-content: center;
   }
+
+.leagueModal{
+  max-width: 90%;
+  height: 80vh;
+}
