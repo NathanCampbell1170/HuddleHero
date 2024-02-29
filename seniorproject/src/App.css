@@ -17,6 +17,15 @@ nav {
   align-items: center;
   color: white;
   text-decoration: none;
+  position: relative; /* Make the navigation relative by default */
+  top: 0;
+  z-index: 100; /* Ensure it's above other content */
+}
+
+@media (max-width: 768px) {
+  nav {
+    position: sticky; /* Make the navigation sticky for devices with a width of 768px or less */
+  }
 }
 
 a {
@@ -25,6 +34,19 @@ a {
   margin: 10px;
   font-size: 25px;
 }
+
+/* Media query for smaller screens (e.g., mobile devices) */
+@media (max-width: 768px) {
+  nav {
+    flex-direction: column; /* Stack navigation items vertically */
+    height: auto; /* Adjust height as needed */
+  }
+  a {
+    margin: 10px 0; /* Add vertical spacing */
+    font-size: 20px; /* Decrease font size for mobile */
+  }
+}
+
 
 .createPostPage {
   width: 100%;
@@ -186,4 +208,12 @@ textarea {
   width: 100%;
   overflow: hidden;
   overflow-y: auto;
+}
+
+
+.logo {
+  height: 100%; /* This will make the image's height match the nav bar's height */
+  width: auto; /* This will maintain the aspect ratio */
+  position: absolute;
+  left: 0;
 }

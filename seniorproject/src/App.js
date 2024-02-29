@@ -45,7 +45,7 @@ function App() {
     return (
         <Router>
           <nav style={{ display: 'flex', justifyContent: 'center' }}>
-          <img src={Logo} alt="Logo" style={{width: "150px", height: "150px", position: 'absolute', left: '0px'}} />
+          <img src={Logo} alt="Logo" className="logo" />
             <Link to="/"> Home </Link>
             {/*<Link to="/createpost"> CreatePost </Link>*/}
             <Link to="/myprofile">My Profile</Link>
