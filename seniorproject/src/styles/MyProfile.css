@@ -18,3 +18,14 @@
       display: flex;
      justify-content: center;  
   }
+
+  .customTabs .nav-link {
+    background-color: gray; /* non-selected tab color */
+  color: white; /* text color */
+  }
+
+  .customTabs .nav-link.active {
+    background-color: #2a454e; /* selected tab color */
+    color: white;
+
+  }

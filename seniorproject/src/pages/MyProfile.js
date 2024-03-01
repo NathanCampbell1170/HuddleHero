@@ -195,11 +195,12 @@ const fetchImage = async () => {
             window.location.href = "/";
           
           };
+          if (user) {
     return <> <div> 
     
 
-    <Tabs defaultActiveKey="profile" id = "myProfile" fill>
-        <Tab eventKey="profile" title="profile">
+    <Tabs defaultActiveKey="profile" id = "myProfile" fill className="customTabs">
+        <Tab eventKey="profile" title="Profile">
         <div className="profileTab">
             <Card style={{ width: '18rem', backgroundColor: "lightgray", border: "ridge", borderWidth:"5px", textAlign: "center"   }} >
                 <Card.Body>
@@ -242,6 +243,9 @@ const fetchImage = async () => {
 
 
     </>
+          } else {
+            return (<></>)
+          }
 }
 
 

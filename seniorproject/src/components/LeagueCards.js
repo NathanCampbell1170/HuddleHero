@@ -85,20 +85,22 @@ function LeagueCards({ user }) {
   
   return (
     <div>
-      {leagues.map((league, index) => (
-        <Card key={index} style={{ width: '18rem' }}>
-          <Card.Body>
-            <Card.Title>{league.leagueName}</Card.Title>
-            <Card.Text>
-              Created by: {league.creator}
-              {/* Add more league details here */}
-            </Card.Text>
-            <Button variant="primary" onClick={() => setSelectedLeague(league)}>
-              View Details
-            </Button>
-          </Card.Body>
-        </Card>
-      ))}
+        <div className="league-cards">
+        {leagues.map((league, index) => (
+          <Card key={index} style={{ width: '18rem' }} className='league-card'>
+            <Card.Body>
+              <Card.Title>{league.leagueName}</Card.Title>
+              <Card.Text>
+                Created by: {league.creator}
+                {/* Add more league details here */}
+              </Card.Text>
+              <Button className="button-modern" variant="primary" onClick={() => setSelectedLeague(league)}>
+                View Details
+              </Button>
+            </Card.Body>
+          </Card>
+          ))}
+      </div>
 
       {/* Modal for displaying league details */}
       <Modal show={selectedLeague !== null} onHide={() => setSelectedLeague(null)} size="xl" dialogClassName="leagueModal">
@@ -106,7 +108,7 @@ function LeagueCards({ user }) {
                 <Modal.Title>{selectedLeague?.leagueName}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                <Tabs defaultActiveKey="myTeam" id="uncontrolled-tab-example" className="leagueTab">
+                <Tabs defaultActiveKey="myTeam" id="uncontrolled-tab-example" className="customTabs">
                         <Tab eventKey="myTeam" title="My Team">
                         {/* Content for My Team tab */}
                         </Tab>
@@ -133,33 +135,44 @@ function LeagueCards({ user }) {
                                 </Card.Body>
                             </Card>
 
-                            <Card style={{ width: '50rem' }}>
-                                <Card.Body>
-                                    <Card.Title>Scoring Settings</Card.Title>
-                                    {scoringSettingsOrder.map((category, index) => {
-                                        const settings = selectedLeague?.settings?.scoringSettings[category];
-                                        if (!settings) return null;  // Skip if the category doesn't exist in the settings
-                                        return (
-                                            <div key={index}>
-                                                <hr></hr><br></br><h4>{category}</h4> <br></br>
-                                                <Row>
-                                                    {Object.entries(settings).map(([key, value], i) => (
-                                                        <Col md={6} key={i}>
-                                                            <Card.Text>
-                                                                <strong>{keyMapping[key] || key}:</strong> {value}
-                                                            </Card.Text>
-                                                        </Col>
-                                                    ))}
-                                                </Row>
+                            <Card style={{ width: '100%' }}>
+            <Card.Body>
+                <Card.Title>Scoring Settings</Card.Title>
+                {scoringSettingsOrder.map((category, index) => {
+                    const settings = selectedLeague?.settings?.scoringSettings[category];
+                    if (!settings) return null;  // Skip if the category doesn't exist in the settings
+                    return (
+                        <div key={index} className="col-12">
+                            <div className="card">
+                                <div className="card-body">
+                                    <h4>{category}</h4> <br></br>
+                                    <div className="row">
+                                        {Object.entries(settings).map(([key, value], i) => (
+                                            <div className="col-6" key={i}>
+                                                <div className="card">
+                                                    <div className="card-body">
+                                                        <Card.Text>
+                                                            <strong>{keyMapping[key] || key}:</strong> {value}
+                                                        </Card.Text>
+                                                    </div>
+                                                </div>
                                             </div>
-                                        );
-                                    })}
-                                </Card.Body>
-                            </Card>
+                                        ))}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    );
+                })}
+            </Card.Body>
+        </Card>
                         </Tab>
-                        <Tab eventKey="leagueDetails" title="Edit League Settings">
-                           <EditLeagueSettings selectedLeague={selectedLeague} user={user} />
-                        </Tab>
+                        {isUserCommissioner && 
+                          <Tab eventKey="leagueDetails" title="Edit League Settings">
+                            <EditLeagueSettings selectedLeague={selectedLeague} user={user} />
+                          </Tab>
+}
+
                     </Tabs>
         </Modal.Body>
             </Modal>

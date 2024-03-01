@@ -1,0 +1,56 @@
+.card {
+    margin: 10px 0;
+}
+
+.card-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+@media (min-width: 992px) {
+    .nav-tabs {
+        /* Your styles for larger screens here */
+        display: flex;
+        justify-content: center;
+        margin-right: 0; /* Add this line */
+    }
+}
+
+/* Style for smaller screens */
+@media (max-width: 991px) {
+    .nav-tabs {
+        /* Your styles for smaller screens here */
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        overflow-x: auto;
+        margin-right: 0; /* Add this line */
+    }
+
+    .nav-tabs .nav-item {
+        flex: 0 0 auto;
+    }
+}
+
+.nav-tabs .nav-link.active {
+    /* Your styles for selected tabs here */
+    background-color: #2a454e;
+    color: white; /* You can change this to any color you want for the text */
+}
+
+.nav-tabs .nav-link {
+    /* Your styles for non-selected tabs here */
+    background-color: grey;
+    color: white; /* You can change this to any color you want for the text */
+}
+
+.placeholder {
+    .card {
+    margin: 10px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    }
+}
+

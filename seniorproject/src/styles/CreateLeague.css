@@ -1,0 +1,49 @@
+.card {
+    margin: 10px 0;
+}
+
+.card-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.card .input {
+    width: 100%;
+}
+
+@media (min-width: 992px) {
+    .nav-tabs {
+        /* Your styles for larger screens here */
+        display: flex;
+        justify-content: center;
+        margin-right: 0; /* Add this line */
+    }
+}
+
+/* Style for smaller screens */
+@media (max-width: 991px) {
+    .nav-tabs {
+        /* Your styles for smaller screens here */
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        overflow-x: auto;
+        margin-right: 0; /* Add this line */
+    }
+
+    .nav-tabs .nav-item {
+        flex: 0 0 auto;
+    }
+}
+
+.customTabs .nav-link {
+    background-color: gray; /* non-selected tab color */
+  color: white; /* text color */
+  }
+
+  .customTabs .nav-link.active {
+    background-color: #2a454e; /* selected tab color */
+    color: white;
+
+  }

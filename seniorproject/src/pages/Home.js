@@ -4,6 +4,12 @@ import { addDoc, collection, getDocs, query, where, doc, updateDoc } from "fireb
 import CreateLeague from './CreateLeague';
 import LeagueCards from '../components/LeagueCards';
 import Modal from 'react-bootstrap/Modal';
+import Card from 'react-bootstrap/Card';
+import Button from 'react-bootstrap/Button';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+
 
 
 function Home() {
@@ -42,33 +48,56 @@ function Home() {
   if (user) {
   return (
 
-   <>
-   <h1 style={{display: 'flex', justifyContent: 'center', alignItems: 'center', paddingTop: '10px'}}>
-      Welcome to HuddleHero, {displayName}
-      </h1>
+    <div className="main-content">
 
-      <div>
-
-      <CreateLeague />
+<Container fluid>
+  <Row className="justify-content-md-center">
+    <div className='welcome-message'>
+    <h1>Welcome to HuddleHero, {displayName}</h1>
     </div>
+  </Row>
+  <hr />
+  <Row>
+    {/* Left side - Dummy Invite Cards */}
+    <Col md={6}>
+      <div className="invite-cards">
+        <Card className="invite-card">
+          <Card.Body>
+            <Card.Title>Placeholder League Invite 1</Card.Title>
+            <Card.Text>
+              You have been invited to join League 1. {"("} <i>{`This invite is just a placeholder for later and does not have any function`}</i> {")"}
+            </Card.Text>
+            <Button variant="primary">Accept</Button>
+            <Button variant="secondary">Decline</Button>
+          </Card.Body>
+        </Card>
+        
+      </div>
+    </Col>
 
-    <LeagueCards user={user} setSelectedLeague={setSelectedLeague} />
+    {/* Right side - Existing Leagues */}
+    <Col md={6}>
+      <div className="league-cards">
+        <CreateLeague />
+        <LeagueCards user={user} setSelectedLeague={setSelectedLeague} className="league-card" />
+      </div>
+    </Col>
+  </Row>
+</Container>
 
-    <Modal show={selectedLeague !== null} onHide={() => setSelectedLeague(null)}>
-          <Modal.Header closeButton>
-            <Modal.Title>{selectedLeague?.leagueName}</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            {/* Display league details here */}
-            Creator: {selectedLeague?.creator}
-            {/* Add more league details */}
-          </Modal.Body>
-        </Modal>
+<Modal show={selectedLeague !== null} onHide={() => setSelectedLeague(null)}>
+  <Modal.Header closeButton>
+    <Modal.Title>{selectedLeague?.leagueName}</Modal.Title>
+  </Modal.Header>
+  <Modal.Body>
+    {/* Display league details here */}
+    Creator: {selectedLeague?.creator}
+    {/* Add more league details */}
+  </Modal.Body>
+</Modal>
+</div>
 
-
-
-   </> 
-  )
+);
   }
   else {
     <div>

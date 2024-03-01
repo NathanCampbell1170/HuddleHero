@@ -7,3 +7,37 @@
   max-width: 90%;
   height: 80vh;
 }
+
+
+/* Modern Button */
+.button-modern {
+  background-color: #2a454e !important; /* Green background */
+  border: none !important; /* Remove borders */
+  color: white !important; /* White text */
+  padding: 15px 32px !important; /* Some padding */
+  text-align: center !important; /* Centered text */
+  text-decoration: none !important; /* Remove underline */
+  display: inline-block !important;
+  font-size: 16px !important;
+  margin: 4px 2px !important;
+  transition-duration: 0.4s !important; /* Transition effects */
+  cursor: pointer !important; /* Pointer/hand icon */
+  border-radius: 10px !important; /* Rounded corners */
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1) !important;
+}
+
+.button-modern:hover {
+  background-color: #1f3942 !important; /* White background */
+  color: #92aabd !important; /* Black text */
+}
+
+.customTabs .nav-link {
+  background-color: gray; /* non-selected tab color */
+color: white; /* text color */
+}
+
+.customTabs .nav-link.active {
+  background-color: #2a454e; /* selected tab color */
+  color: white;
+
+}
