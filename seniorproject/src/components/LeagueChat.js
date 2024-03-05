@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { collection, query, where, getDocs, addDoc, serverTimestamp, limit, orderBy, onSnapshot } from 'firebase/firestore';
-import { db, auth } from '../Firebase-config';
+import { db, auth, storage } from '../Firebase-config';
 import "../styles/LeagueChats.css";
 import Card from 'react-bootstrap/Card';
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 const LeagueChat = ({ selectedLeague }) => {
     const [newMessage, setNewMessage] = useState('');
@@ -84,28 +85,36 @@ const LeagueChat = ({ selectedLeague }) => {
             if (!querySnapshot.empty) {
                 // Get the user's display name and profile picture from the user's document
                 const userDocument = querySnapshot.docs[0].data();
-                const { displayName, profilePicture } = userDocument;
-    
+                const { displayName, profilePicture, beginnerMode } = userDocument;
+            
                 // Query the 'leagues' collection to find the document with the field 'id' equal to selectedLeague.id
                 const leaguesQuery = query(collection(db, 'leagues'), where('id', '==', selectedLeague.id));
                 const leaguesSnapshot = await getDocs(leaguesQuery);
-    
+            
                 if (!leaguesSnapshot.empty) {
                     // Get the actual ID of the document
                     const leagueDocId = leaguesSnapshot.docs[0].id;
-    
+            
                     // Now you can create a reference to the 'messages' subcollection
                     const messagesRef = collection(db, 'leagues', leagueDocId, 'messages');
-    
+                    let defaultPicture;
+                    if (beginnerMode === true && !profilePicture) {
+                        const defaultPFP = ref(storage, 'ProfilePictures/DefaultPFPBeginner.jpeg');
+                        defaultPicture = await getDownloadURL(defaultPFP);
+                    } else if (beginnerMode === false && !profilePicture) {
+                        const defaultPFP = ref(storage, 'ProfilePictures/DefaultPFPExperienced.jpeg');
+                        defaultPicture = await getDownloadURL(defaultPFP);
+                    }
+            
                     // And add a document to the subcollection
                     await addDoc(messagesRef, {
                         text: newMessage,
                         createdAt: serverTimestamp(),
                         user: displayName,
                         league: selectedLeague.id,
-                        picture: profilePicture,
+                        picture: profilePicture ? profilePicture : defaultPicture,
                     });
-                    setNewMessage("")
+                    setNewMessage("");
                 } else {
                     console.log('No league document found with the given id.');
                 }
@@ -123,18 +132,19 @@ const LeagueChat = ({ selectedLeague }) => {
         <div>
          
             <br />
-            <div className="chat-container">
+            <div className="chat-container" style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
             {messages.slice().reverse().map((message, index) => (
                 <Card key={index} className="mb-2">
                     <Card.Body>
                         <div className="d-flex">
                             <Card.Img variant="left" src={message.picture} style={{ width: '50px', height: '50px', borderRadius: '50%' }} />
                             <div style={{ marginLeft: '10px' }}>
-                                <Card.Text>
-                                    <strong>{message.user}:</strong> {message.text}
-                                    <br />
-                                    <small>{message.createdAt ? new Date(message.createdAt.seconds * 1000).toLocaleString() : ''}</small>
-                                </Card.Text>
+                            <Card.Text style={{ overflowWrap: 'break-word', wordBreak: 'break-all' }}>
+                                <strong>{message.user}:</strong> {message.text}
+                                <br />
+                                <small>{message.createdAt ? new Date(message.createdAt.seconds * 1000).toLocaleString() : ''}</small>
+                            </Card.Text>
+
                             </div>
                         </div>
                     </Card.Body>

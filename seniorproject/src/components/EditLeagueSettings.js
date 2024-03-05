@@ -451,7 +451,7 @@ const handleEmailChange = (index, event) => {
                                 <div className="card">
                                     <div className="card-body">
                                         <label>Pass YRD</label> 
-                                        <input type="text" name="passYRD" value={passYRD} onChange={(e) => { const value = e.target.value; if (/^-?\d*$/.test(value)) setPassYRD(Number(value)); }} style={{width: '100%'}} />
+                                        <input type="text" name="passYRD" value={passYRD} onChange={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setPassYRD(value); } else if (/^-?\d*(\.\d*)?$/.test(value)) { setPassYRD(Number(value)); } }} onBlur={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setPassYRD(0); } }} style={{width: '100%'}} />
                                     </div>
                                 </div>
                             </div>
@@ -459,7 +459,7 @@ const handleEmailChange = (index, event) => {
                                 <div className="card">
                                     <div className="card-body">
                                         <label>Pass TD</label> 
-                                        <input type="text" name="passTD" value={passTD} onChange={(e) => { const value = e.target.value; if (/^-?\d*$/.test(value)) setPassTD(Number(value)); }} style={{width: '100%'}} />
+                                        <input type="text" name="passTD" value={passTD} onChange={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setPassTD(value); } else if (/^-?\d*(\.\d*)?$/.test(value)) { setPassTD(Number(value)); } }} onBlur={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setPassTD(0); } }} style={{width: '100%'}} />
                                     </div>
                                 </div>
                             </div>
@@ -467,7 +467,7 @@ const handleEmailChange = (index, event) => {
                                 <div className="card">
                                     <div className="card-body">
                                         <label>Interception</label> 
-                                        <input type="text" name="interception" value={interception} onChange={(e) => { const value = e.target.value; if (/^-?\d*$/.test(value)) setInterception(Number(value)); }} style={{width: '100%'}} />
+                                        <input type="text" name="interception" value={interception} onChange={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setInterception(value); } else if (/^-?\d*(\.\d*)?$/.test(value)) { setInterception(Number(value)); } }} onBlur={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setInterception(0); } }} style={{width: '100%'}} />
                                     </div>
                                 </div>
                             </div>
@@ -485,7 +485,7 @@ const handleEmailChange = (index, event) => {
                                 <div className="card">
                                     <div className="card-body">
                                         <label>Rush YRD</label> 
-                                        <input type="text" name="rushYRD" value={rushYRD} onChange={(e) => { const value = e.target.value; if (/^-?\d*$/.test(value)) setRushYRD(Number(value)); }} style={{width: '100%'}} />
+                                        <input type="text" name="rushYRD" value={rushYRD} onChange={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setRushYRD(value); } else if (/^-?\d*(\.\d*)?$/.test(value)) { setRushYRD(Number(value)); } }} onBlur={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setRushYRD(0); } }} style={{width: '100%'}} />
                                     </div>
                                 </div>
                             </div>
@@ -493,7 +493,7 @@ const handleEmailChange = (index, event) => {
                                 <div className="card">
                                     <div className="card-body">
                                         <label>Rush TD</label> 
-                                        <input type="text" name="rushTD" value={rushTD} onChange={(e) => { const value = e.target.value; if (/^-?\d*$/.test(value)) setRushTD(Number(value)); }} style={{width: '100%'}} />
+                                        <input type="text" name="rushTD" value={rushTD} onChange={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setRushTD(value); } else if (/^-?\d*(\.\d*)?$/.test(value)) { setRushTD(Number(value)); } }} onBlur={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setRushTD(0); } }} style={{width: '100%'}} />
                                     </div>
                                 </div>
                             </div>
@@ -501,7 +501,7 @@ const handleEmailChange = (index, event) => {
                                 <div className="card">
                                     <div className="card-body">
                                         <label>Fumble</label> 
-                                        <input type="text" name="fumble" value={fumble} onChange={(e) => { const value = e.target.value; if (/^-?\d*$/.test(value)) setFumble(Number(value)); }} style={{width: '100%'}} />
+                                        <input type="text" name="fumble" value={fumble} onChange={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setFumble(value); } else if (/^-?\d*(\.\d*)?$/.test(value)) { setFumble(Number(value)); } }} onBlur={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setFumble(0); } }} style={{width: '100%'}} />
                                     </div>
                                 </div>
                             </div>
@@ -509,7 +509,7 @@ const handleEmailChange = (index, event) => {
                                 <div className="card">
                                     <div className="card-body">
                                         <label>Fumble Lost</label> 
-                                        <input type="text" name="fumbleLost" value={fumbleLost} onChange={(e) => { const value = e.target.value; if (/^-?\d*$/.test(value)) setFumbleLost(Number(value)); }} style={{width: '100%'}} />
+                                        <input type="text" name="fumbleLost" value={fumbleLost} onChange={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setFumbleLost(value); } else if (/^-?\d*(\.\d*)?$/.test(value)) { setFumbleLost(Number(value)); } }} onBlur={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setFumbleLost(0); } }} style={{width: '100%'}} />
                                     </div>
                                 </div>
                             </div>
@@ -527,7 +527,7 @@ const handleEmailChange = (index, event) => {
                                 <div className="card">
                                     <div className="card-body">
                                         <label>Rec YRD</label> 
-                                        <input type="text" name="recYRD" value={recYRD} onChange={(e) => { const value = e.target.value; if (/^-?\d*$/.test(value)) setRecYRD(Number(value)); }} style={{width: '100%'}} />
+                                        <input type="text" name="recYRD" value={recYRD} onChange={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setRecYRD(value); } else if (/^-?\d*(\.\d*)?$/.test(value)) { setRecYRD(Number(value)); } }} onBlur={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setRecYRD(0); } }} style={{width: '100%'}} />
                                     </div>
                                 </div>
                             </div>
@@ -535,7 +535,7 @@ const handleEmailChange = (index, event) => {
                                 <div className="card">
                                     <div className="card-body">
                                         <label>Rec TD</label> 
-                                        <input type="text" name="recTD" value={recTD} onChange={(e) => { const value = e.target.value; if (/^-?\d*$/.test(value)) setRecTD(Number(value)); }} style={{width: '100%'}} />
+                                        <input type="text" name="recTD" value={recTD} onChange={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setRecTD(value); } else if (/^-?\d*(\.\d*)?$/.test(value)) { setRecTD(Number(value)); } }} onBlur={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setRecTD(0); } }} style={{width: '100%'}} />
                                     </div>
                                 </div>
                             </div>
@@ -543,7 +543,7 @@ const handleEmailChange = (index, event) => {
                                 <div className="card">
                                     <div className="card-body">
                                         <label>Receptions</label> 
-                                        <input type="text" name="reception" value={reception} onChange={(e) => { const value = e.target.value; if (/^-?\d*$/.test(value)) setReceptions(Number(value)); }} style={{width: '100%'}} />
+                                        <input type="text" name="reception" value={reception} onChange={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setReceptions(value); } else if (/^-?\d*(\.\d*)?$/.test(value)) { setReceptions(Number(value)); } }} onBlur={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setReceptions(0); } }} style={{width: '100%'}} />
                                     </div>
                                 </div>
                             </div>
@@ -561,7 +561,7 @@ const handleEmailChange = (index, event) => {
                                 <div className="card">
                                     <div className="card-body">
                                         <label>Sack</label> 
-                                        <input type="text" name="sack" value={sack} onChange={(e) => { const value = e.target.value; if (/^-?\d*$/.test(value)) setSack(Number(value)); }} style={{width: '100%'}} />
+                                        <input type="text" name="sack" value={sack} onChange={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setSack(value); } else if (/^-?\d*(\.\d*)?$/.test(value)) { setSack(Number(value)); } }} onBlur={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setSack(0); } }} style={{width: '100%'}} />
                                     </div>
                                 </div>
                             </div>
@@ -569,7 +569,7 @@ const handleEmailChange = (index, event) => {
                                 <div className="card">
                                     <div className="card-body">
                                         <label>Def Interception</label> 
-                                        <input type="text" name="defInterception" value={defInterception} onChange={(e) => { const value = e.target.value; if (/^-?\d*$/.test(value)) setDefInterception(Number(value)); }} style={{width: '100%'}} />
+                                        <input type="text" name="defInterception" value={defInterception} onChange={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setDefInterception(value); } else if (/^-?\d*(\.\d*)?$/.test(value)) { setDefInterception(Number(value)); } }} onBlur={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setDefInterception(0); } }} style={{width: '100%'}} />
                                     </div>
                                 </div>
                             </div>
@@ -577,7 +577,7 @@ const handleEmailChange = (index, event) => {
                                 <div className="card">
                                     <div className="card-body">
                                         <label>Fumble Recovery</label> 
-                                        <input type="text" name="fumblerecovery" value={fumblerecovery} onChange={(e) => { const value = e.target.value; if (/^-?\d*$/.test(value)) setFumblerecovery(Number(value)); }} style={{width: '100%'}} />
+                                        <input type="text" name="fumblerecovery" value={fumblerecovery} onChange={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setFumblerecovery(value); } else if (/^-?\d*(\.\d*)?$/.test(value)) { setFumblerecovery(Number(value)); } }} onBlur={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setFumblerecovery(0); } }} style={{width: '100%'}} />
                                     </div>
                                 </div>
                             </div>
@@ -585,7 +585,7 @@ const handleEmailChange = (index, event) => {
                                 <div className="card">
                                     <div className="card-body">
                                         <label>Return TD</label> 
-                                        <input type="text" name="returnTD" value={returnTD} onChange={(e) => { const value = e.target.value; if (/^-?\d*$/.test(value)) setReturnTD(Number(value)); }} style={{width: '100%'}} />
+                                        <input type="text" name="returnTD" value={returnTD} onChange={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setReturnTD(value); } else if (/^-?\d*(\.\d*)?$/.test(value)) { setReturnTD(Number(value)); } }} onBlur={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setReturnTD(0); } }} style={{width: '100%'}} />
                                     </div>
                                 </div>
                             </div>
@@ -593,7 +593,7 @@ const handleEmailChange = (index, event) => {
                                 <div className="card">
                                     <div className="card-body">
                                         <label>Safety</label> 
-                                        <input type="text" name="safety" value={safety} onChange={(e) => { const value = e.target.value; if (/^-?\d*$/.test(value)) setSafety(Number(value)); }} style={{width: '100%'}} />
+                                        <input type="text" name="safety" value={safety} onChange={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setSafety(value); } else if (/^-?\d*(\.\d*)?$/.test(value)) { setSafety(Number(value)); } }} onBlur={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setSafety(0); } }} style={{width: '100%'}} />
                                     </div>
                                 </div>
                             </div>
@@ -601,7 +601,7 @@ const handleEmailChange = (index, event) => {
                                 <div className="card">
                                     <div className="card-body">
                                         <label>Blocked Kick</label> 
-                                        <input type="text" name="blockedKick" value={blockedKick} onChange={(e) => { const value = e.target.value; if (/^-?\d*$/.test(value)) setBlockedKick(Number(value)); }} style={{width: '100%'}} />
+                                        <input type="text" name="blockedKick" value={blockedKick} onChange={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setBlockedKick(value); } else if (/^-?\d*(\.\d*)?$/.test(value)) { setBlockedKick(Number(value)); } }} onBlur={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setBlockedKick(0); } }} style={{width: '100%'}} />
                                     </div>
                                 </div>
                             </div>
@@ -609,7 +609,7 @@ const handleEmailChange = (index, event) => {
                                 <div className="card">
                                     <div className="card-body">
                                         <label>Shutout</label> 
-                                        <input type="text" name="shutout" value={shutout} onChange={(e) => { const value = e.target.value; if (/^-?\d*$/.test(value)) setShutout(Number(value)); }} style={{width: '100%'}} />
+                                        <input type="text" name="shutout" value={shutout} onChange={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setShutout(value); } else if (/^-?\d*(\.\d*)?$/.test(value)) { setShutout(Number(value)); } }} onBlur={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setShutout(0); } }} style={{width: '100%'}} />
                                     </div>
                                 </div>
                             </div>
@@ -617,7 +617,7 @@ const handleEmailChange = (index, event) => {
                                 <div className="card">
                                     <div className="card-body">
                                         <label>Points 1-6</label> 
-                                        <input type="text" name="points1_6" value={points1_6} onChange={(e) => { const value = e.target.value; if (/^-?\d*$/.test(value)) setPoints1_6(Number(value)); }} style={{width: '100%'}} />
+                                        <input type="text" name="points1_6" value={points1_6} onChange={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setPoints1_6(value); } else if (/^-?\d*(\.\d*)?$/.test(value)) { setPoints1_6(Number(value)); } }} onBlur={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setPoints1_6(0); } }} style={{width: '100%'}} />
                                     </div>
                                 </div>
                             </div>
@@ -625,7 +625,7 @@ const handleEmailChange = (index, event) => {
                                 <div className="card">
                                     <div className="card-body">
                                         <label>Points 7-13</label> 
-                                        <input type="text" name="points7_13" value={points7_13} onChange={(e) => { const value = e.target.value; if (/^-?\d*$/.test(value)) setPoints7_13(Number(value)); }} style={{width: '100%'}} />
+                                        <input type="text" name="points7_13" value={points7_13} onChange={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setPoints7_13(value); } else if (/^-?\d*(\.\d*)?$/.test(value)) { setPoints7_13(Number(value)); } }} onBlur={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setPoints7_13(0); } }} style={{width: '100%'}} />
                                     </div>
                                 </div>
                             </div>
@@ -633,7 +633,7 @@ const handleEmailChange = (index, event) => {
                                 <div className="card">
                                     <div className="card-body">
                                         <label>Points 14-20</label> 
-                                        <input type="text" name="points14_20" value={points14_20} onChange={(e) => { const value = e.target.value; if (/^-?\d*$/.test(value)) setPoints14_20(Number(value)); }} style={{width: '100%'}} />
+                                        <input type="text" name="points14_20" value={points14_20} onChange={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setPoints14_20(value); } else if (/^-?\d*(\.\d*)?$/.test(value)) { setPoints14_20(Number(value)); } }} onBlur={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setPoints14_20(0); } }} style={{width: '100%'}} />
                                     </div>
                                 </div>
                             </div>
@@ -641,7 +641,7 @@ const handleEmailChange = (index, event) => {
                                 <div className="card">
                                     <div className="card-body">
                                         <label>Points 21-27</label> 
-                                        <input type="text" name="points21_27" value={points21_27} onChange={(e) => { const value = e.target.value; if (/^-?\d*$/.test(value)) setPoints21_27(Number(value)); }} style={{width: '100%'}} />
+                                        <input type="text" name="points21_27" value={points21_27} onChange={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setPoints21_27(value); } else if (/^-?\d*(\.\d*)?$/.test(value)) { setPoints21_27(Number(value)); } }} onBlur={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setPoints21_27(0); } }} style={{width: '100%'}} />
                                     </div>
                                 </div>
                             </div>
@@ -649,7 +649,8 @@ const handleEmailChange = (index, event) => {
                                 <div className="card">
                                     <div className="card-body">
                                     <label>Points 28-34</label> 
-                                    <input type="text" name="points28_34" value={points28_34} onChange={(e) => { const value = e.target.value; if (/^-?\d*$/.test(value)) setPoints28_34(Number(value)); }} style={{width: '100%'}} />
+                                    <input type="text" name="points28_34" value={points28_34} onChange={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setPoints28_34(value); } else if (/^-?\d*(\.\d*)?$/.test(value)) { setPoints28_34(Number(value)); } }} onBlur={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setPoints28_34(0); } }} style={{width: '100%'}} />
+
                                     </div>
                                 </div>
                             </div>
@@ -657,7 +658,7 @@ const handleEmailChange = (index, event) => {
                                 <div className="card">
                                     <div className="card-body">
                                         <label>Points 35 Plus</label> 
-                                        <input type="text" name="points35Plus" value={points35Plus} onChange={(e) => { const value = e.target.value; if (/^-?\d*$/.test(value)) setPoints35Plus(Number(value)); }} style={{width: '100%'}} />
+                                        <input type="text" name="points35Plus" value={points35Plus} onChange={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setPoints35Plus(value); } else if (/^-?\d*(\.\d*)?$/.test(value)) { setPoints35Plus(Number(value)); } }} onBlur={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setPoints35Plus(0); } }} style={{width: '100%'}} />
                                     </div>
                                 </div>
                             </div>
@@ -675,7 +676,7 @@ const handleEmailChange = (index, event) => {
                                 <div className="card">
                                     <div className="card-body">
                                         <label>FG 0-39</label> 
-                                        <input type="text" name="FG0_39" value={FG0_39} onChange={(e) => { const value = e.target.value; if (/^-?\d*$/.test(value)) setFG0_39(Number(value)); }} style={{width: '100%'}} />
+                                        <input type="text" name="FG0_39" value={FG0_39} onChange={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setFG0_39(value); } else if (/^-?\d*(\.\d*)?$/.test(value)) { setFG0_39(Number(value)); } }} onBlur={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setFG0_39(0); } }} style={{width: '100%'}} />
                                     </div>
                                 </div>
                             </div>
@@ -683,7 +684,7 @@ const handleEmailChange = (index, event) => {
                                 <div className="card">
                                     <div className="card-body">
                                         <label>FG 40-49</label> 
-                                        <input type="text" name="FG40_49" value={FG40_49} onChange={(e) => { const value = e.target.value; if (/^-?\d*$/.test(value)) setFG40_49(Number(value)); }} style={{width: '100%'}} />
+                                        <input type="text" name="FG40_49" value={FG40_49} onChange={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setFG40_49(value); } else if (/^-?\d*(\.\d*)?$/.test(value)) { setFG40_49(Number(value)); } }} onBlur={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setFG40_49(0); } }} style={{width: '100%'}} />
                                     </div>
                                 </div>
                             </div>
@@ -691,7 +692,7 @@ const handleEmailChange = (index, event) => {
                                 <div className="card">
                                     <div className="card-body">
                                         <label>FG 50 Plus</label> 
-                                        <input type="text" name="FG50Plus" value={FG50Plus} onChange={(e) => { const value = e.target.value; if (/^-?\d*$/.test(value)) setFG50Plus(Number(value)); }} style={{width: '100%'}} />
+                                        <input type="text" name="FG50Plus" value={FG50Plus} onChange={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setFG50Plus(value); } else if (/^-?\d*(\.\d*)?$/.test(value)) { setFG50Plus(Number(value)); } }} onBlur={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setFG50Plus(0); } }} style={{width: '100%'}} />
                                     </div>
                                 </div>
                             </div>
@@ -699,7 +700,7 @@ const handleEmailChange = (index, event) => {
                                 <div className="card">
                                     <div className="card-body">
                                         <label>FG Miss</label> 
-                                        <input type="text" name="FGMiss" value={FGMiss} onChange={(e) => { const value = e.target.value; if (/^-?\d*$/.test(value)) setFGMiss(Number(value)); }} style={{width: '100%'}} />
+                                        <input type="text" name="FGMiss" value={FGMiss} onChange={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setFGMiss(value); } else if (/^-?\d*(\.\d*)?$/.test(value)) { setFGMiss(Number(value)); } }} onBlur={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setFGMiss(0); } }} style={{width: '100%'}} />
                                     </div>
                                 </div>
                             </div>

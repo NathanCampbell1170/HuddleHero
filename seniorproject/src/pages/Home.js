@@ -12,6 +12,7 @@ import Col from 'react-bootstrap/Col';
 
 
 
+
 function Home() {
   const [user, setUser] = useState(null);
   const userCollection = collection(db, "users");
@@ -95,6 +96,8 @@ function Home() {
     {/* Add more league details */}
   </Modal.Body>
 </Modal>
+
+
 </div>
 
 );

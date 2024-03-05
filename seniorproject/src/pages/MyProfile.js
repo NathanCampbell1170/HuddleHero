@@ -126,28 +126,52 @@ const fetchImage = async () => {
        }
         })})
 
-        const uploadProfilePicture = (event) => {
+        const uploadProfilePicture = async (event) => {
             const file = event.target.files[0];
             const userId = localStorage.getItem("UserID");
             const imageRef = ref(storage, `ProfilePictures/${userId}`);
             // check if the file is an image
             if (file.type.startsWith("image/")) {
-              // check if the file size is below 2.5 MB
-              if (file.size < 2.5 * 1024 * 1024) {
-                // upload the image
-                uploadBytes(imageRef, file).then(() => {
-                  console.log("picture uploaded");
-                  window.location.reload();
-                });
-              } else {
-                // throw an error for large file size
-                alert("File size exceeds 2.5 MB");
-              }
+                // check if the file size is below 2.5 MB
+                if (file.size < 2.5 * 1024 * 1024) {
+                    // upload the image
+                    await uploadBytes(imageRef, file);
+                    console.log("picture uploaded");
+        
+                    // get the download URL
+                    const link = await getDownloadURL(imageRef);
+                    console.log("Download URL: ", link);
+                    updatePFP(link)
+        
+                    // save the URL to your database
+                    // ...
+        
+                    //window.location.reload();
+                } else {
+                    // throw an error for large file size
+                    alert("File size exceeds 2.5 MB");
+                }
             } else {
-              // throw an error for non-image file
-              alert("File is not an image");
+                // throw an error for non-image file
+                alert("File is not an image");
             }
-          };
+            window.location.reload();
+        };
+        
+
+        const updatePFP = async (link) => {
+            try {
+                const fetchUserQuery = query(userCollection, where("email", '==', user.email));
+                const querySnapshot = await getDocs(fetchUserQuery);
+                const userSettingsDocument = querySnapshot.docs[0];
+        
+                const userRef = doc(db, 'users', userSettingsDocument.id);
+                await updateDoc(userRef, { profilePicture: link });
+            } catch (error) {
+                console.error("Error updating document: ", error);
+            }
+        };
+        
           
 
       

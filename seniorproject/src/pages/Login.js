@@ -144,7 +144,7 @@ if (!user) {
     return <> <div>  </div>  
     { userDisplayName === "" && ( <>
         <h3> Register User </h3> 
-        <input placeholder="Email..." onChange={(event) => {setRegisterEmail(event.target.value)}} />
+        <input placeholder="Email..." onChange={(event) => {setRegisterEmail(event.target.value.toLowerCase())}} />
         <input type="password" placeholder="Password..." onChange={(event) => {setRegisterPassword(event.target.value)}} />
         <input placeholder="DisplayName" onChange={(event) => {setUserName(event.target.value)}} />
         <button onClick={register}> Register </button>
