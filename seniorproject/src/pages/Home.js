@@ -98,6 +98,9 @@ function Home() {
 </Modal>
 
 
+
+{/*<button onClick={UploadPlayerData}>UploadPlayerData</button>*/}
+
 </div>
 
 );

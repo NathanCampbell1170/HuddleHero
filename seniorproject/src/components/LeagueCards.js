@@ -10,6 +10,7 @@ import {Row, Col} from 'react-bootstrap'
 import "../styles/LeagueCards.css";
 import EditLeagueSettings from './EditLeagueSettings';
 import LeagueChat from './LeagueChat'
+import AddFreeAgents from './AddFreeAgents';
 
 
 function LeagueCards({ user }) {
@@ -117,6 +118,7 @@ function LeagueCards({ user }) {
                         </Tab>
                         <Tab eventKey="addPlayers" title="Add Players">
                         {/* Content for Add Players tab */}
+                        <AddFreeAgents positions={["QB"]} orderByField="AverageDraftPosition" />
                         </Tab>
                         <Tab eventKey="leagueChat" title="League Chat">
                         {/* Content for League Chat tab */}

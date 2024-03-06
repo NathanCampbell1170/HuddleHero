@@ -6,7 +6,7 @@ import { storage } from "../Firebase-config";
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "firebase/auth";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
-import defaultImage from '../images/DefaultPFPExperienced.jpeg';
+import defaultImage from '../Images/DefaultPFPExperienced.jpeg';
 
 import '../styles/MyProfile.css';
 

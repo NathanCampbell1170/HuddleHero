@@ -10,7 +10,7 @@ import { auth, db } from "./Firebase-config";
 import Spinner from 'react-bootstrap/Spinner';
 import { addDoc, collection, getDocs, query, where, doc, updateDoc } from "firebase/firestore"; 
 import LoadingWrapper from "./components/LoadingWrapper"
-import Logo from './images/Logo.jpeg'
+import Logo from './Images/Logo.jpeg'
 
 function App() {
   const [user, setUser] = useState(null);
