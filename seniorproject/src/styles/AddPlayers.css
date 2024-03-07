@@ -1,0 +1,28 @@
+.card-body {
+    display: flex;
+    align-items: flex-start;
+    height: 100%; /* Adjust as needed */
+    
+  }
+  
+  .button {
+    margin-right: 10px;
+  }
+  
+  .player-info {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex-grow: 1;
+  }
+  
+  .player-name {
+    margin: 0; /* Reset margin */
+    margin-left: 10px; /* Add some space between the name and the button */
+  }
+  
+  .player-details {
+    display: flex;
+    gap: 10px;
+  }
+  
