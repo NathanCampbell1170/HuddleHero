@@ -118,7 +118,7 @@ function LeagueCards({ user }) {
                         </Tab>
                         <Tab eventKey="addPlayers" title="Add Players">
                         {/* Content for Add Players tab */}
-                        <AddFreeAgents positions={["QB"]} orderByField="AverageDraftPosition" />
+                        <AddFreeAgents selectedLeague={selectedLeague} orderByField="AverageDraftPosition" />
                         </Tab>
                         <Tab eventKey="leagueChat" title="League Chat">
                         {/* Content for League Chat tab */}

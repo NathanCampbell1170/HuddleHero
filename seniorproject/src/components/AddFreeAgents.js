@@ -6,7 +6,7 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import "../styles/AddPlayers.css"
 
-const AddFreeAgents = () => {
+const AddFreeAgents = (selectedLeague) => {
   const [players, setPlayers] = useState([]);
   const [lastPlayer, setLastPlayer] = useState(null);
   const [position, setPosition] = useState('');
@@ -64,6 +64,25 @@ const loadMore = async () => {
   }
 };
 
+
+const addPlayer = async (player) => {
+  if (user) {
+    leagueRef = collection(db, "leagues")
+    const leaguesQuery = query(collection(db, 'leagues'), where('id', '==', selectedLeague.id));
+    const leaguesSnapshot = await getDocs(leaguesQuery);
+
+    if (!leaguesSnapshot.empty) {
+      // Get the actual ID of the document
+      const leagueDocId = leaguesSnapshot.docs[0].id;
+
+      // Now you can create a reference to the 'teams' subcollection
+      const teamRef = collection(db, 'leagues', leagueDocId, 'teams');
+      await updateDoc(teamRef)
+    
+  }
+
+}
+
   return (
     <div>
       <Form>
@@ -78,7 +97,7 @@ const loadMore = async () => {
         <Card key={index} style={{ width: '100%', height: '15vh' }}>
           <Card.Body className="card-body">
             <div className="player-details">
-            <Button variant="primary" className="button">+</Button>
+            <Button variant="primary" className="button" onClick={addPlayer(player)}>+</Button>
               <strong><Card.Text className="player-name">{player.Name}</Card.Text></strong>
               Postion:<Card.Text>{player.Position}</Card.Text>
               Team:<Card.Text>{player.Team}</Card.Text>
