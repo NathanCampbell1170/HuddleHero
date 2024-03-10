@@ -11,6 +11,8 @@ import "../styles/LeagueCards.css";
 import EditLeagueSettings from './EditLeagueSettings';
 import LeagueChat from './LeagueChat'
 import AddFreeAgents from './AddFreeAgents';
+import MyTeam from "./MyTeam"
+import DraftPlayers from './DraftPlayers';
 
 
 function LeagueCards({ user }) {
@@ -23,12 +25,12 @@ function LeagueCards({ user }) {
     const fetchLeagues = async () => {
       const leaguesRef = collection(db, 'leagues');
       const q = query(leaguesRef, where('members', 'array-contains', user.email));
-  
+    
       const querySnapshot = await getDocs(q);
       const leaguesData = await Promise.all(querySnapshot.docs.map(async doc => {
         const league = doc.data();
         // Fetch the display names of the members
-        league.members = await Promise.all(league.members.map(getDisplayName));
+        league.memberDisplayNames = await Promise.all(league.members.map(getDisplayName));
         return league;
       }));
       setLeagues(leaguesData);
@@ -110,15 +112,26 @@ function LeagueCards({ user }) {
                 </Modal.Header>
                 <Modal.Body>
                 <Tabs defaultActiveKey="myTeam" id="uncontrolled-tab-example" className="customTabs">
+                        
+                        
+                        {selectedLeague?.draftStatus && (
+                          <Tab eventKey="draft" title="Draft">
+                              {/* Content for Draft tab */}
+                              <DraftPlayers selectedLeague={selectedLeague} user={user}/>
+                          </Tab>
+                        )}
+                        
+                        
                         <Tab eventKey="myTeam" title="My Team">
                         {/* Content for My Team tab */}
+                        <MyTeam selectedLeague={selectedLeague} user={user} />
                         </Tab>
                         <Tab eventKey="matchup" title="Matchup">
                         {/* Content for Matchup tab */}
                         </Tab>
                         <Tab eventKey="addPlayers" title="Add Players">
                         {/* Content for Add Players tab */}
-                        <AddFreeAgents selectedLeague={selectedLeague} orderByField="AverageDraftPosition" />
+                        <AddFreeAgents selectedLeague={selectedLeague} user={user} orderByField="AverageDraftPosition" />
                         </Tab>
                         <Tab eventKey="leagueChat" title="League Chat">
                         {/* Content for League Chat tab */}
