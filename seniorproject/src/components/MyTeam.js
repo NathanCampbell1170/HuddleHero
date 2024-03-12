@@ -10,29 +10,33 @@ const MyTeam = ({ selectedLeague, user }) => {
 
   useEffect(() => {
     const fetchTeam = async () => {
-      // Get a reference to the current league's document
-      const leagueSnapshot = await getDocs(query(collection(db, 'leagues'), where('id', '==', selectedLeague.id)));
-      const leagueDoc = leagueSnapshot.docs[0];
-  
-      // Get a reference to the team document with an owner field matching the user's email
-      const teamsRef = collection(leagueDoc.ref, 'teams');
-      const teamsSnapshot = await getDocs(query(teamsRef, where('owner', '==', user.email)));
-      const teamDoc = teamsSnapshot.docs[0];
-  
-      // Set up the real-time listener
-      const unsubscribe = onSnapshot(teamDoc.ref, async (snapshot) => {
-        const teamData = snapshot.data();
-  
-        // Get the player data for each player in the team
-        const teamPlayersData = playersData.filter(player => teamData.players.includes(player.PlayerID));
-  
-        setTeamPlayers(teamPlayersData);
-      });
-  
-      // Clean up the listener when the component is unmounted
-      return () => unsubscribe();
+      try {
+        // Get a reference to the current league's document
+        const leagueSnapshot = await getDocs(query(collection(db, 'leagues'), where('id', '==', selectedLeague.id)));
+        const leagueDoc = leagueSnapshot.docs[0];
+    
+        // Get a reference to the team document with an owner field matching the user's email
+        const teamsRef = collection(leagueDoc.ref, 'teams');
+        const teamsSnapshot = await getDocs(query(teamsRef, where('owner', '==', user.email)));
+        const teamDoc = teamsSnapshot.docs[0];
+    
+        // Set up the real-time listener
+        const unsubscribe = onSnapshot(teamDoc.ref, async (snapshot) => {
+          const teamData = snapshot.data();
+    
+          // Get the player data for each player in the team
+          const teamPlayersData = playersData.filter(player => teamData.players.includes(player.PlayerID));
+    
+          setTeamPlayers(teamPlayersData);
+        });
+    
+        // Clean up the listener when the component is unmounted
+        return () => unsubscribe();
+      } catch (error) {
+        console.error("Error fetching team: ", error);
+        // Handle the error appropriately here
+      }
     };
-  
     fetchTeam();
   }, []);
 

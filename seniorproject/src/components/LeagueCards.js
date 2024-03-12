@@ -112,15 +112,13 @@ function LeagueCards({ user }) {
                 </Modal.Header>
                 <Modal.Body>
                 <Tabs defaultActiveKey="myTeam" id="uncontrolled-tab-example" className="customTabs">
-                        
-                        
-                        {selectedLeague?.draftStatus && (
-                          <Tab eventKey="draft" title="Draft">
-                              {/* Content for Draft tab */}
-                              <DraftPlayers selectedLeague={selectedLeague} user={user}/>
-                          </Tab>
-                        )}
-                        
+
+                {(selectedLeague?.commissioner === user.email || selectedLeague?.draftStatus) && (
+                      <Tab eventKey="draft" title="Draft">
+                        {/* Content for Draft tab */}
+                        <DraftPlayers selectedLeague={selectedLeague} user={user}/>
+                      </Tab>
+                    )}
                         
                         <Tab eventKey="myTeam" title="My Team">
                         {/* Content for My Team tab */}

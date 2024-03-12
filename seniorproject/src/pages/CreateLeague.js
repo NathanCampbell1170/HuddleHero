@@ -230,6 +230,9 @@ function CreateLeague() {
               members: allMembers,
               leagueName: leagueName,
               commissioner: user.email,
+              currentDrafter: "",
+              drafterOrder: [],
+              draftStatus: false,
               settings: {
                 rosterSettings: {
                   startQB: QB,

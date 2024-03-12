@@ -1,4 +1,4 @@
-import { collection, getDocs, query, where, updateDoc, arrayUnion, onSnapshot, doc, getDoc } from 'firebase/firestore';
+import { collection, getDocs, query, where, updateDoc, arrayUnion, onSnapshot, doc, getDoc, addDoc } from 'firebase/firestore';
 import { useState, useEffect } from 'react';
 import { Form, Button, Card } from 'react-bootstrap';
 import { db } from '../Firebase-config';
@@ -122,24 +122,42 @@ const DraftPlayers = ({ selectedLeague, user }) => {
     // Get a reference to the team document with an owner field matching the user's email
     const teamsRef = collection(leagueDoc.ref, 'teams');
     const teamsSnapshot = await getDocs(query(teamsRef, where('owner', '==', user.email)));
-    const teamDoc = teamsSnapshot.docs[0];
-    const teamData = teamDoc.data();
+    let teamDoc;
+    let teamData;
+  
+    // Check if a team document for the current user already exists
+    if (teamsSnapshot.empty) {
+      // If not, create a new document with the specified values
+      const docRef = await addDoc(teamsRef, {
+        owner: user.email,
+        players: []
+      });
+      teamDoc = docRef;
+      teamData = { players: [''] };
+    } else {
+      // If so, continue as normal
+      teamDoc = teamsSnapshot.docs[0];
+      teamData = teamDoc.data();
+    }
   
     // Calculate the maximum roster size
     let maxRosterSize = 0;
-    if (selectedLeague && selectedLeague.rosterSettings) {
-      maxRosterSize = Object.values(selectedLeague.rosterSettings).reduce((a, b) => a + b, 0);
+    if (selectedLeague && selectedLeague.settings.rosterSettings) {
+      maxRosterSize = Object.values(selectedLeague.settings.rosterSettings).reduce((a, b) => a + b, 0);
       console.log('Max Roster Size:', maxRosterSize);
     }
+    console.log(maxRosterSize)
     console.log('Team Data:', teamData)
     console.log(teamData.players)
     console.log(teamData.players.length)
 
+    console.log(teamData.players.length)
+  
     // Check if the current player's roster is full
-    if (teamData.players && !(teamData.players.length === 1 && teamData.players[0] === '') && teamData.players.length >= maxRosterSize) {
-        alert('Your roster is full!');
-        return;
-      }
+    if (teamData.players && teamData.players.length >= maxRosterSize) {
+      alert('Your roster is full!');
+      return;
+    }
   
     // Add the player's PlayerID field to the players array inside of the team document
     await updateDoc(teamDoc.ref, {
@@ -165,7 +183,8 @@ const DraftPlayers = ({ selectedLeague, user }) => {
     await updateDoc(leagueDoc.ref, {
       currentDrafter: nextDrafter
     });
-  }
+  };
+  
 
   const loadMore = () => {
     if (!isLoading) {  // Only fetch more players if not currently loading
@@ -194,33 +213,59 @@ const DraftPlayers = ({ selectedLeague, user }) => {
     const leagueSnapshot = await getDocs(query(leagueRef, where('id', '==', selectedLeague.id)));
     const leagueDoc = leagueSnapshot.docs[0];
   
-    // Set the draftStatus field to true and currentDrafter to the first drafter in the list
-    await updateDoc(leagueDoc.ref, {
-      draftStatus: true,
-      currentDrafter: selectedLeague.draftOrder[0]
-    });
+    // Get a reference to the 'teams' subcollection
+    const teamsRef = collection(leagueDoc.ref, 'teams');
   
-    alert('The draft has started!');
-  };
+    // Create a team document for each member
+    for (const memberEmail of selectedLeague.members) {
+      // Check if a team document for the current member already exists
+      const teamsSnapshot = await getDocs(query(teamsRef, where('owner', '==', memberEmail)));
+  
+      if (teamsSnapshot.empty) {
+        // If not, create a new document with the specified values
+        await addDoc(teamsRef, {
+          owner: memberEmail,
+          players: []
+        });
+      }
+    }
+  
+    // Fetch the updated league document from Firestore
+  const updatedLeagueDoc = await getDoc(leagueDoc.ref);
+  const updatedLeagueData = updatedLeagueDoc.data();
+
+  // Set the draftStatus field to true and currentDrafter to the first drafter in the list
+  console.log(updatedLeagueData.draftOrder[0]);
+  await updateDoc(leagueDoc.ref, {
+    draftStatus: true,
+    currentDrafter: updatedLeagueData.draftOrder[0]
+  });
+
+  alert('The draft has started!');
+};
+  
 
   
 // Function to randomize the order
 const randomizeOrder = async () => {
-    let draftOrder = [...selectedLeague.draftOrder];
-    for (let i = draftOrder.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [draftOrder[i], draftOrder[j]] = [draftOrder[j], draftOrder[i]];
-    }
-    console.log(draftOrder)
-  
-    // Get a reference to the league document
-    const leagueRef = collection(db, 'leagues');
-    const leagueSnapshot = await getDocs(query(leagueRef, where('id', '==', selectedLeague.id)));
-    const leagueDoc = leagueSnapshot.docs[0];
-  
-    // Update the draftOrder in the league document
-    await updateDoc(leagueDoc.ref, { draftOrder });
-  };
+  let draftOrder = selectedLeague.draftOrder ? [...selectedLeague.draftOrder] : [...selectedLeague.members];
+
+  for (let i = draftOrder.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [draftOrder[i], draftOrder[j]] = [draftOrder[j], draftOrder[i]];
+  }
+  console.log(draftOrder)
+
+  // Get a reference to the league document
+  const leagueRef = collection(db, 'leagues');
+  const leagueSnapshot = await getDocs(query(leagueRef, where('id', '==', selectedLeague.id)));
+  const leagueDoc = leagueSnapshot.docs[0];
+
+  // Update the draftOrder in the league document
+  await updateDoc(leagueDoc.ref, { draftOrder });
+};
+
+
   
   
   const handleDragEnd = async (result) => {
@@ -268,7 +313,7 @@ const randomizeOrder = async () => {
   
       <h2>League Users</h2>
       <div className="d-flex flex-wrap">
-      {selectedLeague.draftOrder.map((userEmail, index) => (
+      {selectedLeague.draftOrder && selectedLeague.draftOrder.map((userEmail, index) => (
   <Card key={index} style={{ width: '18rem', margin: '1rem', backgroundColor: leagueData && leagueData.currentDrafter && userEmail === leagueData.currentDrafter ? 'lightgreen' : 'white' }}>
     <Card.Body>
       <Card.Title>{selectedLeague.memberDisplayNames[selectedLeague.members.indexOf(userEmail)]}</Card.Title>
