@@ -1,31 +1,37 @@
 #myProfile .nav-tabs {
     flex-direction: column;
+    font-family: 'Quicksand', sans-serif;
   }
   
   #myProfile .tab-content {
     width: 100%;
     flex-direction: column;
+    font-family: 'Quicksand', sans-serif;
 
   }
 
   .profileTab {
     display: flex;
     justify-content: center;
+    font-family: 'Quicksand', sans-serif;
     
   }
   
   .updateProfileTab {
       display: flex;
      justify-content: center;  
+     font-family: 'Quicksand', sans-serif;
   }
 
   .customTabs .nav-link {
     background-color: gray; /* non-selected tab color */
   color: white; /* text color */
+  font-family: 'Quicksand', sans-serif;
   }
 
   .customTabs .nav-link.active {
     background-color: #2a454e; /* selected tab color */
     color: white;
+    font-family: 'Quicksand', sans-serif;
 
   }

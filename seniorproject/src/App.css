@@ -1,10 +1,11 @@
 .App {
   text-align: center;
+  font-family: 'Quicksand', sans-serif;
 }
 body {
   padding: 0%;
   margin: 0%;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Quicksand', sans-serif;
 }
 
 nav {
@@ -20,11 +21,13 @@ nav {
   position: relative; /* Make the navigation relative by default */
   top: 0;
   z-index: 100; /* Ensure it's above other content */
+  font-family: 'Quicksand', sans-serif;
 }
 
 @media (max-width: 768px) {
   nav {
     position: sticky; /* Make the navigation sticky for devices with a width of 768px or less */
+    font-family: 'Quicksand', sans-serif;
   }
 }
 
@@ -33,6 +36,7 @@ a {
   text-decoration: none;
   margin: 10px;
   font-size: 25px;
+  font-family: 'Quicksand', sans-serif;
 }
 
 /* Media query for smaller screens (e.g., mobile devices) */
@@ -40,10 +44,12 @@ a {
   nav {
     flex-direction: column; /* Stack navigation items vertically */
     padding: 0; /* Remove padding */
+    font-family: 'Quicksand', sans-serif;
   }
   a {
     margin: 5px 0; /* Reduce vertical spacing */
     font-size: 16px; /* Decrease font size for mobile */
+    font-family: 'Quicksand', sans-serif;
   }
 }
 
@@ -63,6 +69,7 @@ a {
 
 .welcome-message {
   text-align: center;
+  font-family: 'Quicksand', sans-serif;
 }
 
 .horizontal-divider {
@@ -82,6 +89,7 @@ a {
   width: 50%;
   padding-right: 10px;
   box-sizing: border-box;
+  font-family: 'Quicksand', sans-serif;
 }
 
 /* Right side - Existing Leagues */
@@ -90,6 +98,7 @@ a {
   flex-wrap: wrap;
   justify-content: space-between;
   padding-top: 5px;
+  font-family: 'Quicksand', sans-serif;
 }
 
 /* Individual League Card */

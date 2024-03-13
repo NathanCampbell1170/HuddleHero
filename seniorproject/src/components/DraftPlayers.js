@@ -93,6 +93,7 @@ const DraftPlayers = ({ selectedLeague, user }) => {
     // Get the next 10 players starting from fetchedCount
     const nextPlayers = newPlayers.slice(fetchedCount, fetchedCount + 10);
     setPlayers(prevPlayers => [...prevPlayers, ...nextPlayers]);
+    console.log(players)
 
     // Update fetchedCount
     setFetchedCount(prevCount => prevCount + nextPlayers.length);
@@ -287,6 +288,8 @@ const randomizeOrder = async () => {
     {user.email === selectedLeague.commissioner && (
       <div>
         <button onClick={randomizeOrder}>Randomize Order</button>
+
+        {/*}
         <DragDropContext onDragEnd={handleDragEnd}>
           <Droppable droppableId="players">
             {(provided) => (
@@ -305,8 +308,10 @@ const randomizeOrder = async () => {
             )}
           </Droppable>
         </DragDropContext>
+                    */}
       </div>
     )}
+    
       {user.email === selectedLeague.commissioner && (
         <Button variant="primary" onClick={startDraft}>Start Draft</Button>
       )}
@@ -337,19 +342,40 @@ const randomizeOrder = async () => {
         </Form.Control>
       </Form>
   
-      {players.map((player, index) => (
-        <Card key={index} style={{ width: '100%', height: '15vh' }}>
+      <div className='free-agents'>
+            {players.map((player, index) => (
+        <Card key={index}>
           <Card.Body className="card-body">
-            <div className="player-details">
-              <Button variant="primary" className="button" onClick={() => draftPlayer(player)}>Draft</Button>
+          <div className="free-agent-card" key={index}>
+              <div className="card-body">
+                <div className="free-agent-details">
+              <Button variant="primary" className="button" onClick={() => draftPlayer(player)}>+</Button>
               <strong><Card.Text className="player-name">{player.Name}</Card.Text></strong>
-              <Card.Text>Position: {player.Position}</Card.Text>
-              <Card.Text>Team: {player.Team}</Card.Text>
-              {/* Rest of your player card... */}
+              {(player.Position === 'DEF') &&<strong><Card.Text className="player-name">{player.Team}</Card.Text></strong>}
+              <Card.Text> Position: {player.Position}</Card.Text>
+              {(player.Position != 'DEF') &&<Card.Text> Team: {player.Team}</Card.Text>}
+              {(player.Position === 'QB') && player.PassingYards && <Card.Text>PassYRD: {player.PassingYards}</Card.Text>}
+              {(player.Position === 'QB') && player.PassingTouchdowns && <Card.Text>PassTD: {player.PassingTouchdowns}</Card.Text>}
+              {(player.Position === 'QB') && player.PassingInterceptions && <Card.Text>INT: {player.PassingInterceptions}</Card.Text>}
+              {(player.Position === 'QB' || player.Position === 'RB') && player.RushingYards && <Card.Text>RushYRD: {player.RushingYards}</Card.Text>}
+              {(player.Position === 'QB' || player.Position === 'RB') && player.RushingTouchdowns && <Card.Text>RushTD: {player.RushingTouchdowns}</Card.Text>}
+              {(player.Position === 'RB' || player.Position === 'WR' || player.Position === 'TE') && player.ReceivingYards && <Card.Text>ReceivingYRD: {player.ReceivingYards}</Card.Text>}
+              {(player.Position === 'RB' || player.Position === 'WR' || player.Position === 'TE') && player.ReceivingTouchdowns && <Card.Text>ReceivingTD: {player.ReceivingTouchdowns}</Card.Text>}
+              {player.Position === 'K' && <Card.Text>FG Attempted: {player.FieldGoalsAttempted}</Card.Text>}
+              {player.Position === 'K' && player.FieldGoalsMade && <Card.Text>FG Made: {player.FieldGoalsMade}</Card.Text>}
+              {player.Position === 'K' && player.ExtraPointsMade && <Card.Text>Extra Points Made: {player.ExtraPointsMade}</Card.Text>}
+              {player.Position === 'DEF' && player.PointsAllowed && <Card.Text>Points Allowed: {player.PointsAllowed}</Card.Text>}
+              {player.Position === 'DEF' && player.Sacks && <Card.Text>Sacks: {player.Sacks}</Card.Text>}
+              {player.Position === 'DEF' && player.Interceptions && <Card.Text>Interceptions: {player.Interceptions}</Card.Text>}
+              {player.Position === 'DEF' && player.FumblesForced && <Card.Text>Fumbles Forced: {player.FumblesForced}</Card.Text>}
+              </div>
+              </div>
             </div>
+            
           </Card.Body>
         </Card>
       ))}
+      </div>
       <button onClick={loadMore}>Load More</button>
     </div>
   );

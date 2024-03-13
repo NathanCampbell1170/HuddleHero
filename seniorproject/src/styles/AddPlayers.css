@@ -1,28 +1,78 @@
-.card-body {
+div.free-agents div.free-agent-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-height: 15vh;
+  height: auto;
+  padding-bottom: 1em;
+  font-family: 'Quicksand', sans-serif;
+}
+
+
+div.free-agents div.add-player-button {
+  margin-right: 10px;
+  font-family: 'Quicksand', sans-serif;
+  background-color:  #1f3942;
+}
+
+div.free-agents div.player-info {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex-grow: 1;
+  font-family: 'Quicksand', sans-serif;
+}
+
+div.free-agents div.player-name {
+  margin: 0;
+  margin-left: 10px;
+}
+
+div.free-agents div.free-agent-details {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+@media (max-width: 991px) {
+  div.free-agents div.free-agent-card {
     display: flex;
+    flex-direction: row; /* Arrange sections side by side */
     align-items: flex-start;
-    height: 100%; /* Adjust as needed */
-    
+    height: auto; /* Adjust the height dynamically */
+    padding: 0.1em; /* Reduce padding */
+    font-size: smaller;
+    font-family: 'Quicksand', sans-serif;
+    line-height: 20%;
+
   }
   
-  .button {
-    margin-right: 10px;
+  div.free-agents div.add-player-button {
+    flex: 0.2; /* Make this section thinner */
+    order: 1; /* Place this section first */
+    margin-right: 5px;
+    font-family: 'Quicksand', sans-serif;
+    background-color:  #1f3942;
+    line-height: 20%;
   }
   
-  .player-info {
+  div.free-agents div.player-info {
+    line-height: 20%;
     display: flex;
-    flex-direction: row;
-    align-items: center;
-    flex-grow: 1;
+    flex-direction: column; /* Arrange player details vertically */
+    align-items: flex-start;
+    order: 2; /* Place this section second */
+    margin: 0;
+    font-family: 'Quicksand', sans-serif;
   }
   
-  .player-name {
-    margin: 0; /* Reset margin */
-    margin-left: 10px; /* Add some space between the name and the button */
+  div.free-agents div.player-name,
+  div.free-agents div.free-agent-details {
+    line-height: 20%;
+    margin: 0;
+    font-size: smaller; /* Reduce font size */
   }
-  
-  .player-details {
-    display: flex;
-    gap: 10px;
-  }
-  
+}

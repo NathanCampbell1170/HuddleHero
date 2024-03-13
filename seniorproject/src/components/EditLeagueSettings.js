@@ -270,7 +270,7 @@ const handleEmailChange = (index, event) => {
   }
   // Display the league ID
   return (
-    <div>
+    <div className="edit-league-settings">
       <Card>
       <Card.Body>
         <Card.Title>{leagueName}</Card.Title>

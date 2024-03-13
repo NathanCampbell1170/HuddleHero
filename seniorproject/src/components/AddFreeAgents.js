@@ -139,14 +139,18 @@ const AddFreeAgents = ({ selectedLeague, user }) => {
           ))}
         </Form.Control>
       </Form>
+      <div className='free-agents'>
             {players.map((player, index) => (
-        <Card key={index} style={{ width: '100%', height: '15vh' }}>
+        <Card key={index}>
           <Card.Body className="card-body">
-            <div className="player-details">
+          <div className="free-agent-card" key={index}>
+              <div className="card-body">
+                <div className="free-agent-details">
               <Button variant="primary" className="button" onClick={() => addPlayer(player)}>+</Button>
               <strong><Card.Text className="player-name">{player.Name}</Card.Text></strong>
-              <Card.Text>Position: {player.Position}</Card.Text>
-              <Card.Text>Team: {player.Team}</Card.Text>
+              {(player.Position === 'DEF') &&<strong><Card.Text className="player-name">{player.Team}</Card.Text></strong>}
+              <Card.Text> Position: {player.Position}</Card.Text>
+              {(player.Position != 'DEF') &&<Card.Text> Team: {player.Team}</Card.Text>}
               {(player.Position === 'QB') && player.PassingYards && <Card.Text>PassYRD: {player.PassingYards}</Card.Text>}
               {(player.Position === 'QB') && player.PassingTouchdowns && <Card.Text>PassTD: {player.PassingTouchdowns}</Card.Text>}
               {(player.Position === 'QB') && player.PassingInterceptions && <Card.Text>INT: {player.PassingInterceptions}</Card.Text>}
@@ -157,11 +161,18 @@ const AddFreeAgents = ({ selectedLeague, user }) => {
               {player.Position === 'K' && <Card.Text>FG Attempted: {player.FieldGoalsAttempted}</Card.Text>}
               {player.Position === 'K' && player.FieldGoalsMade && <Card.Text>FG Made: {player.FieldGoalsMade}</Card.Text>}
               {player.Position === 'K' && player.ExtraPointsMade && <Card.Text>Extra Points Made: {player.ExtraPointsMade}</Card.Text>}
-
+              {player.Position === 'DEF' && player.PointsAllowed && <Card.Text>Points Allowed: {player.PointsAllowed}</Card.Text>}
+              {player.Position === 'DEF' && player.Sacks && <Card.Text>Sacks: {player.Sacks}</Card.Text>}
+              {player.Position === 'DEF' && player.Interceptions && <Card.Text>Interceptions: {player.Interceptions}</Card.Text>}
+              {player.Position === 'DEF' && player.FumblesForced && <Card.Text>Fumbles Forced: {player.FumblesForced}</Card.Text>}
+              </div>
+              </div>
             </div>
+            
           </Card.Body>
         </Card>
       ))}
+      </div>
       <button onClick={loadMore}>Load More</button>
     </div>
   );
