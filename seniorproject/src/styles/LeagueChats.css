@@ -2,4 +2,20 @@
     max-height: 500px; 
     overflow-y: auto;
     font-family: 'Quicksand', sans-serif;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+.chat-container .my-card {
+    max-width: 100%;  /* restricts the width of the card to not exceed the width of its parent */
+    max-height: 100%; /* restricts the height of the card to not exceed the height of its parent */
+    overflow: auto;   /* adds a scrollbar if the content inside the card exceeds its size */
+}
+
+.chat-container .my-card-text {
+    overflow-wrap: break-word;
+    word-break: normal;
+    font-family: 'Quicksand, sans-serif';
+    white-space: pre-wrap;
+    hyphens: auto;
 }

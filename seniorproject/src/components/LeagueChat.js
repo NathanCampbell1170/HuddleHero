@@ -125,6 +125,8 @@ const LeagueChat = ({ selectedLeague }) => {
             console.log('User not authenticated.');
         }
     };
+
+    
     
     
 
@@ -139,7 +141,7 @@ const LeagueChat = ({ selectedLeague }) => {
                         <div className="d-flex">
                             <Card.Img variant="left" src={message.picture} style={{ width: '50px', height: '50px', borderRadius: '50%' }} />
                             <div style={{ marginLeft: '10px' }}>
-                            <Card.Text style={{ overflowWrap: 'break-word', wordBreak: 'break-all', fontFamily: 'Quicksand, sans-serif' }}>
+                            <Card.Text >
                                 <strong>{message.user}:</strong> {message.text}
                                 <br />
                                 <small>{message.createdAt ? new Date(message.createdAt.seconds * 1000).toLocaleString() : ''}</small>

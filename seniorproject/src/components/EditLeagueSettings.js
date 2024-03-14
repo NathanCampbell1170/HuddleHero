@@ -18,44 +18,45 @@ const EditLeagueSettings = ({ selectedLeague }) => {
   //League Settings useStates
   const [leagueName, setLeagueName] = useState(selectedLeague?.leagueName || 'Default League Name')
   const [TEAMS, setTEAMS] = useState(10);
-  const [QB, setQB] = useState(null);
-  const [RB, setRB] = useState(null);
-  const [WR, setWR] = useState(null);
-  const [TE, setTE] = useState(null);
-  const [FLEX, setFLEX] = useState(null);
-  const [K, setK] = useState(null);
-  const [DEF, setDEF] = useState(null);
-  const [BENCH, setBENCH] = useState(null);
+  const [QB, setQB] = useState(selectedLeague.settings.rosterSettings.startQB);
+  const [RB, setRB] = useState(selectedLeague.settings.rosterSettings.startRB);
+  const [WR, setWR] = useState(selectedLeague.settings.rosterSettings.startWR);
+  const [TE, setTE] = useState(selectedLeague.settings.rosterSettings.startTE);
+  const [FLEX, setFLEX] = useState(selectedLeague.settings.rosterSettings.startFLEX);
+  const [K, setK] = useState(selectedLeague.settings.rosterSettings.startK);
+  const [DEF, setDEF] = useState(selectedLeague.settings.rosterSettings.startDEF);
+  const [BENCH, setBENCH] = useState(selectedLeague.settings.rosterSettings.bench);
 
 
   //Scoring Settings UseStates
-  const [passYRD, setPassYRD] = useState(.04);
-  const [passTD, setPassTD] = useState(4);
-  const [interception, setInterception] = useState(-2);
-  const [rushYRD, setRushYRD] = useState(.1);
-  const [rushTD, setRushTD] = useState(6);
-  const [fumble, setFumble] = useState(-1);
-  const [fumbleLost, setFumbleLost] = useState(-3);
-  const [recYRD, setRecYRD] = useState(.1);
-  const [recTD, setRecTD] = useState(6);
-  const [reception, setReceptions] = useState(.5);
-  const [sack, setSack] = useState(1);
-  const [defInterception, setDefInterception] = useState(2);
-  const [fumblerecovery, setFumblerecovery] = useState(2);
-  const [returnTD, setReturnTD] = useState(6);
-  const [safety, setSafety] = useState(2);
-  const [blockedKick, setBlockedKick] = useState(2);
-  const [FG0_39, setFG0_39] = useState(3);
-  const [FG40_49, setFG40_49] = useState(4);
-  const [FG50Plus, setFG50Plus] = useState(5);
-  const [FGMiss, setFGMiss] = useState(-1);
-  const [shutout, setShutout] = useState(10);
-  const [points1_6, setPoints1_6] = useState(8);
-  const [points7_13, setPoints7_13] = useState(6);
-  const [points14_20, setPoints14_20] = useState(4);
-  const [points21_27, setPoints21_27] = useState(2);
-  const [points28_34, setPoints28_34] = useState(0);
-  const [points35Plus, setPoints35Plus] = useState(-2);
+    const [passYRD, setPassYRD] = useState(selectedLeague.settings.scoringSettings.Passing.passYRD);
+    const [passTD, setPassTD] = useState(selectedLeague.settings.scoringSettings.Passing.passTD);
+    const [interception, setInterception] = useState(selectedLeague.settings.scoringSettings.Passing.interception);
+    const [rushYRD, setRushYRD] = useState(selectedLeague.settings.scoringSettings.Rushing.rushYRD);
+    const [rushTD, setRushTD] = useState(selectedLeague.settings.scoringSettings.Rushing.rushTD);
+    const [fumble, setFumble] = useState(selectedLeague.settings.scoringSettings.Rushing.fumble);
+    const [fumbleLost, setFumbleLost] = useState(selectedLeague.settings.scoringSettings.Rushing.fumbleLost);
+    const [recYRD, setRecYRD] = useState(selectedLeague.settings.scoringSettings.Receiving.recYRD);
+    const [recTD, setRecTD] = useState(selectedLeague.settings.scoringSettings.Receiving.recTD);
+    const [reception, setReceptions] = useState(selectedLeague.settings.scoringSettings.Receiving.reception);
+    const [sack, setSack] = useState(selectedLeague.settings.scoringSettings.Defence.sack);
+    const [defInterception, setDefInterception] = useState(selectedLeague.settings.scoringSettings.Defence.defInterception);
+    const [fumblerecovery, setFumblerecovery] = useState(selectedLeague.settings.scoringSettings.Defence.fumblerecovery);
+    const [returnTD, setReturnTD] = useState(selectedLeague.settings.scoringSettings.Defence.returnTD);
+    const [safety, setSafety] = useState(selectedLeague.settings.scoringSettings.Defence.safety);
+    const [blockedKick, setBlockedKick] = useState(selectedLeague.settings.scoringSettings.Defence.blockedKick);
+    const [FG0_39, setFG0_39] = useState(selectedLeague.settings.scoringSettings.Kicking.FG0_39);
+    const [FG40_49, setFG40_49] = useState(selectedLeague.settings.scoringSettings.Kicking.FG40_49);
+    const [FG50Plus, setFG50Plus] = useState(selectedLeague.settings.scoringSettings.Kicking.FG50Plus);
+    const [FGMiss, setFGMiss] = useState(selectedLeague.settings.scoringSettings.Kicking.FGMiss);
+    const [shutout, setShutout] = useState(selectedLeague.settings.scoringSettings.Defence.shutout);
+    const [points1_6, setPoints1_6] = useState(selectedLeague.settings.scoringSettings.Defence.points1_6);
+    const [points7_13, setPoints7_13] = useState(selectedLeague.settings.scoringSettings.Defence.points7_13);
+    const [points14_20, setPoints14_20] = useState(selectedLeague.settings.scoringSettings.Defence.points14_20);
+    const [points21_27, setPoints21_27] = useState(selectedLeague.settings.scoringSettings.Defence.points21_27);
+    const [points28_34, setPoints28_34] = useState(selectedLeague.settings.scoringSettings.Defence.points28_34);
+    const [points35Plus, setPoints35Plus] = useState(selectedLeague.settings.scoringSettings.Defence.points35Plus);
+
 
 
   const handleChange = (event) => {

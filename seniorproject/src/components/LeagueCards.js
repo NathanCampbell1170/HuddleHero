@@ -138,15 +138,16 @@ function LeagueCards({ user }) {
                         <Tab eventKey="leagueSettings" title="League Settings">
                             {/* Content for League Settings tab */}
                             <Card style={{ width: '18rem' }}>
-                                <Card.Body>
-                                <Card.Title>League Members</Card.Title>
-                                {selectedLeague?.members.map((member, index) => (
-                                    <Card.Text key={index}>
-                                    {member}
-                                    </Card.Text>
-                                ))}
-                                </Card.Body>
-                            </Card>
+                              <Card.Body>
+                                  <Card.Title>League Members</Card.Title>
+                                  {selectedLeague?.memberDisplayNames.map((displayName, index) => (
+                                      <Card.Text key={index}>
+                                          {displayName}
+                                      </Card.Text>
+                                  ))}
+                              </Card.Body>
+                          </Card>
+
 
                             <Card style={{ width: '100%' }}>
             <Card.Body>

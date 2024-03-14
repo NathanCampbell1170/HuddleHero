@@ -194,7 +194,7 @@ function CreateLeague() {
 
     const handleEmailChange = (index, event) => {
         const newEmails = [...emails];
-        newEmails[index] = event.target.value;
+        newEmails[index] = event.target.value.toLowerCase();
         setEmails(newEmails)
     }
     
