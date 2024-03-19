@@ -160,6 +160,12 @@ const LeagueChat = ({ selectedLeague }) => {
                     className="new-message-input"
                     placeholder="Type your message here..."
                     onChange={(e) => setNewMessage(e.target.value)}
+                    onKeyDown={e => {
+                    if (e.key === 'Enter' && !e.shiftKey) {
+                        e.preventDefault();
+                        handleSubmit(e);
+                    }
+                    }}
                     rows={1} // Set the initial number of rows
                     style={{ resize: 'none', width: '100%', height: '15%' }} // Prevent manual resizing
                 />
@@ -167,6 +173,7 @@ const LeagueChat = ({ selectedLeague }) => {
                     Send
                 </button>
             </form>
+
         </div>
     );
 };

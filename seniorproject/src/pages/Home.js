@@ -3,6 +3,7 @@ import { auth, db } from "../Firebase-config";
 import { addDoc, collection, getDocs, query, where, doc, updateDoc } from "firebase/firestore";
 import CreateLeague from './CreateLeague';
 import LeagueCards from '../components/LeagueCards';
+import LeagueInvites from '../components/LeagueInvites';
 import Modal from 'react-bootstrap/Modal';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
@@ -62,16 +63,7 @@ function Home() {
     {/* Left side - Dummy Invite Cards */}
     <Col md={6}>
       <div className="invite-cards">
-        <Card className="invite-card">
-          <Card.Body>
-            <Card.Title>Placeholder League Invite 1</Card.Title>
-            <Card.Text>
-              You have been invited to join League 1. {"("} <i>{`This invite is just a placeholder for later and does not have any function`}</i> {")"}
-            </Card.Text>
-            <Button variant="primary">Accept</Button>
-            <Button variant="secondary">Decline</Button>
-          </Card.Body>
-        </Card>
+      <LeagueInvites /> {/* Use the LeagueInvites component here */}
         
       </div>
     </Col>

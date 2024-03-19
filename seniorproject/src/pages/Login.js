@@ -104,8 +104,9 @@ useEffect(() => {
       console.log(error.message)
     }
     finally {
-      createFullUser()
+      await createFullUser()
     }
+    
   };
   
   

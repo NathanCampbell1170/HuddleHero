@@ -6,6 +6,7 @@ import Home from './pages/Home'
 import CreatePost from "./pages/CreatePost";
 import Login from "./pages/Login";
 import MyProfile from "./pages/MyProfile";
+import Social from "./pages/Social";
 import { auth, db } from "./Firebase-config";
 import Spinner from 'react-bootstrap/Spinner';
 import { addDoc, collection, getDocs, query, where, doc, updateDoc } from "firebase/firestore"; 
@@ -49,6 +50,7 @@ function App() {
             <Link to="/"> Home </Link>
             {/*<Link to="/createpost"> CreatePost </Link>*/}
             <Link to="/myprofile">My Profile</Link>
+            <Link to="/Social">Social</Link>
             </nav>
           <Routes>
           <Route path="/" element={<LoadingWrapper><Home /></LoadingWrapper>}/>
@@ -56,6 +58,7 @@ function App() {
             
             <Route path="/MyProfile" element ={<LoadingWrapper><MyProfile /></LoadingWrapper>}/>
             <Route path="/login" element={<LoadingWrapper><Login /></LoadingWrapper>}/>
+            <Route path="/Social" element ={<LoadingWrapper><Social /></LoadingWrapper>}/>
           </Routes>
         
         
@@ -79,6 +82,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />}/>
             <Route path="/login" element={<Login />}/>
+            
           </Routes>
         </Router>
 

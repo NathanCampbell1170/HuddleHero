@@ -3,18 +3,38 @@
     font-family: 'Quicksand', sans-serif;
 }
 
+.create-League .card .input-container select {
+    width: 100%; /* adjust as needed */
+    /* rest of your styles */
+}
+
+
+.inviteUsers .input-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+
+
+.inviteUsers .input {
+    width:40vh;
+
+}
+
+
 .create-League .card-body {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center; /* Change from flex-start to center */
     flex-wrap: wrap;
     font-family: 'Quicksand', sans-serif;
 }
 
-.create-League .card .input {
-    width: 100%;
-    font-family: 'Quicksand', sans-serif;
-}
+
+
+
 
 @media (min-width: 992px) {
     .nav-tabs {

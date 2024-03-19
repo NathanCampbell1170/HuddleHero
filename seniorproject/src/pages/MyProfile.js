@@ -141,7 +141,7 @@ const fetchImage = async () => {
                     // get the download URL
                     const link = await getDownloadURL(imageRef);
                     console.log("Download URL: ", link);
-                    updatePFP(link)
+                    await updatePFP(link)
         
                     // save the URL to your database
                     // ...
@@ -161,6 +161,7 @@ const fetchImage = async () => {
 
         const updatePFP = async (link) => {
             try {
+                console.log(link)
                 const fetchUserQuery = query(userCollection, where("email", '==', user.email));
                 const querySnapshot = await getDocs(fetchUserQuery);
                 const userSettingsDocument = querySnapshot.docs[0];

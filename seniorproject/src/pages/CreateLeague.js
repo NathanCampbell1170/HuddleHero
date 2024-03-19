@@ -15,6 +15,8 @@ function CreateLeague() {
     const [displayName, setDisplayName] = useState("")
     const userCollection = collection(db, "users");
     const [showModal, setShowModal] = useState(false);
+    const [friends, setFriends] = useState([]);
+    const [selectedFriends, setSelectedFriends] = useState([]);
 
     const handleClick = () => {
       setShowModal(true);
@@ -195,15 +197,38 @@ function CreateLeague() {
     const handleEmailChange = (index, event) => {
         const newEmails = [...emails];
         newEmails[index] = event.target.value.toLowerCase();
-        setEmails(newEmails)
+        setEmails(newEmails);
+    
+        const newSelectedFriends = [...selectedFriends];
+        newSelectedFriends[index] = event.target.value.toLowerCase();
+        setSelectedFriends(newSelectedFriends);
     }
+    
     
     async function fetchUser(user) {
         const fetchUserQuery = query(userCollection, where("email", '==', user.email));
-                const querySnapshot = await getDocs(fetchUserQuery);
-                const userSettingsDocument = querySnapshot.docs[0];
-                setDisplayName(userSettingsDocument.data().displayName)
+        const querySnapshot = await getDocs(fetchUserQuery);
+        const userSettingsDocument = querySnapshot.docs[0];
+        setDisplayName(userSettingsDocument.data().displayName)
+      
+        // Query the 'Friends' collection to find the documents where the current user's email is 'user1' or 'user2'
+        const friendsQuery1 = query(collection(db, 'Friends'), where('user1', '==', user.email));
+        const friendsSnapshot1 = await getDocs(friendsQuery1);
+      
+        const friendsQuery2 = query(collection(db, 'Friends'), where('user2', '==', user.email));
+        const friendsSnapshot2 = await getDocs(friendsQuery2);
+      
+        let friends = [];
+        friendsSnapshot1.forEach((doc) => {
+          friends.push(doc.data().user2);
+        });
+        friendsSnapshot2.forEach((doc) => {
+          friends.push(doc.data().user1);
+        });
+      
+        setFriends(friends);
       }
+      
             
 
     useEffect(() => {
@@ -219,6 +244,7 @@ function CreateLeague() {
 
       async function createLeague() {
         const leaguesRef = collection(db, 'leagues');
+        const leagueInvitesRef = collection(db, 'leagueInvites');
         const allMembers = [user.email, ...emails.filter(email => email.trim() !== '')];
 
 
@@ -227,12 +253,13 @@ function CreateLeague() {
             const docRef = await addDoc(leaguesRef, {
               id: id,
               creator: displayName,
-              members: allMembers,
+              members: [user.email], // Only add the creator to the league initially
               leagueName: leagueName,
               commissioner: user.email,
               currentDrafter: "",
               drafterOrder: [],
               draftStatus: false,
+              amountofPlayers: allMembers.length,
               settings: {
                 rosterSettings: {
                   startQB: QB,
@@ -286,16 +313,32 @@ function CreateLeague() {
                 }
               }
             });
+
+
+            for (const email of emails) {
+                if (email.trim() !== '') {
+                    await addDoc(leagueInvitesRef, {
+                        leagueName: leagueName,
+                        from: user.email,
+                        to: email,
+                        leagueId: id,
+                        status: 'pending',
+                    });
+                }
+            }
+        
+    
             const messagesRef = collection(docRef, 'messages');
             await addDoc(messagesRef, {
                 sender: 'HuddleHero',
                 message: 'Welcome to the league! This is your chat space. Feel free to communicate here.',
                 timestamp: serverTimestamp() // import this from firebase.firestore.FieldValue
             });
-            console.log("League created with ID: ", docRef.id);
-          } catch (e) {
-            console.error("Error adding document: ", e);
-          }
+        } catch (e) {
+            console.error("Error creating league: ", e);
+        }
+            console.log("League created");
+          
 
         window.location.href = "/";
 
@@ -307,7 +350,7 @@ return (
 
       {/* Modal */}
       <Modal show={showModal} onHide={handleClose} size="xl">
-      <Modal.Dialog>
+      
         <Modal.Header closeButton>
           <Modal.Title>Create League</Modal.Title>
         </Modal.Header>
@@ -751,29 +794,47 @@ return (
         <Button onClick={() => setKey('inviteUsers')}>Next</Button>
     </Modal.Body>
 </Tab>
+        
 
-          <Tab eventKey="inviteUsers" title="Invite Users">
-            <Modal.Body>
-              <p>This is Invite Users</p> <br></br>
-              <h4>Members: </h4>
-              <input type = "email" value= {user ? user.email : ''} readOnly />
-              {Array.from({ length: TEAMS - 1 }, (_, index) => (
-                <input
-                    key={index}
-                    type="email"
-                    placeholder={`Member ${index + 2}`}
-                    value={emails[index]}
-                    onChange={(event) => handleEmailChange(index, event)}
-                />
-                ))}
-            </Modal.Body>
-            <Modal.Footer>
-              <Button variant="secondary">Close</Button>
-              <Button variant="primary" onClick={createLeague}>Create League</Button>
-            </Modal.Footer>
-          </Tab>
+            <Tab eventKey="inviteUsers" title="Invite Users">
+                <div className="inviteUsers">
+                <Modal.Body>
+                    <p>This is Invite Users</p> <br></br>
+                    <h4>Members: </h4>
+                    <input type = "email" value= {user ? user.email : ''} readOnly />
+                    {Array.from({ length: TEAMS - 1 }, (_, index) => (
+                        <div key={index}>
+                        <div className="input-container"> {/* Add this line */}
+                            <select
+                                className="input"
+                                value={emails[index]}
+                                onChange={(event) => handleEmailChange(index, event)}
+                            >
+                                <option value="">Select or type an email</option>
+                                {friends.filter(friendEmail => !selectedFriends.includes(friendEmail)).map((friendEmail, index) => (
+                                    <option key={index} value={friendEmail}>{friendEmail}</option>
+                                ))}
+                            </select>
+                            <input
+                                className="input"
+                                type="email"
+                                placeholder={`Member ${index + 2}`}
+                                value={emails[index]}
+                                onChange={(event) => handleEmailChange(index, event)}
+                            />
+                        </div> {/* Add this line */}
+                    </div>
+                    ))}
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary">Close</Button>
+                    <Button variant="primary" onClick={createLeague}>Create League</Button>
+                </Modal.Footer>
+                </div>
+            </Tab>
+
+
         </Tabs>
-      </Modal.Dialog>
       </Modal>
     </div>
   );
