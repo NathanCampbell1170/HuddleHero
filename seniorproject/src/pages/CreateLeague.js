@@ -804,7 +804,7 @@ return (
                     <input type = "email" value= {user ? user.email : ''} readOnly />
                     {Array.from({ length: TEAMS - 1 }, (_, index) => (
                         <div key={index}>
-                        <div className="input-container"> {/* Add this line */}
+                        <div className="input-container"> 
                             <select
                                 className="input"
                                 value={emails[index]}
@@ -822,7 +822,7 @@ return (
                                 value={emails[index]}
                                 onChange={(event) => handleEmailChange(index, event)}
                             />
-                        </div> {/* Add this line */}
+                        </div> 
                     </div>
                     ))}
                 </Modal.Body>

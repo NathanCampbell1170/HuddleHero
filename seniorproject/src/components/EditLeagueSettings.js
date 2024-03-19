@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { addDoc, collection, query, where, getDocs, updateDoc } from "firebase/firestore";
+import { addDoc, collection, query, where, getDocs, updateDoc, onSnapshot } from "firebase/firestore";
 import { db, auth } from "../Firebase-config";
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
@@ -14,10 +14,12 @@ const EditLeagueSettings = ({ selectedLeague }) => {
   const [key, setKey] = useState('leagueInfo');
   const [displayName, setDisplayName] = useState("")
   const userCollection = collection(db, "users");
+  const [friends, setFriends] = useState([])
+  const [newEmails, setNewEmails] = useState([])
 
   //League Settings useStates
   const [leagueName, setLeagueName] = useState(selectedLeague?.leagueName || 'Default League Name')
-  const [TEAMS, setTEAMS] = useState(10);
+  const [TEAMS, setTEAMS] = useState(selectedLeague.amountofPlayers);
   const [QB, setQB] = useState(selectedLeague.settings.rosterSettings.startQB);
   const [RB, setRB] = useState(selectedLeague.settings.rosterSettings.startRB);
   const [WR, setWR] = useState(selectedLeague.settings.rosterSettings.startWR);
@@ -57,6 +59,40 @@ const EditLeagueSettings = ({ selectedLeague }) => {
     const [points28_34, setPoints28_34] = useState(selectedLeague.settings.scoringSettings.Defence.points28_34);
     const [points35Plus, setPoints35Plus] = useState(selectedLeague.settings.scoringSettings.Defence.points35Plus);
 
+    const leagueInvitesRef = collection(db, 'leagueInvites');
+
+
+
+    useEffect(() => {
+        
+        const unsubscribe = auth.onAuthStateChanged((user) => {
+          setUser(user);
+          if (user) {
+          fetchUser(user)
+        }
+        });
+        return () => unsubscribe();
+      }, []);
+    async function fetchUser(user) {
+
+      
+        // Query the 'Friends' collection to find the documents where the current user's email is 'user1' or 'user2'
+        const friendsQuery1 = query(collection(db, 'Friends'), where('user1', '==', user.email));
+        const friendsSnapshot1 = await getDocs(friendsQuery1);
+      
+        const friendsQuery2 = query(collection(db, 'Friends'), where('user2', '==', user.email));
+        const friendsSnapshot2 = await getDocs(friendsQuery2);
+      
+        let friends = [];
+        friendsSnapshot1.forEach((doc) => {
+          friends.push(doc.data().user2);
+        });
+        friendsSnapshot2.forEach((doc) => {
+          friends.push(doc.data().user1);
+        });
+      
+        setFriends(friends);
+      }
 
 
   const handleChange = (event) => {
@@ -64,6 +100,7 @@ const EditLeagueSettings = ({ selectedLeague }) => {
     switch (event.target.name) {
         case 'Teams':
             setTEAMS(value);
+            console.log(value)
             break;  
         case 'QB':
             setQB(value);
@@ -202,6 +239,7 @@ const handleEmailChange = (index, event) => {
         // Only update if the values are different
         const newData = {
           leagueName: leagueName !== currentData.leagueName ? leagueName : currentData.leagueName,
+          amountofPlayers: TEAMS !==currentData.amountofPlayers ? TEAMS : currentData.amountofPlayers,
           settings: {
             rosterSettings: {
               startQB: QB !== currentData.settings.rosterSettings.startQB ? QB : currentData.settings.rosterSettings.startQB,
@@ -254,6 +292,19 @@ const handleEmailChange = (index, event) => {
             }
           }
         };
+        console.log(emails)
+        for (const email of emails) {
+            if (email.trim() !== '') {
+              await addDoc(leagueInvitesRef, {
+                leagueName: leagueName,
+                from: user.email,
+                to: email,
+                leagueId: selectedLeague.id,
+                status: 'pending',
+              });
+              console.log("invites sent")
+            }
+          }
   
         await updateDoc(leagueDoc.ref, newData);
         console.log('League document updated successfully!');
@@ -269,7 +320,7 @@ const handleEmailChange = (index, event) => {
   if (!selectedLeague) {
     return <p>No league selected.</p>;
   }
-  // Display the league ID
+
   return (
     <div className="edit-league-settings">
       <Card>
@@ -298,14 +349,27 @@ const handleEmailChange = (index, event) => {
                             <p>This is league info</p>
                             <label>League Name:</label> 
                             <input value={leagueName} onChange={(event) => {setLeagueName(event.target.value)}}></input>
+                            &nbsp; <label>Number of Teams:</label> &nbsp;
+                            <select name="Teams" value={TEAMS} onChange={handleChange}> 
+                                <option value="2">2</option>
+                                <option value="4">4</option>
+                                <option value="6">6</option>
+                                <option value="8">8</option>
+                                <option value="10">10</option>
+                                <option value="12">12</option>
+                                <option value="16">16</option>
+                            </select>
                         </div>
                     </div>
                 </div>
             </div>
 
+
             <div className="col-12">
                 <div className="card">
                     <div className="card-body">
+
+
                         <label>Roster Settings</label>
 
                         <div className="row">
@@ -714,26 +778,45 @@ const handleEmailChange = (index, event) => {
 
         <Button onClick={() => setKey('inviteUsers')}>Next</Button>
     </Modal.Body>
+                </Tab>
+                <Tab eventKey="inviteUsers" title="Invite Users">
+  <p>This is Invite Users</p> <br></br>
+  <h4>Members: </h4>
+  {Array.from({ length: selectedLeague.members.length }, (_, index) => (
+    <input
+        key={index}
+        type="email"
+        placeholder={`Member ${index + 1}`}
+        value={selectedLeague.members[index]}
+        readOnly
+    />
+  ))}
+  {Array.from({ length: selectedLeague.amountofPlayers - selectedLeague.members.length }, (_, index) => (
+  <div key={index + selectedLeague.members.length}>
+    <select
+        className="input"
+        onChange={(event) => handleEmailChange(index + selectedLeague.members.length, event)}
+    >
+        <option value="">Select or type an email</option>
+        {friends.filter(friendEmail => !selectedLeague.members.includes(friendEmail) && !emails.includes(friendEmail)).map((friendEmail, index) => (
+            <option key={index} value={friendEmail}>{friendEmail}</option>
+        ))}
+    </select>
+    <input
+        type="email"
+        placeholder={`Invite Member ${index + selectedLeague.members.length + 1}`}
+        value={emails[index + selectedLeague.members.length]}
+        onChange={(event) => handleEmailChange(index + selectedLeague.members.length, event)}
+    />
+  </div>
+))}
+
+
+
+  <Button variant="primary" onClick={handleUpdateLeague}>Update Settings</Button>
 </Tab>
-          <Tab eventKey="inviteUsers" title="Invite Users">
-
-              <p>This is Invite Users</p> <br></br>
-              <h4>Members: </h4>
-              <input type = "email" value= {selectedLeague.commissioner} readOnly />
-              {Array.from({ length: selectedLeague.members.length -1 }, (_, index) => (
-                <input
-                    key={index}
-                    type="email"
-                    placeholder={`Member ${index + 2}`}
-                    value={selectedLeague.members[index+1]}
-                    onChange={(event) => handleEmailChange(index, event)}
-                    readOnly
-                />
-                ))}
-              <Button variant="primary" onClick={handleUpdateLeague}>Update Settings</Button>
 
 
-          </Tab>
         </Tabs>
     </div>
   );

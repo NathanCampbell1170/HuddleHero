@@ -64,8 +64,7 @@ function LeagueInvites() {
     }
   };
   
-  
-  
+
   
   const handleDeclineInvite = async (inviteId) => {
     // Get a reference to the league invite document

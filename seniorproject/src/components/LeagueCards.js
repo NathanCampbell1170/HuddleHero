@@ -21,6 +21,8 @@ function LeagueCards({ user }) {
   const scoringSettingsOrder = ['Passing', 'Rushing', 'Receiving', 'Defence', 'Kicking']
   const isUserCommissioner = selectedLeague && selectedLeague.commissioner === user.email;
 
+  
+
   useEffect(() => {
     const fetchLeagues = async () => {
       const leaguesRef = collection(db, 'leagues');
@@ -138,15 +140,23 @@ function LeagueCards({ user }) {
                         <Tab eventKey="leagueSettings" title="League Settings">
                             {/* Content for League Settings tab */}
                             <Card style={{ width: '18rem' }}>
-                              <Card.Body>
-                                  <Card.Title>League Members</Card.Title>
-                                  {selectedLeague?.memberDisplayNames.map((displayName, index) => (
-                                      <Card.Text key={index}>
-                                          {displayName}
-                                      </Card.Text>
-                                  ))}
-                              </Card.Body>
-                          </Card>
+                          <Card.Body>
+                            <Card.Title>League Members</Card.Title>
+                            {selectedLeague?.memberDisplayNames.map((displayName, index) => (
+                              <Card.Text key={index}>
+                                {displayName}
+                              </Card.Text>
+                            ))}
+                            {selectedLeague?.amountofPlayers && selectedLeague?.members && Array(Math.max(0, selectedLeague?.amountofPlayers - selectedLeague?.members.length)).fill().map((_, index) => (
+                              <Card.Text key={index + selectedLeague?.members.length}>
+                                <em>Empty Team Slot</em>
+                              </Card.Text>
+                            ))}
+                          </Card.Body>
+                        </Card>
+
+
+
 
 
                             <Card style={{ width: '100%' }}>
