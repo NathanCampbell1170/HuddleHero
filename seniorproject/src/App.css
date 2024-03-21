@@ -42,7 +42,6 @@ a {
 /* Media query for smaller screens (e.g., mobile devices) */
 @media (max-width: 768px) {
   nav {
-    flex-direction: column; /* Stack navigation items vertically */
     padding: 0; /* Remove padding */
     font-family: 'Quicksand', sans-serif;
   }
@@ -65,6 +64,7 @@ a {
   display: flex;
   flex-direction: column;
   align-items: center;
+  
 }
 
 .welcome-message {
@@ -99,14 +99,17 @@ a {
   justify-content: space-between;
   padding-top: 5px;
   font-family: 'Quicksand', sans-serif;
+  
 }
 
 /* Individual League Card */
 .league-card {
-  width: calc(50% - 10px);
-  margin-bottom: 20px;
-  border: 2px solid #000; /* Adjust as needed */
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); /* This adds a shadow */
+  width: calc(50% - 10px) !important;
+  margin-bottom: 20px !important;
+  border: 2px solid #96aabb !important; /* Adjust as needed */
+  box-shadow:  8px 8px 0 rgba(0, 0, 0, 0.2) !important; /* This adds a shadow */
+  background-color:#cbd8e7 !important;
+  
 }
 
 

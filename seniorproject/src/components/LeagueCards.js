@@ -116,7 +116,7 @@ function LeagueCards({ user }) {
       {/* Modal for displaying league details */}
       <Modal show={selectedLeague !== null} onHide={() => setSelectedLeague(null)} size="xl" dialogClassName="leagueModal">
                 <Modal.Header closeButton>
-                <Modal.Title>{selectedLeague?.leagueName}</Modal.Title>
+                <Modal.Title>League: <strong>{selectedLeague?.leagueName}</strong></Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                 <Tabs defaultActiveKey="myTeam" id="uncontrolled-tab-example" className="customTabs">

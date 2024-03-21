@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom"
 import { db, auth, signInWithGoogle } from "../Firebase-config";
 import { addDoc, collection, getDocs, query, where, doc, updateDoc } from "firebase/firestore"; 
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "firebase/auth";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut, sendPasswordResetEmail } from "firebase/auth";
 import Alert from 'react-bootstrap/Alert';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import SignInToast from "../toasts/SignInToast";
@@ -143,6 +143,18 @@ useEffect(() => {
       }
   };
 
+  const sendResetEmail = () => {
+    sendPasswordResetEmail(auth, loginEmail)
+      .then(() => {
+        // Email sent.
+        alert('Password reset email sent!');
+      })
+      .catch((error) => {
+        // An error occurred.
+        console.error(error);
+      });
+  };
+
   const toggleSignInToast = () => setSignInToast(!signInToast)
 
   const logOut = async () => {
@@ -162,8 +174,9 @@ useEffect(() => {
             <Tab eventKey="login" title="Sign In">
               <h3> Log in </h3>
               <input placeholder="Email..." onChange={(event) => {setloginEmail(event.target.value)}} />
-              <input type="password" placeholder="Password..."onChange={(event) => {setloginPassword(event.target.value)}} />
+              <input type="password" placeholder="Password..." onChange={(event) => {setloginPassword(event.target.value)}} />
               <button onClick={logIn}> Log in </button>
+              <button onClick={sendResetEmail}> Forgot Password? </button>
               {badSignIn === true && (
                 <Alert variant='danger' onClose={() => setBadSignIn(false)} dismissible>
                   Email/password was incorrect.
