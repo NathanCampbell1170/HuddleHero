@@ -46,23 +46,34 @@ function LeagueInvites() {
     // Add the current user to the league's members
     const leagueData = leagueDoc.data();
     const newMembers = [...(leagueData.members || []), auth.currentUser.email];
-    await updateDoc(leagueDoc.ref, {
+    console.log('New members:', newMembers); // Log the new members
+  
+    updateDoc(leagueDoc.ref, {
       members: newMembers
+    }).then(async () => {
+      console.log('Document updated'); // Log when the document is updated
+      console.log("newMembers length: ", newMembers.length)
+      console.log("amountofPlayers: ", leagueData.amountofPlayers)
+      // Check if the league is full
+      if (newMembers.length >= leagueData.amountofPlayers) {
+        console.log('League is full'); // Log when the league is full
+  
+        // Get all pending invites to the league
+        const leagueInvitesRef = collection(db, 'leagueInvites');
+        const q = query(leagueInvitesRef, where("leagueId", "==", leagueId), where("status", "==", "pending"));
+        const querySnapshot = await getDocs(q);
+  
+        // Delete all pending invites
+        querySnapshot.forEach((docSnapshot) => {
+          console.log('Deleting invite:', docSnapshot.id); // Log the id of the invite being deleted
+          deleteDoc(docSnapshot.ref);
+        });
+        
+      }
     });
-  
-    // Check if the league is full
-    if (newMembers.length >= leagueData.amountOfPlayers) {
-      // Get all pending invites to the league
-      const leagueInvitesRef = collection(db, 'leagueInvites');
-      const q = query(leagueInvitesRef, where("leagueId", "==", leagueId), where("status", "==", "pending"));
-      const querySnapshot = await getDocs(q);
-  
-      // Delete all pending invites
-      querySnapshot.forEach((doc) => {
-        deleteDoc(doc(db, 'leagueInvites', doc.id));
-      });
-    }
   };
+  
+  
   
 
   

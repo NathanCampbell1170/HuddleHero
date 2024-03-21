@@ -12,11 +12,16 @@ import Spinner from 'react-bootstrap/Spinner';
 import { addDoc, collection, getDocs, query, where, doc, updateDoc } from "firebase/firestore"; 
 import LoadingWrapper from "./components/LoadingWrapper"
 import Logo from './Images/Logo.jpeg'
+import { Modal, Button } from "react-bootstrap";
 
 function App() {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true); 
   const userCollection = collection(db, "users");
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
   useEffect(() => {
     document.title = "HuddleHero | Home";
@@ -41,51 +46,56 @@ function App() {
 
   const [displayName, setDisplayName] = useState("")
   
-  
-   if (user) {
+  if (user) {
     return (
         <Router>
           <nav style={{ display: 'flex', justifyContent: 'center' }}>
           <img src={Logo} alt="Logo" className="logo" />
             <Link to="/"> Home </Link>
-            {/*<Link to="/createpost"> CreatePost </Link>*/}
+            
             <Link to="/myprofile">My Profile</Link>
             <Link to="/Social">Social</Link>
             </nav>
           <Routes>
           <Route path="/" element={<LoadingWrapper><Home /></LoadingWrapper>}/>
-
-            
             <Route path="/MyProfile" element ={<LoadingWrapper><MyProfile /></LoadingWrapper>}/>
             <Route path="/login" element={<LoadingWrapper><Login /></LoadingWrapper>}/>
             <Route path="/Social" element ={<LoadingWrapper><Social /></LoadingWrapper>}/>
           </Routes>
-        
-        
-        
           <div>
       
     </div>
-         
-         
-         
          </Router> 
-
     );
+
+
   } else if (!user) {
     return (
         <Router>
           <nav>
             <Link to="/"> Home </Link>
-            <Link to="/login"> Login </Link>
+            <Button variant="primary" onClick={handleShow}>
+              Login
+            </Button>
+            <Modal show={show} onHide={handleClose}>
+              <Modal.Header closeButton>
+                <Modal.Title>Log in/Sign up</Modal.Title>
+              </Modal.Header>
+              <Modal.Body>
+                <Login /> {/* Your Login component goes here */}
+              </Modal.Body>
+              <Modal.Footer>
+                <Button variant="secondary" onClick={handleClose}>
+                  Close
+                </Button>
+              </Modal.Footer>
+            </Modal>
           </nav>
           <Routes>
             <Route path="/" element={<Home />}/>
             <Route path="/login" element={<Login />}/>
-            
           </Routes>
         </Router>
-
     );
   }
 }

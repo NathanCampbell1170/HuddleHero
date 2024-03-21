@@ -10,6 +10,8 @@ import SignInToast from "../toasts/SignInToast";
 import Toast from 'react-bootstrap/Toast';
 import Spinner from 'react-bootstrap/Spinner';
 import { getStorage } from "firebase/storage";
+import Tabs from "react-bootstrap/Tabs";
+import Tab from "react-bootstrap/Tab"
 
 //import fetchUserDisplayName from "../functions/fetchUserDisplayName";
 function Login() {
@@ -30,6 +32,10 @@ function Login() {
   const [signInToast, setSignInToast] = useState(false);
 
   const [beginnerMode,setBeginnerMode] = useState(false);
+
+  const [confirmRegisterPassword, setConfirmRegisterPassword] = useState("");
+  const [passwordsMatch, setPasswordsMatch] = useState(true);
+
 
 
   async function fetchUserDisplayName() {
@@ -83,31 +89,37 @@ useEffect(() => {
   }
     
   const register = async () => {
+    if (registerPassword !== confirmRegisterPassword) {
+      setPasswordsMatch(false);
+      return;
+    }
+  
     try {
       const user = await createUserWithEmailAndPassword(auth, registerEmail, registerPassword);
       console.log(user);
-      
-        if (user) {
+        
+      if (user) {
         // User logged in already or has just logged in.
-        console.log(user.uid);}
-
+        console.log(user.uid);
+      }
+  
       // Call the createFullUser function here, after the user is created
     } catch (error) {
       if (error.code === 'auth/email-already-in-use') {
-          setEmailAlreadyExists(true)
-          console.log(error.message)
+        setEmailAlreadyExists(true)
+        console.log(error.message)
       }
       if (error.code === 'auth/weak-password') {
-          setPasswordTooShort(true)
-          console.log(error.message);
+        setPasswordTooShort(true)
+        console.log(error.message);
       }
       console.log(error.message)
     }
     finally {
       await createFullUser()
     }
-    
   };
+  
   
   
 
@@ -141,46 +153,56 @@ useEffect(() => {
   
     
   };
-if (!user) {
-    return <> <div>  </div>  
-    { userDisplayName === "" && ( <>
-        <h3> Register User </h3> 
-        <input placeholder="Email..." onChange={(event) => {setRegisterEmail(event.target.value.toLowerCase())}} />
-        <input type="password" placeholder="Password..." onChange={(event) => {setRegisterPassword(event.target.value)}} />
-        <input placeholder="DisplayName" onChange={(event) => {setUserName(event.target.value)}} />
-        <button onClick={register}> Register </button>
-        <br></br>
-        <label>
-          <input type="checkbox" checked={beginnerMode} onChange={handleCheckboxChange}/> {"Enable Fantasy Football Tutorial (for novice players)"}
-        </label>
-        {emailAlreadyExists === true && ( <>
-          <Alert variant='danger' onClose={() => setEmailAlreadyExists(false)} dismissible>
-            Account with this email address already exists.
-          </Alert>
-        </>)}
-        {passwordTooShort === true && ( <>
-          <Alert variant='danger' onClose={() => setPasswordTooShort(false)} dismissible>
-            Passwords must be 6 characters long at minimum.
-          </Alert>
-         </>)}
-        </> )}
-      <div>
-        <h3> Log in </h3>
-        <input placeholder="Email..." onChange={(event) => {setloginEmail(event.target.value)}} />
-        <input type="password" placeholder="Password..."onChange={(event) => {setloginPassword(event.target.value)}} />
-        <button onClick={logIn}> Log in </button>
-        {badSignIn === true && (
-          <Alert variant='danger' onClose={() => setBadSignIn(false)} dismissible>
-            Email/password was incorrect.
-          </Alert>
+  if (!user) {
+    return (
+      <>
+        <div>  </div>  
+        { userDisplayName === "" && ( 
+          <Tabs defaultActiveKey="login" id="uncontrolled-tab-example">
+            <Tab eventKey="login" title="Sign In">
+              <h3> Log in </h3>
+              <input placeholder="Email..." onChange={(event) => {setloginEmail(event.target.value)}} />
+              <input type="password" placeholder="Password..."onChange={(event) => {setloginPassword(event.target.value)}} />
+              <button onClick={logIn}> Log in </button>
+              {badSignIn === true && (
+                <Alert variant='danger' onClose={() => setBadSignIn(false)} dismissible>
+                  Email/password was incorrect.
+                </Alert>
+              )}
+            </Tab>
+            <Tab eventKey="register" title="Sign Up">
+              <h3> Register User </h3> 
+              <input placeholder="Email..." onChange={(event) => {setRegisterEmail(event.target.value.toLowerCase())}} />
+              <input type="password" placeholder="Password..." onChange={(event) => {setRegisterPassword(event.target.value)}} />
+              <input type="password" placeholder="Confirm Password..." onChange={(event) => {setConfirmRegisterPassword(event.target.value)}} />
+              {!passwordsMatch && (
+                <Alert variant='danger' onClose={() => setPasswordsMatch(true)} dismissible>
+                  Passwords do not match.
+                </Alert>
+              )}
+              <input placeholder="DisplayName" onChange={(event) => {setUserName(event.target.value)}} />
+              <button onClick={register}> Register </button>
+              <br></br>
+              <label>
+                <input type="checkbox" checked={beginnerMode} onChange={handleCheckboxChange}/> {"Enable Fantasy Football Tutorial (for novice players)"}
+              </label>
+              {emailAlreadyExists === true && ( 
+                <Alert variant='danger' onClose={() => setEmailAlreadyExists(false)} dismissible>
+                  Account with this email address already exists.
+                </Alert>
+              )}
+              {passwordTooShort === true && ( 
+                <Alert variant='danger' onClose={() => setPasswordTooShort(false)} dismissible>
+                  Passwords must be 6 characters long at minimum.
+                </Alert>
+              )}
+            </Tab>
+          </Tabs>
         )}
-       {/* <SignInToast show={signInToast} toggleShow={toggleSignInToast} /> */}
-      </div>
-      <div>
-    </div> 
-    
-    </>
-  ;
+        <div>
+        </div> 
+      </>
+    );
 }
 
 else if (user) {

@@ -12,7 +12,7 @@ const DraftPlayers = ({ selectedLeague, user }) => {
   const [fetchedCount, setFetchedCount] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
 
-  const [leagueData, setLeagueData] = useState(null);
+  const [leagueData, setLeagueData] = useState([]);
 
   useEffect(() => {
     const fetchLeagueAndPlayers = async () => {
@@ -109,14 +109,14 @@ const DraftPlayers = ({ selectedLeague, user }) => {
     const leagueData = leagueDoc.data();
   
     // Check if the draft is currently happening
-    if (!leagueData.draftStatus) {
+    if (!leagueData.draftStatus=="Not Started") {
       alert('The draft is not currently happening.');
       return;
     }
   
     // Check if it's the current user's turn to draft
     if (leagueData.currentDrafter !== user.email) {
-      alert('It\'s not your turn to draft.');
+      alert("It's not your turn to draft.");
       return;
     }
   
@@ -147,12 +147,6 @@ const DraftPlayers = ({ selectedLeague, user }) => {
       maxRosterSize = Object.values(selectedLeague.settings.rosterSettings).reduce((a, b) => a + b, 0);
       console.log('Max Roster Size:', maxRosterSize);
     }
-    console.log(maxRosterSize)
-    console.log('Team Data:', teamData)
-    console.log(teamData.players)
-    console.log(teamData.players.length)
-
-    console.log(teamData.players.length)
   
     // Check if the current player's roster is full
     if (teamData.players && teamData.players.length >= maxRosterSize) {
@@ -184,8 +178,26 @@ const DraftPlayers = ({ selectedLeague, user }) => {
     await updateDoc(leagueDoc.ref, {
       currentDrafter: nextDrafter
     });
+  
+    // Check if all teams are full
+    const allTeamsSnapshot = await getDocs(teamsRef);
+    let allTeamsAreFull = true;
+    allTeamsSnapshot.forEach((doc) => {
+      const teamData = doc.data();
+      if (!teamData.players || teamData.players.length < maxRosterSize) {
+        allTeamsAreFull = false;
+      }
+    });
+  
+    // If all teams are full, update the draftStatus to "Finished"
+    if (allTeamsAreFull) {
+      await updateDoc(leagueDoc.ref, {
+        draftStatus: "Finished"
+      });
+    }
   };
   
+
 
   const loadMore = () => {
     if (!isLoading) {  // Only fetch more players if not currently loading
@@ -202,10 +214,30 @@ const DraftPlayers = ({ selectedLeague, user }) => {
     setFetchedCount(0);  // Reset fetchedCount
   };
 
+
+  function arraysHaveSameContents(arr1, arr2) {
+    if (arr1.length !== arr2.length) return false;
+
+    let sortedArr1 = [...arr1].sort();
+    let sortedArr2 = [...arr2].sort();
+
+    for (let i = 0; i < sortedArr1.length; i++) {
+        if (sortedArr1[i] !== sortedArr2[i]) return false;
+    }
+
+    return true;
+}
+
+
   const startDraft = async () => {
-    // Check if the current user is the league commissioner
-    if (user.email !== selectedLeague.commissioner) {
-      alert('Only the league commissioner can start the draft.');
+    
+    if (leagueData.members.length !== leagueData.amountofPlayers) {
+      alert('The draft cannot start till the league is full!');
+      return;
+    }
+
+    if (!arraysHaveSameContents(leagueData.draftOrder, leagueData.members)) {
+      alert('League members must match the draft order. Please randomize the draft order again before starting the draft');
       return;
     }
   
@@ -238,7 +270,7 @@ const DraftPlayers = ({ selectedLeague, user }) => {
   // Set the draftStatus field to true and currentDrafter to the first drafter in the list
   console.log(updatedLeagueData.draftOrder[0]);
   await updateDoc(leagueDoc.ref, {
-    draftStatus: true,
+    draftStatus: "Drafting",
     currentDrafter: updatedLeagueData.draftOrder[0]
   });
 
@@ -249,7 +281,8 @@ const DraftPlayers = ({ selectedLeague, user }) => {
   
 // Function to randomize the order
 const randomizeOrder = async () => {
-  let draftOrder = selectedLeague.draftOrder ? [...selectedLeague.draftOrder] : [...selectedLeague.members];
+  // Always use the current members of the league for the draft order
+  let draftOrder = [...leagueData.members];
 
   for (let i = draftOrder.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
@@ -259,12 +292,13 @@ const randomizeOrder = async () => {
 
   // Get a reference to the league document
   const leagueRef = collection(db, 'leagues');
-  const leagueSnapshot = await getDocs(query(leagueRef, where('id', '==', selectedLeague.id)));
+  const leagueSnapshot = await getDocs(query(leagueRef, where('id', '==', leagueData.id)));
   const leagueDoc = leagueSnapshot.docs[0];
 
   // Update the draftOrder in the league document
   await updateDoc(leagueDoc.ref, { draftOrder });
 };
+
 
 
   
@@ -285,7 +319,7 @@ const randomizeOrder = async () => {
     
     <div>
         
-    {user.email === selectedLeague.commissioner && (
+        {user.email === selectedLeague.commissioner && leagueData.draftStatus === 'Not Started' && (
       <div>
         <button onClick={randomizeOrder}>Randomize Order</button>
 
@@ -312,24 +346,35 @@ const randomizeOrder = async () => {
       </div>
     )}
     
-      {user.email === selectedLeague.commissioner && (
+    {user.email === selectedLeague.commissioner && leagueData.draftStatus === 'Not Started' && (
         <Button variant="primary" onClick={startDraft}>Start Draft</Button>
       )}
-  
-      <h2>League Users</h2>
-      <div className="d-flex flex-wrap">
-      {selectedLeague.draftOrder && selectedLeague.draftOrder.map((userEmail, index) => (
-  <Card key={index} style={{ width: '18rem', margin: '1rem', backgroundColor: leagueData && leagueData.currentDrafter && userEmail === leagueData.currentDrafter ? 'lightgreen' : 'white' }}>
+
+<Card style={{ width: '18rem', margin: '1rem', backgroundColor: leagueData.draftStatus === 'Not Started' ? '#FF7f7F' : leagueData.draftStatus === 'Drafting' ? '#ADFF2F' : 'yellow' }}>
     <Card.Body>
-      <Card.Title>{selectedLeague.memberDisplayNames[selectedLeague.members.indexOf(userEmail)]}</Card.Title>
       <Card.Text>
-        {leagueData && leagueData.currentDrafter && userEmail === leagueData.currentDrafter ? 'Currently Drafting' : 'Waiting for turn'}
+        Draft status: {leagueData.draftStatus}
       </Card.Text>
     </Card.Body>
   </Card>
-))}
+  
+      <h2>Draft Order</h2>
+      
+      <div className="d-flex flex-wrap">
+  
 
+  {leagueData.draftOrder && leagueData.draftOrder.map((userEmail, index) => (
+    <Card key={index} style={{ width: '18rem', margin: '1rem', backgroundColor: leagueData && leagueData.currentDrafter && userEmail === leagueData.currentDrafter ? 'lightgreen' : 'white' }}>
+      <Card.Body>
+        <Card.Title>{selectedLeague.memberDisplayNames[selectedLeague.members.indexOf(userEmail)]}</Card.Title>
+        <Card.Text>
+          {leagueData && leagueData.currentDrafter && userEmail === leagueData.currentDrafter ? 'Currently Drafting' : 'Waiting for turn'}
+        </Card.Text>
+      </Card.Body>
+    </Card>
+  ))}
 </div>
+
 
   
       

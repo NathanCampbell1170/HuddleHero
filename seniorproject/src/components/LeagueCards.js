@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import { collection, query, where, getDocs } from 'firebase/firestore';
+import { collection, query, where, getDocs, onSnapshot } from 'firebase/firestore';
 import {auth, db} from "../Firebase-config";
 import Tabs from 'react-bootstrap/Tabs';
 import Tab from 'react-bootstrap/Tab';
@@ -24,22 +24,28 @@ function LeagueCards({ user }) {
   
 
   useEffect(() => {
-    const fetchLeagues = async () => {
+    const fetchLeagues = () => {
       const leaguesRef = collection(db, 'leagues');
       const q = query(leaguesRef, where('members', 'array-contains', user.email));
-    
-      const querySnapshot = await getDocs(q);
-      const leaguesData = await Promise.all(querySnapshot.docs.map(async doc => {
-        const league = doc.data();
-        // Fetch the display names of the members
-        league.memberDisplayNames = await Promise.all(league.members.map(getDisplayName));
-        return league;
-      }));
-      setLeagues(leaguesData);
+  
+      const unsubscribe = onSnapshot(q, async (querySnapshot) => {
+        const leaguesData = await Promise.all(querySnapshot.docs.map(async doc => {
+          const league = doc.data();
+          // Fetch the display names of the members
+          league.memberDisplayNames = await Promise.all(league.members.map(getDisplayName));
+          return league;
+        }));
+        setLeagues(leaguesData);
+      });
+  
+      // Clean up the listener when the component is unmounted
+      return () => unsubscribe();
     };
   
     fetchLeagues();
   }, [user]);
+  
+  
   
 
 

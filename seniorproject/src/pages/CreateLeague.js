@@ -258,7 +258,7 @@ function CreateLeague() {
               commissioner: user.email,
               currentDrafter: "",
               drafterOrder: [],
-              draftStatus: false,
+              draftStatus: "Not Started",
               amountofPlayers: allMembers.length,
               settings: {
                 rosterSettings: {

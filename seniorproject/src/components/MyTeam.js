@@ -23,12 +23,12 @@ const MyTeam = ({ selectedLeague, user }) => {
         // Set up the real-time listener
         const unsubscribe = onSnapshot(teamDoc.ref, async (snapshot) => {
           const teamData = snapshot.data();
-    
+          if (teamData && teamData.players) {
           // Get the player data for each player in the team
           const teamPlayersData = playersData.filter(player => teamData.players.includes(player.PlayerID));
     
           setTeamPlayers(teamPlayersData);
-        });
+      }});
     
         // Clean up the listener when the component is unmounted
         return () => unsubscribe();

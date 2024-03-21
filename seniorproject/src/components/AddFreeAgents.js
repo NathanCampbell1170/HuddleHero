@@ -89,7 +89,13 @@ const AddFreeAgents = ({ selectedLeague, user }) => {
     const leagueRef = collection(db, 'leagues');
     const leagueSnapshot = await getDocs(query(leagueRef, where('id', '==', selectedLeague.id)));
     const leagueDoc = leagueSnapshot.docs[0];
-  
+
+    // Get the data from the document
+    const leagueData = leagueDoc.data();
+
+    // Now you can access draftStatus
+    if (leagueData.draftStatus == "Finished") {
+   
     // Get a reference to the team document with an owner field matching the user's email
     const teamsRef = collection(leagueDoc.ref, 'teams');
     const teamsSnapshot = await getDocs(query(teamsRef, where('owner', '==', user.email)));
@@ -112,6 +118,10 @@ const AddFreeAgents = ({ selectedLeague, user }) => {
     await updateDoc(teamDoc.ref, {
       players: arrayUnion(player.PlayerID)
     });
+    } else {
+      alert("Players cannot be added until the draft is over!")
+    }
+
   };
   
 

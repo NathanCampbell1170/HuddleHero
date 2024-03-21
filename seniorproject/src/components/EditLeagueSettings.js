@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { addDoc, collection, query, where, getDocs, updateDoc, onSnapshot } from "firebase/firestore";
+import { addDoc, collection, query, where, getDocs, updateDoc, onSnapshot, deleteDoc } from "firebase/firestore";
 import { db, auth } from "../Firebase-config";
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
@@ -293,18 +293,28 @@ const handleEmailChange = (index, event) => {
           }
         };
         console.log(emails)
-        for (const email of emails) {
-            if (email.trim() !== '') {
-              await addDoc(leagueInvitesRef, {
-                leagueName: leagueName,
-                from: user.email,
-                to: email,
-                leagueId: selectedLeague.id,
-                status: 'pending',
-              });
-              console.log("invites sent")
-            }
-          }
+for (const email of emails) {
+  if (email.trim() !== '') {
+    // Check if the user is already in the league
+    if (!selectedLeague.members.includes(email)) {
+      // Check if the user already has a pending invite
+      const invitesRef = collection(db, 'leagueInvites');
+      const q = query(invitesRef, where('to', '==', email), where('leagueId', '==', selectedLeague.id), where('status', '==', 'pending'));
+      const querySnapshot = await getDocs(q);
+      if (querySnapshot.empty) {
+        // If the user is not in the league and does not have a pending invite, send an invite
+        await addDoc(leagueInvitesRef, {
+          leagueName: leagueName,
+          from: user.email,
+          to: email,
+          leagueId: selectedLeague.id,
+          status: 'pending',
+        });
+        console.log("Invite sent to " + email);
+      }
+    }
+  }
+}
   
         await updateDoc(leagueDoc.ref, newData);
         console.log('League document updated successfully!');
@@ -315,6 +325,50 @@ const handleEmailChange = (index, event) => {
       console.error('Error updating league document:', error);
     }
   };
+
+
+  const [showModal, setShowModal] = useState(false);
+  const [showConfirm, setShowConfirm] = useState(false);
+
+  const handleCloseModal = () => setShowModal(false);
+  const handleShowModal = () => setShowModal(true);
+
+  const handleCloseConfirm = () => setShowConfirm(false);
+  const handleShowConfirm = () => setShowConfirm(true);
+
+
+  const deleteSubcollection = async (docRef, subcollectionName) => {
+    const subcollectionRef = collection(docRef, subcollectionName);
+    const querySnapshot = await getDocs(subcollectionRef);
+    querySnapshot.forEach((docSnapshot) => {
+      deleteDoc(docSnapshot.ref);
+    });
+  };
+  
+  const deleteLeague = async (selectedLeague) => {
+    // Query for the league document
+    const leaguesRef = collection(db, 'leagues');
+    const q = query(leaguesRef, where("id", "==", selectedLeague.id));
+    const querySnapshot = await getDocs(q);
+  
+    // There should be only one document with the given id
+    const leagueDoc = querySnapshot.docs[0];
+  
+    if (!leagueDoc) {
+      console.error('League not found');
+      return;
+    }
+  
+    // Delete the 'messages' and 'teams' subcollections
+    await deleteSubcollection(leagueDoc.ref, 'messages');
+    await deleteSubcollection(leagueDoc.ref, 'teams');
+  
+    // Delete the league document
+    await deleteDoc(leagueDoc.ref);
+
+  };
+  
+  
   
 
   if (!selectedLeague) {
@@ -324,13 +378,14 @@ const handleEmailChange = (index, event) => {
   return (
     <div className="edit-league-settings">
       <Card>
-      <Card.Body>
-        <Card.Title>{leagueName}</Card.Title>
-        <Card.Text>
-          <strong>Commissioner:</strong> {selectedLeague.commissioner} {"--->"} {selectedLeague.creator}
-        </Card.Text>
-      </Card.Body>
-    </Card>
+        <Card.Body>
+          <Card.Title>{leagueName}</Card.Title>
+          <Card.Text>
+            <strong>Commissioner:</strong> {selectedLeague.commissioner} {"--->"} {selectedLeague.creator}
+            <Button variant="danger" onClick={handleShowConfirm}>Delete League</Button>
+          </Card.Text>
+        </Card.Body>
+      </Card>
       {/* Display other relevant league details */}
 
  
@@ -818,6 +873,16 @@ const handleEmailChange = (index, event) => {
 
 
         </Tabs>
+        <Modal show={showConfirm} onHide={handleCloseConfirm}>
+        <Modal.Header closeButton>
+          <Modal.Title>Confirm Deletion</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          Are you sure you want to delete this league?
+          <Button variant="danger" onClick={() => deleteLeague(selectedLeague)}>Yes, delete it</Button>
+          <Button variant="secondary" onClick={handleCloseConfirm}>No, keep it</Button>
+        </Modal.Body>
+      </Modal>
     </div>
   );
 };
