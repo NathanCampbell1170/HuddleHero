@@ -106,7 +106,7 @@ function LeagueCards({ user }) {
                 {/* Add more league details here */}
               </Card.Text>
               <Button className="button-modern" variant="primary" onClick={() => setSelectedLeague(league)}>
-                View Details
+                View League
               </Button>
             </Card.Body>
           </Card>

@@ -92,6 +92,10 @@ const EditLeagueSettings = ({ selectedLeague }) => {
         });
       
         setFriends(friends);
+        const fetchUserQuery = query(userCollection, where("email", '==', user.email));
+        const querySnapshot = await getDocs(fetchUserQuery);
+        const userSettingsDocument = querySnapshot.docs[0];
+        setDisplayName(userSettingsDocument.data().displayName)
       }
 
 
@@ -305,7 +309,7 @@ for (const email of emails) {
         // If the user is not in the league and does not have a pending invite, send an invite
         await addDoc(leagueInvitesRef, {
           leagueName: leagueName,
-          from: user.email,
+          from: displayName,
           to: email,
           leagueId: selectedLeague.id,
           status: 'pending',

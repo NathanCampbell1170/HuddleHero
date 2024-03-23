@@ -84,22 +84,26 @@ a {
   width: 100%;
 }
 
-/* Left side - Dummy Invite Cards */
+/* Invite Cards Container */
 .invite-cards {
-  width: 50%;
+  width: 100%;
   padding-right: 10px;
   box-sizing: border-box;
   font-family: 'Quicksand', sans-serif;
-}
-
-/* Right side - Existing Leagues */
-.league-cards {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  padding-top: 5px;
+}
+
+/* League Cards Container */
+.league-cards {
+  width: 100%;
+  padding-right: 10px;
+  box-sizing: border-box;
   font-family: 'Quicksand', sans-serif;
-  
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
 }
 
 /* Individual League Card */
@@ -109,9 +113,72 @@ a {
   border: 2px solid #96aabb !important; /* Adjust as needed */
   box-shadow:  8px 8px 0 rgba(0, 0, 0, 0.2) !important; /* This adds a shadow */
   background-color:#cbd8e7 !important;
-  
+}
+
+/* Individual Invite Card */
+.invite-card {
+  width: calc(50% - 10px) !important;
+  margin-bottom: 20px !important;
+  border: 2px solid #96aabb !important; /* Adjust as needed */
+  box-shadow: -8px 8px 0 rgba(0, 0, 0, 0.2) !important; /* This adds a shadow to the top and left */
+  background-color:#cbd8e7 !important;
 }
 
 
 
+.button-accept {
+  background-color: #2a454e !important; /* Green background */
+  border: none !important; /* Remove borders */
+  color: white !important; /* White text */
+  padding: 15px 32px !important; /* Some padding */
+  text-align: center !important; /* Centered text */
+  text-decoration: none !important; /* Remove underline */
+  display: inline-block !important;
+  font-size: 12px !important;
+  margin: 4px 2px !important;
+  transition-duration: 0.4s !important; /* Transition effects */
+  cursor: pointer !important; /* Pointer/hand icon */
+  border-radius: 10px !important; /* Rounded corners */
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1) !important;
+  font-family: 'Quicksand', sans-serif;
+}
 
+.button-accept:hover {
+  background-color: #1f3942 !important; /* White background */
+  color: #92aabd !important; /* Black text */
+  font-family: 'Quicksand', sans-serif;
+}
+
+.button-decline {
+  background-color: #d13223 !important; /* Green background */
+  border: none !important; /* Remove borders */
+  color: white !important; /* White text */
+  padding: 15px 32px !important; /* Some padding */
+  text-align: center !important; /* Centered text */
+  text-decoration: none !important; /* Remove underline */
+  display: inline-block !important;
+  font-size: 12px !important;
+  margin: 4px 2px !important;
+  transition-duration: 0.4s !important; /* Transition effects */
+  cursor: pointer !important; /* Pointer/hand icon */
+  border-radius: 10px !important; /* Rounded corners */
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1) !important;
+  font-family: 'Quicksand', sans-serif;
+}
+
+.button-decline:hover {
+  background-color: #d13223 !important; /* White background */
+  color: #92aabd !important; /* Black text */
+  font-family: 'Quicksand', sans-serif;
+}
+
+.invite-league-button {
+  width: 100%;
+  border: 1px solid #333 !important; /* Add a small border */
+  box-shadow: 8px 5px 7px rgba(0, 0, 0, 0.2); /* Add a box shadow */
+  transition: all 0.3s ease; /* Smooth transition for hover effect */
+  background-color: #fe4a2a !important;
+}
+.invite-league-button:disabled {
+  opacity: 1 !important;
+}

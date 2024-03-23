@@ -259,7 +259,7 @@ function CreateLeague() {
               currentDrafter: "",
               drafterOrder: [],
               draftStatus: "Not Started",
-              amountofPlayers: allMembers.length,
+              amountofPlayers: TEAMS,
               settings: {
                 rosterSettings: {
                   startQB: QB,
@@ -319,7 +319,7 @@ function CreateLeague() {
                 if (email.trim() !== '') {
                     await addDoc(leagueInvitesRef, {
                         leagueName: leagueName,
-                        from: user.email,
+                        from: displayName,
                         to: email,
                         leagueId: id,
                         status: 'pending',
@@ -345,8 +345,8 @@ function CreateLeague() {
 }
 
 return (
-    <div className="createLeague" style={{ display: 'block', position: 'initial' }}>
-      <Button onClick={handleClick}>Create League</Button>
+    <div className="createLeague" style={{ display: 'block', position: 'initial', width: "100%" }}>
+      <Button onClick={handleClick} className="create-league-button"><strong>Create League</strong></Button>
 
       {/* Modal */}
       <Modal show={showModal} onHide={handleClose} size="xl">

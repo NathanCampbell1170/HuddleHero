@@ -63,7 +63,8 @@ function Home() {
     {/* Left side - Dummy Invite Cards */}
     <Col md={6}>
       <div className="invite-cards">
-      <LeagueInvites /> {/* Use the LeagueInvites component here */}
+
+      <LeagueInvites className="invite-card" /> {/* Use the LeagueInvites component here */}
         
       </div>
     </Col>
@@ -71,7 +72,7 @@ function Home() {
     {/* Right side - Existing Leagues */}
     <Col md={6}>
       <div className="league-cards">
-        <CreateLeague />
+        <CreateLeague style={{width: "100%"}} />
         <LeagueCards user={user} setSelectedLeague={setSelectedLeague} className="league-card" />
       </div>
     </Col>

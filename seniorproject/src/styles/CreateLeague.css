@@ -3,6 +3,27 @@
     font-family: 'Quicksand', sans-serif;
 }
 
+.create-League {
+    width: 50vw;
+}
+.create-League .Button {
+    width: 100%;
+}
+
+.create-league-button {
+    width: 100%;
+    border: 1px solid #333 !important; /* Add a small border */
+    box-shadow: 8px 5px 7px rgba(0, 0, 0, 0.2); /* Add a box shadow */
+    transition: all 0.3s ease; /* Smooth transition for hover effect */
+    background-color: #fe4a2a !important;
+  }
+  
+  .create-league-button:hover {
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4); /* Increase box shadow on hover */
+    cursor: pointer; /* Change cursor to pointer on hover */
+  }
+  
+
 .create-League .card .input-container select {
     width: 100%; /* adjust as needed */
     /* rest of your styles */

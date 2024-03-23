@@ -88,21 +88,23 @@ function LeagueInvites() {
   
 
   return (
-    <div>
+    <div className='invite-cards'>
+      <Button variant="primary" disabled className='invite-league-button'><strong>League Invites</strong></Button>
       {invites.map((invite, index) => (
-        <Card key={index} style={{ width: '18rem' }}>
+        <Card key={index} className="invite-card">
           <Card.Body>
             <Card.Title>League Invitation</Card.Title>
             <Card.Text>
               You have been invited to join league <strong>{invite.leagueName}</strong> by {invite.from}.
             </Card.Text>
-            <Button variant="primary" onClick={() => handleAcceptInvite(invite.id, invite.leagueId)}>Accept</Button>
-            <Button variant="secondary" onClick={() => handleDeclineInvite(invite.id)}>Decline</Button>
+            <Button className="button-accept" variant="primary" onClick={() => handleAcceptInvite(invite.id, invite.leagueId)}>Accept</Button>
+            <Button className="button-decline" variant="secondary" onClick={() => handleDeclineInvite(invite.id)}>Decline</Button>
           </Card.Body>
         </Card>
       ))}
     </div>
   );
+  
   
 
 }
