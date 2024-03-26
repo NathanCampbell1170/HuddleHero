@@ -5,6 +5,7 @@ import { db, auth, signInWithGoogle } from "../Firebase-config";
 import { addDoc, collection, getDocs, query, where, doc, updateDoc } from "firebase/firestore"; 
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut, sendPasswordResetEmail } from "firebase/auth";
 import Alert from 'react-bootstrap/Alert';
+import "../styles/Login.css"
 import 'bootstrap/dist/css/bootstrap.min.css';
 import SignInToast from "../toasts/SignInToast";
 import Toast from 'react-bootstrap/Toast';
@@ -167,54 +168,56 @@ useEffect(() => {
   };
   if (!user) {
     return (
-      <>
-        <div>  </div>  
+        <div className="Login">  
         { userDisplayName === "" && ( 
-          <Tabs defaultActiveKey="login" id="uncontrolled-tab-example">
-            <Tab eventKey="login" title="Sign In">
-              <h3> Log in </h3>
-              <input placeholder="Email..." onChange={(event) => {setloginEmail(event.target.value)}} />
-              <input type="password" placeholder="Password..." onChange={(event) => {setloginPassword(event.target.value)}} />
-              <button onClick={logIn}> Log in </button>
-              <button onClick={sendResetEmail}> Forgot Password? </button>
-              {badSignIn === true && (
-                <Alert variant='danger' onClose={() => setBadSignIn(false)} dismissible>
-                  Email/password was incorrect.
-                </Alert>
-              )}
-            </Tab>
-            <Tab eventKey="register" title="Sign Up">
-              <h3> Register User </h3> 
-              <input placeholder="Email..." onChange={(event) => {setRegisterEmail(event.target.value.toLowerCase())}} />
-              <input type="password" placeholder="Password..." onChange={(event) => {setRegisterPassword(event.target.value)}} />
-              <input type="password" placeholder="Confirm Password..." onChange={(event) => {setConfirmRegisterPassword(event.target.value)}} />
-              {!passwordsMatch && (
-                <Alert variant='danger' onClose={() => setPasswordsMatch(true)} dismissible>
-                  Passwords do not match.
-                </Alert>
-              )}
-              <input placeholder="DisplayName" onChange={(event) => {setUserName(event.target.value)}} />
-              <button onClick={register}> Register </button>
-              <br></br>
-              <label>
-                <input type="checkbox" checked={beginnerMode} onChange={handleCheckboxChange}/> {"Enable Fantasy Football Tutorial (for novice players)"}
-              </label>
-              {emailAlreadyExists === true && ( 
-                <Alert variant='danger' onClose={() => setEmailAlreadyExists(false)} dismissible>
-                  Account with this email address already exists.
-                </Alert>
-              )}
-              {passwordTooShort === true && ( 
-                <Alert variant='danger' onClose={() => setPasswordTooShort(false)} dismissible>
-                  Passwords must be 6 characters long at minimum.
-                </Alert>
-              )}
-            </Tab>
-          </Tabs>
-        )}
-        <div>
-        </div> 
-      </>
+      <Tabs defaultActiveKey="login" id="uncontrolled-tab-example">
+        <Tab eventKey="login" title="Sign In">
+          <h3> Log in </h3>
+          <div className="login-inputs">
+            <input placeholder="Email..." onChange={(event) => {setloginEmail(event.target.value)}} />
+            <input type="password" placeholder="Password..." onChange={(event) => {setloginPassword(event.target.value)}} />
+          </div>
+          <div className="login-buttons">
+            <button onClick={logIn}> Log in </button>
+            <button onClick={sendResetEmail}> Forgot Password? </button>
+          </div>
+          {badSignIn === true && (
+            <Alert variant='danger' onClose={() => setBadSignIn(false)} dismissible>
+              Email/password was incorrect.
+            </Alert>
+          )}
+        </Tab>
+        <Tab eventKey="register" title="Sign Up">
+          <h3> Register User </h3> 
+          <div className="register-inputs">
+            <input placeholder="Email..." onChange={(event) => {setRegisterEmail(event.target.value.toLowerCase())}} className="sign-up-input" />
+            <input type="password" placeholder="Password..." onChange={(event) => {setRegisterPassword(event.target.value)}} className="sign-up-input"/>
+            <input type="password" placeholder="Confirm Password..." onChange={(event) => {setConfirmRegisterPassword(event.target.value)}} className="sign-up-input" />
+            <input placeholder="DisplayName" onChange={(event) => {setUserName(event.target.value)}} className="sign-up-input" />
+          </div>
+          <div className="register-checkbox">
+            <label>
+              <input type="checkbox" checked={beginnerMode} onChange={handleCheckboxChange} className="sign-up-checkbox"/> {"Enable Fantasy Football Tutorial (for novice players)"}
+            </label>
+          </div>
+          <div className="register-button">
+            <button onClick={register} className="sign-up-button"> Register </button>
+          </div>
+          {emailAlreadyExists === true && ( 
+            <Alert variant='danger' onClose={() => setEmailAlreadyExists(false)} dismissible>
+              Account with this email address already exists.
+            </Alert>
+          )}
+          {passwordTooShort === true && ( 
+            <Alert variant='danger' onClose={() => setPasswordTooShort(false)} dismissible>
+              Passwords must be 6 characters long at minimum.
+            </Alert>
+          )}
+        </Tab>
+      </Tabs>
+    )}
+
+    </div>
     );
 }
 

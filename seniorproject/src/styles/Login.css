@@ -1,0 +1,65 @@
+.login-inputs,
+.register-inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.login-inputs input,
+.register-inputs input {
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #93abbd;
+}
+
+.login-buttons,
+.register-button {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+button {
+  padding: 10px 20px;
+  border-radius: 5px;
+  border: none;
+  color: white;
+  cursor: pointer;
+  background-color: #fe4a2a;
+}
+
+button:hover {
+  opacity: 0.8;
+}
+
+.login-modal {
+  border: 2px solid #2a454e;
+  border-radius: 10px;
+}
+
+.login-modal-header,
+.login-modal-footer {
+  background-color: #2a454e;
+  color: white;
+  font-family: 'Quicksand', sans-serif;
+  border-radius: 10px 10px 0 0;
+}
+
+.login-modal-body {
+  background-color: white;
+  color: black;
+  font-family: 'Quicksand', sans-serif;
+  padding: 20px;
+}
+
+.login-modal-footer {
+  border-radius: 0 0 10px 10px;
+}
+
+.sign-up-button {
+  background-color: #fe4a2a;
+}
+
+.sign-up-button:hover {
+  background-color: #ca2f1a;
+}

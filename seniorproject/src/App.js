@@ -82,22 +82,24 @@ function App() {
     return (
         <Router>
           <nav>
+          <img src={Logo} alt="Logo" className="logo" />
             <Button variant="primary" onClick={handleShow} className="login-button">
               Login
             </Button>
-            <Modal show={show} onHide={handleClose}>
-              <Modal.Header closeButton>
+            <Modal show={show} onHide={handleClose} className="login-modal">
+              <Modal.Header closeButton className="login-modal-header">
                 <Modal.Title>Log in/Sign up</Modal.Title>
               </Modal.Header>
-              <Modal.Body>
+              <Modal.Body className="login-modal-body">
                 <Login /> {/* Your Login component goes here */}
               </Modal.Body>
-              <Modal.Footer>
+              <Modal.Footer className="login-modal-footer">
                 <Button variant="secondary" onClick={handleClose}>
                   Close
                 </Button>
               </Modal.Footer>
             </Modal>
+
           </nav>
           <Routes>
             <Route path="/" element={<Home />}/>
