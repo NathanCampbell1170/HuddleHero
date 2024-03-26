@@ -175,7 +175,7 @@ useEffect(() => {
           <h3> Log in </h3>
           <div className="login-inputs">
             <input placeholder="Email..." onChange={(event) => {setloginEmail(event.target.value)}} />
-            <input type="password" placeholder="Password..." onChange={(event) => {setloginPassword(event.target.value)}} />
+            <input type="password" placeholder="Password..." onChange={(event) => {setloginPassword(event.target.value)}} onKeyDown={event => {if(event.key === 'Enter') logIn()}} />
           </div>
           <div className="login-buttons">
             <button onClick={logIn}> Log in </button>
@@ -192,7 +192,7 @@ useEffect(() => {
           <div className="register-inputs">
             <input placeholder="Email..." onChange={(event) => {setRegisterEmail(event.target.value.toLowerCase())}} className="sign-up-input" />
             <input type="password" placeholder="Password..." onChange={(event) => {setRegisterPassword(event.target.value)}} className="sign-up-input"/>
-            <input type="password" placeholder="Confirm Password..." onChange={(event) => {setConfirmRegisterPassword(event.target.value)}} className="sign-up-input" />
+            <input type="password" placeholder="Confirm Password..." onChange={(event) => {setConfirmRegisterPassword(event.target.value)}} onKeyDown={event => {if(event.key === 'Enter') register()}} className="sign-up-input" />
             <input placeholder="DisplayName" onChange={(event) => {setUserName(event.target.value)}} className="sign-up-input" />
           </div>
           <div className="register-checkbox">

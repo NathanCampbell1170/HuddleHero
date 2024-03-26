@@ -3,6 +3,8 @@ import { collection, query, where, getDocs, addDoc, serverTimestamp, limit, orde
 import { db, auth, storage } from '../Firebase-config';
 import "../styles/LeagueChats.css";
 import Card from 'react-bootstrap/Card';
+import Button from 'react-bootstrap/Button'
+import Form from 'react-bootstrap/Form'
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 const LeagueChat = ({ selectedLeague }) => {
@@ -131,51 +133,49 @@ const LeagueChat = ({ selectedLeague }) => {
     
 
     return (
-        <div>
-         
-            <br />
-            <div className="chat-container" style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
+        <div className="chat-page">
+          <br />
+          <div className="chat-container">
             {messages.slice().reverse().map((message, index) => (
-                <Card key={index} className="mb-2">
-                    <Card.Body>
-                        <div className="d-flex">
-                            <Card.Img variant="left" src={message.picture} style={{ width: '50px', height: '50px', borderRadius: '50%' }} />
-                            <div style={{ marginLeft: '10px' }}>
-                            <Card.Text >
-                                <strong>{message.user}:</strong> {message.text}
-                                <br />
-                                <small>{message.createdAt ? new Date(message.createdAt.seconds * 1000).toLocaleString() : ''}</small>
-                            </Card.Text>
-
-                            </div>
-                        </div>
-                    </Card.Body>
-                </Card>
+              <Card key={index} className="chat-card mb-2">
+                <Card.Body>
+                  <div className="d-flex">
+                    <Card.Img variant="left" src={message.picture} className="chat-card-image" />
+                    <div className="chat-card-text-container">
+                    <Card.Text className="chat-card-text">
+                        <strong className="message-user">{message.user}:</strong> {message.text}
+                        <br />
+                        <small className="message-timestamp">{message.createdAt ? new Date(message.createdAt.seconds * 1000).toLocaleString() : ''}</small>
+                    </Card.Text>
+                    </div>
+                  </div>
+                </Card.Body>
+              </Card>
             ))}
-                <div ref={messagesEndRef} />
-            </div>
-            <form onSubmit={handleSubmit}>
-                <textarea
-                    value={newMessage}
-                    className="new-message-input"
-                    placeholder="Type your message here..."
-                    onChange={(e) => setNewMessage(e.target.value)}
-                    onKeyDown={e => {
-                    if (e.key === 'Enter' && !e.shiftKey) {
-                        e.preventDefault();
-                        handleSubmit(e);
-                    }
-                    }}
-                    rows={1} // Set the initial number of rows
-                    style={{ resize: 'none', width: '100%', height: '15%' }} // Prevent manual resizing
-                />
-                <button type="submit" className="send-button">
-                    Send
-                </button>
-            </form>
-
+            <div ref={messagesEndRef} />
+          </div>
+          <Form onSubmit={handleSubmit} className="chat-form">
+            <Form.Control
+              as="textarea"
+              value={newMessage}
+              className="new-message-input"
+              placeholder="Type your message here..."
+              onChange={(e) => setNewMessage(e.target.value)}
+              onKeyDown={e => {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                  e.preventDefault();
+                  handleSubmit(e);
+                }
+              }}
+              rows={1}
+            />
+            <Button type="submit" className="send-button">
+              Send
+            </Button>
+          </Form>
         </div>
-    );
+      );
+      
 };
 
 export default LeagueChat;

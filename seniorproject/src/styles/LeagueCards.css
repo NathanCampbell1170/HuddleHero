@@ -8,6 +8,22 @@
   height: 80vh;
 }
 
+.leagueModal {
+  max-width: 90%;
+  height: 80vh;
+}
+
+.league-title {
+  background-color: #2a454e; /* Replace with your desired color */
+  color: white;
+  font-family: 'Quicksand', sans-serif;
+}
+
+.league-footer {
+  background-color: #93abbd; /* Replace with your desired color */
+}
+
+
 
 /* Modern Button */
 .button-modern {
@@ -44,4 +60,10 @@ font-family: 'Quicksand', sans-serif;
   color: white;
   font-family: 'Quicksand', sans-serif;
 
+}
+
+.customTabContent {
+  background-color: #2a454e; /* Replace with your desired color */
+  padding: 20px; /* Adjust as needed */
+  border-radius: 5px; /* Optional, for rounded corners */
 }

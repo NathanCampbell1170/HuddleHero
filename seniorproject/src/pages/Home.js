@@ -79,17 +79,18 @@ function Home() {
   </Row>
 </Container>
 
+{/* 
 <Modal show={selectedLeague !== null} onHide={() => setSelectedLeague(null)}>
   <Modal.Header closeButton>
     <Modal.Title>{selectedLeague?.leagueName}</Modal.Title>
   </Modal.Header>
   <Modal.Body>
-    {/* Display league details here */}
+    {/* Display league details here 
     Creator: {selectedLeague?.creator}
-    {/* Add more league details */}
+    {/* Add more league details 
   </Modal.Body>
 </Modal>
-
+*/}
 
 
 {/*<button onClick={UploadPlayerData}>UploadPlayerData</button>*/}

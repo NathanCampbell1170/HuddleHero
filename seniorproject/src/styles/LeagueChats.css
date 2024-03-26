@@ -1,21 +1,77 @@
+.chat-page {
+    /* The main page should be light silver/grey */
+    background-color: #93abbd;
+}
+  
 .chat-container {
     max-height: 500px; 
     overflow-y: auto;
     font-family: 'Quicksand', sans-serif;
     word-wrap: break-word;
     overflow-wrap: break-word;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    /* Add a border with the light silver/grey color */
+    border: 1px solid #93abbd;
 }
-
-.chat-container .my-card {
-    max-width: 100%;  /* restricts the width of the card to not exceed the width of its parent */
-    max-height: 100%; /* restricts the height of the card to not exceed the height of its parent */
-    overflow: auto;   /* adds a scrollbar if the content inside the card exceeds its size */
+  
+.chat-card {
+    max-width: 100%;
+    margin-bottom: 10px; /* Increase the space between messages */
+    /* The first color is the primary color for the site */
+    background-color: #2a454e;
+    color: white; /* Set the text color to white for better contrast */
+    border: none; /* Remove the border */
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); /* Use a subtler shadow */
+    border-radius: 20px; /* Increase border radius for a "bubble" effect */
+    padding: 10px 20px; /* Add some padding inside the message */
 }
-
-.chat-container .my-card-text {
+  
+.chat-card-image {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    /* Use the grey/silver color as a border around images */
+    border: 2px solid #93abbd;
+}
+  
+.chat-card-text-container {
+    margin-left: 10px;
+}
+  
+.chat-card-text {
     overflow-wrap: break-word;
-    word-break: normal;
-    font-family: 'Quicksand, sans-serif';
+    word-break: break-all;
+    font-family: 'Quicksand', sans-serif;
     white-space: pre-wrap;
     hyphens: auto;
+    color:#2a454e;
+}
+  
+.chat-form {
+    /* Add styles for the chat form here */
+}
+  
+.new-message-input {
+    resize: none;
+    width: 100%;
+    height: 15%;
+    border-radius: 5px;
+    /* Use the grey/silver color as a border */
+    border: 1px solid #93abbd;
+}
+  
+.send-button {
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: none;
+    color: white;
+    cursor: pointer;
+    /* The lighter orange is just supposed to be an accent or on smaller parts, like the send button */
+    background-color: #fe4a2a;
+}
+  
+.send-button:hover {
+    opacity: 0.8;
 }

@@ -115,97 +115,93 @@ function LeagueCards({ user }) {
 
       {/* Modal for displaying league details */}
       <Modal show={selectedLeague !== null} onHide={() => setSelectedLeague(null)} size="xl" dialogClassName="leagueModal">
-                <Modal.Header closeButton>
-                <Modal.Title>League: <strong>{selectedLeague?.leagueName}</strong></Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                <Tabs defaultActiveKey="myTeam" id="uncontrolled-tab-example" className="customTabs">
-
-                {(selectedLeague?.commissioner === user.email || selectedLeague?.draftStatus) && (
-                      <Tab eventKey="draft" title="Draft">
-                        {/* Content for Draft tab */}
-                        <DraftPlayers selectedLeague={selectedLeague} user={user}/>
-                      </Tab>
-                    )}
-                        
-                        <Tab eventKey="myTeam" title="My Team">
-                        {/* Content for My Team tab */}
-                        <MyTeam selectedLeague={selectedLeague} user={user} />
-                        </Tab>
-                        <Tab eventKey="matchup" title="Matchup">
-                        {/* Content for Matchup tab */}
-                        </Tab>
-                        <Tab eventKey="addPlayers" title="Add Players">
-                        {/* Content for Add Players tab */}
-                        <AddFreeAgents selectedLeague={selectedLeague} user={user} orderByField="AverageDraftPosition" />
-                        </Tab>
-                        <Tab eventKey="leagueChat" title="League Chat">
-                        {/* Content for League Chat tab */}
-                        <LeagueChat selectedLeague={selectedLeague} user={user} />
-                        </Tab>
-                        <Tab eventKey="leagueSettings" title="League Settings">
-                            {/* Content for League Settings tab */}
-                            <Card style={{ width: '18rem' }}>
-                          <Card.Body>
-                            <Card.Title>League Members</Card.Title>
-                            {selectedLeague?.memberDisplayNames.map((displayName, index) => (
-                              <Card.Text key={index}>
-                                {displayName}
-                              </Card.Text>
-                            ))}
-                            {selectedLeague?.amountofPlayers && selectedLeague?.members && Array(Math.max(0, selectedLeague?.amountofPlayers - selectedLeague?.members.length)).fill().map((_, index) => (
-                              <Card.Text key={index + selectedLeague?.members.length}>
-                                <em>Empty Team Slot</em>
-                              </Card.Text>
-                            ))}
-                          </Card.Body>
-                        </Card>
-
-
-
-
-
-                            <Card style={{ width: '100%' }}>
-            <Card.Body>
-                <Card.Title>Scoring Settings</Card.Title>
-                {scoringSettingsOrder.map((category, index) => {
-                    const settings = selectedLeague?.settings?.scoringSettings[category];
-                    if (!settings) return null;  // Skip if the category doesn't exist in the settings
-                    return (
-                        <div key={index} className="col-12">
-                            <div className="card">
-                                <div className="card-body">
-                                    <h4>{category}</h4> <br></br>
-                                    <div className="row">
-                                        {Object.entries(settings).map(([key, value], i) => (
-                                            <div className="col-6" key={i}>
-                                                <div className="card">
-                                                    <div className="card-body">
-                                                        <Card.Text>
-                                                            <strong>{keyMapping[key] || key}:</strong> {value}
-                                                        </Card.Text>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        ))}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    );
-                })}
-            </Card.Body>
+  <Modal.Header closeButton className="league-title">
+    <Modal.Title>League: <strong>{selectedLeague?.leagueName}</strong></Modal.Title>
+  </Modal.Header>
+  <Modal.Body>
+    <Tabs defaultActiveKey="myTeam" id="uncontrolled-tab-example" className="customTabs">
+      {(selectedLeague?.commissioner === user.email || selectedLeague?.draftStatus) && (
+        <Tab eventKey="draft" title="Draft" className="customTabContent">
+          {/* Content for Draft tab */}
+          <DraftPlayers selectedLeague={selectedLeague} user={user}/>
+        </Tab>
+      )}
+      <Tab eventKey="myTeam" title="My Team" className="customTabContent">
+        {/* Content for My Team tab */}
+        <MyTeam selectedLeague={selectedLeague} user={user} />
+      </Tab>
+      <Tab eventKey="matchup" title="Matchup" className="customTabContent">
+        {/* Content for Matchup tab */}
+      </Tab>
+      <Tab eventKey="addPlayers" title="Add Players" className="customTabContent">
+        {/* Content for Add Players tab */}
+        <AddFreeAgents selectedLeague={selectedLeague} user={user} orderByField="AverageDraftPosition" />
+      </Tab>
+      <Tab eventKey="leagueChat" title="League Chat" className="customTabContent">
+        {/* Content for League Chat tab */}
+        <LeagueChat selectedLeague={selectedLeague} user={user} />
+      </Tab>
+      <Tab eventKey="leagueSettings" title="League Settings" className="customTabContent">
+        {/* Content for League Settings tab */}
+        <Card style={{ width: '18rem' }}>
+          <Card.Body>
+            <Card.Title>League Members</Card.Title>
+            {selectedLeague?.memberDisplayNames.map((displayName, index) => (
+              <Card.Text key={index}>
+                {displayName}
+              </Card.Text>
+            ))}
+            {selectedLeague?.amountofPlayers && selectedLeague?.members && Array(Math.max(0, selectedLeague?.amountofPlayers - selectedLeague?.members.length)).fill().map((_, index) => (
+              <Card.Text key={index + selectedLeague?.members.length}>
+                <em>Empty Team Slot</em>
+              </Card.Text>
+            ))}
+          </Card.Body>
         </Card>
-                        </Tab>
-                        {isUserCommissioner && 
-                          <Tab eventKey="leagueDetails" title="Edit League Settings">
-                            <EditLeagueSettings selectedLeague={selectedLeague} user={user} />
-                          </Tab>
-}
+        <Card style={{ width: '100%' }}>
+          <Card.Body>
+            <Card.Title>Scoring Settings</Card.Title>
+            {scoringSettingsOrder.map((category, index) => {
+              const settings = selectedLeague?.settings?.scoringSettings[category];
+              if (!settings) return null;  // Skip if the category doesn't exist in the settings
+              return (
+                <div key={index} className="col-12">
+                  <div className="card">
+                    <div className="card-body">
+                      <h4>{category}</h4> <br></br>
+                      <div className="row">
+                        {Object.entries(settings).map(([key, value], i) => (
+                          <div className="col-6" key={i}>
+                            <div className="card">
+                              <div className="card-body">
+                                <Card.Text>
+                                  <strong>{keyMapping[key] || key}:</strong> {value}
+                                </Card.Text>
+                              </div>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </Card.Body>
+        </Card>
+      </Tab>
+      {isUserCommissioner && 
+        <Tab eventKey="leagueDetails" title="Edit League Settings">
+          <EditLeagueSettings selectedLeague={selectedLeague} user={user} />
+        </Tab>
+      }
+    </Tabs>
+  </Modal.Body>
+  <Modal.Footer className="league-footer">
+    {/* Modal footer */}
+  </Modal.Footer>
+</Modal>
 
-                    </Tabs>
-        </Modal.Body>
-            </Modal>
     
     </>
   );
