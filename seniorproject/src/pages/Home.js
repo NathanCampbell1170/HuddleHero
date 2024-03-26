@@ -99,9 +99,55 @@ function Home() {
 );
   }
   else {
-    <div>
-      
-    </div>
+    return (
+      <Container fluid>
+      <Row className="justify-content-md-center">
+        <div className='welcome-message'>
+        <h1>Welcome to HuddleHero</h1>
+        </div>
+      </Row>
+      <hr />
+      <Row>
+        {/* Left side - Dummy Invite Cards */}
+        <Card>
+          <Card.Body>
+            <Card.Title>
+            What is HuddleHero?
+            </Card.Title>
+            <Card.Text>
+            HuddleHero is .........
+            </Card.Text>
+          </Card.Body>
+        </Card>
+        <Card>
+          <Card.Body>
+            <Card.Title>
+            Why Choose HuddleHero?
+            </Card.Title>
+            <Card.Text>
+            HuddleHero is .........
+            </Card.Text>
+          </Card.Body>
+        </Card>
+        <Card>
+          <Card.Body>
+            <Card.Title>
+            What is HuddleHero?
+            </Card.Title>
+            <Card.Text>
+            HuddleHero is .........
+            </Card.Text>
+          </Card.Body>
+        </Card>
+    
+        {/* Right side - Existing Leagues */}
+        <Col md={6}>
+          
+          
+        </Col>
+      </Row>
+    </Container>
+    )
   }
 }
 

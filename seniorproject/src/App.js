@@ -82,8 +82,7 @@ function App() {
     return (
         <Router>
           <nav>
-            <Link to="/"> Home </Link>
-            <Button variant="primary" onClick={handleShow}>
+            <Button variant="primary" onClick={handleShow} className="login-button">
               Login
             </Button>
             <Modal show={show} onHide={handleClose}>

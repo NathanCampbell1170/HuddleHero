@@ -104,6 +104,8 @@ a {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+  flex-direction: wrap;
+  flex-wrap: wrap;
 }
 
 /* Individual League Card */
@@ -181,4 +183,19 @@ a {
 }
 .invite-league-button:disabled {
   opacity: 1 !important;
+}
+
+.login-button {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  background-color: #fe4a2a !important ;
+  border: none !important;
+}
+
+.login-button:hover {
+  background-color: #d13223 !important; /* White background */
+  color: #92aabd !important; /* Black text */
+  font-family: 'Quicksand', sans-serif;
 }

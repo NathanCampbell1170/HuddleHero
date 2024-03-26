@@ -95,10 +95,10 @@ function LeagueCards({ user }) {
   };
   
   return (
-    <div>
-        <div className="league-cards">
+    <>
+        
         {leagues.map((league, index) => (
-          <Card key={index} style={{ width: '18rem' }} className='league-card'>
+          <Card key={index} className='league-card'>
             <Card.Body>
               <Card.Title>{league.leagueName}</Card.Title>
               <Card.Text>
@@ -111,7 +111,7 @@ function LeagueCards({ user }) {
             </Card.Body>
           </Card>
           ))}
-      </div>
+     
 
       {/* Modal for displaying league details */}
       <Modal show={selectedLeague !== null} onHide={() => setSelectedLeague(null)} size="xl" dialogClassName="leagueModal">
@@ -206,7 +206,8 @@ function LeagueCards({ user }) {
                     </Tabs>
         </Modal.Body>
             </Modal>
-    </div>
+    
+    </>
   );
 }
 
