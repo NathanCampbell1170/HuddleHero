@@ -1,0 +1,78 @@
+.friend-chat-page {
+    /* The main page should be light silver/grey */
+}
+
+.friend-chat-container {
+    max-height: 500px; 
+    overflow-y: auto;
+    font-family: 'Quicksand', sans-serif;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    border: 1px solid #93abbd;
+    background-color: #2a454e;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.friend-chat-card {
+    max-width: 100%;
+    margin-bottom: 10px;
+    color: white;
+    border: none;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    border-radius: 20px;
+    padding: 10px 20px;
+}
+
+.friend-chat-card-image {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 2px solid #93abbd;
+}
+
+.friend-chat-card-text-container {
+    margin-left: 10px;
+}
+
+.friend-chat-card-text {
+    overflow-wrap: break-word;
+    word-break: break-all;
+    font-family: 'Quicksand', sans-serif;
+    white-space: pre-wrap;
+    hyphens: auto;
+    color:#2a454e;
+}
+
+.friend-chat-form {
+    padding-top: 2px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.new-friend-message-input {
+    resize: none;
+    flex-grow: 1;
+    height: 15%;
+    border-radius: 15px 0 0 15px !important;
+}
+
+.send-friend-button {
+    border-radius: 0 15px 15px 0 !important;
+    border:none !important;
+    color: white !important;
+    cursor: pointer !important;
+    background-color: #fe4a2a !important;
+}
+
+.send-friend-button:hover {
+    opacity: 0.8 !important;
+}
+
+.message-timestamp {
+    color: #fe4a2a;
+}

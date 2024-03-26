@@ -6,8 +6,8 @@ import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Card from 'react-bootstrap/Card';
+import "../styles/FriendChat.css"
 
-import "../styles/LeagueChats.css";
 
 function FriendChat({ friendEmail }) {
   const [show, setShow] = useState(false);
@@ -137,17 +137,17 @@ function FriendChat({ friendEmail }) {
           <Modal.Title>Chat with {friendEmail}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <div className="chat-container" style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
+          <div className="friend-chat-container">
             {messages.slice().reverse().map((message, index) => (
-              <Card key={index} className="mb-2">
+              <Card key={index} className="friend-chat-card mb-2">
                 <Card.Body>
                   <div className="d-flex">
-                    <Card.Img variant="left" src={message.picture} style={{ width: '50px', height: '50px', borderRadius: '50%' }} />
-                    <div style={{ marginLeft: '10px' }}>
-                      <Card.Text>
-                        <strong>{message.user}:</strong> {message.text}
+                    <Card.Img variant="left" src={message.picture} className="friend-chat-card-image" />
+                    <div className="friend-chat-card-text-container">
+                      <Card.Text className="friend-chat-card-text">
+                        <strong className="message-user">{message.user}:</strong> {message.text}
                         <br />
-                        <small>{message.createdAt ? new Date(message.createdAt.seconds * 1000).toLocaleString() : ''}</small>
+                        <small className="message-timestamp">{message.createdAt ? new Date(message.createdAt.seconds * 1000).toLocaleString() : ''}</small>
                       </Card.Text>
                     </div>
                   </div>
@@ -156,10 +156,11 @@ function FriendChat({ friendEmail }) {
             ))}
             <div ref={messagesEndRef} />
           </div>
-          <form onSubmit={handleSubmit}>
-            <textarea
+          <Form onSubmit={handleSubmit} className="friend-chat-form">
+            <Form.Control
+              as="textarea"
               value={newMessage}
-              className="new-message-input"
+              className="new-friend-message-input"
               placeholder="Type your message here..."
               onChange={(e) => setNewMessage(e.target.value)}
               onKeyDown={e => {
@@ -168,19 +169,17 @@ function FriendChat({ friendEmail }) {
                   handleSubmit(e);
                 }
               }}
-              rows={1} // Set the initial number of rows
-              style={{ resize: 'none', width: '100%', height: '15%' }} // Prevent manual resizing
+              rows={1}
             />
-            <button type="submit" className="send-button">
+            <Button type="submit" className="send-friend-button">
               Send
-            </button>
-          </form>
-
-
+            </Button>
+          </Form>
         </Modal.Body>
       </Modal>
     </>
   );
+
   
 }
 

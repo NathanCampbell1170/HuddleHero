@@ -63,7 +63,7 @@ font-family: 'Quicksand', sans-serif;
 }
 
 .customTabContent {
-  background-color: #2a454e; /* Replace with your desired color */
+  /*background-color: #2a454e; /* Replace with your desired color */
   padding: 20px; /* Adjust as needed */
   border-radius: 5px; /* Optional, for rounded corners */
 }
