@@ -1,0 +1,59 @@
+/* Main content area */
+.main-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+   
+  }
+  
+  /* Friend Invite Cards Container */
+  .friend-invite-cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: start;
+    background-color: #93abbd; /* Silver/grey light accent color */
+  }
+  
+  /* Friends List Cards Container */
+  .friend-cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: start;
+    background-color: #93abbd; /* Silver/grey light accent color */
+  }
+  
+  /* Individual Friend Invite Card */
+  .friend-invite-card {
+    margin-bottom: 20px !important;
+    border: 2px solid #96aabb !important; /* Adjust as needed */
+    box-shadow: -8px 8px 0 rgba(0, 0, 0, 0.2) !important; /* This adds a shadow to the top and left */
+    background-color:#cbd8e7 !important;
+  }
+  
+  /* Individual Friend Card */
+  .friend-card {
+    margin-bottom: 20px !important;
+    border: 2px solid #96aabb !important; /* Adjust as needed */
+    box-shadow:  8px 8px 0 rgba(0, 0, 0, 0.2) !important; /* This adds a shadow */
+    background-color:#cbd8e7 !important;
+  }
+
+
+  .friend-chat-button {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: none;
+    color: white;
+    cursor: pointer;
+    background-color: #fe4a2a; /* Your theme color */
+  }
+  
+  .friend-chat-button:hover {
+    opacity: 0.8;
+    background-color: #fe4a2a;
+  }
+  
+  

@@ -2,7 +2,7 @@ import { collection, getDocs, query, where, updateDoc, arrayUnion, onSnapshot, d
 import { useState, useEffect } from 'react';
 import { Form, Button, Card } from 'react-bootstrap';
 import { db } from '../Firebase-config';
-import {DragDropContext, Droppable, Draggable} from 'react-beautiful-dnd' 
+//import {DragDropContext, Droppable, Draggable} from 'react-beautiful-dnd' 
 
 import playersData from '../NFLStats/SeasonStatsPlayers.json'
 

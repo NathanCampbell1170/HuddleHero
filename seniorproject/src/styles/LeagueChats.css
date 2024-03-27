@@ -15,25 +15,23 @@
     /* Add a border with the light silver/grey color */
     border: 1px solid #93abbd;
     background-color: #2a454e;
-    padding-left: 5px;
-    padding-right: 5px;
+    padding: 5px;
 }
   
 .chat-card {
     max-width: 100%;
     margin-bottom: 10px; /* Increase the space between messages */
-    /* The first color is the primary color for the site */
-    background-color: #2a454e;
     color: white; /* Set the text color to white for better contrast */
     border: none; /* Remove the border */
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); /* Use a subtler shadow */
-    border-radius: 20px; /* Increase border radius for a "bubble" effect */
-    padding: 10px 20px; /* Add some padding inside the message */
+    border-radius: 40px !important; /* Increase border radius for a "bubble" effect */
+    
+    
 }
   
 .chat-card-image {
     width: 50px;
-    height: 50px;
+    height: 50%;
     border-radius: 50%;
     border: 2px solid #93abbd;
 }
@@ -46,9 +44,20 @@
     overflow-wrap: break-word;
     word-break: break-all;
     font-family: 'Quicksand', sans-serif;
+    font-size: small;
     white-space: pre-wrap;
     hyphens: auto;
-    color:#2a454e;
+    color: #2a454e
+
+}
+.chat-card-text .message-user {
+    overflow-wrap: break-word;
+    word-break: break-all;
+    font-family: 'Quicksand', sans-serif;
+    font-size: small;
+    white-space: pre-wrap;
+    hyphens: auto;
+    color: #fe4a2a;
 }
   
 .chat-form {

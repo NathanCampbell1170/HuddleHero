@@ -128,7 +128,7 @@ function FriendChat({ friendEmail }) {
 
   return (
     <>
-      <Button variant="primary" onClick={handleShow}>
+      <Button variant="primary" onClick={handleShow} className='friend-chat-button'>
         Message
       </Button>
   
