@@ -6,11 +6,19 @@
 .leagueModal{
   max-width: 90%;
   height: 80vh;
+  
 }
 
 .leagueModal {
   max-width: 90%;
   height: 80vh;
+  border: none;
+  border-radius: 50px;
+  
+}
+.leagueModal .modal-content {
+  border: none;
+  border-radius: 10px;
 }
 
 .league-title {

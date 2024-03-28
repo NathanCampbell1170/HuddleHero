@@ -143,49 +143,50 @@ const AddFreeAgents = ({ selectedLeague, user }) => {
   return (
     <div>
       <Form>
-        <Form.Control as="select" value={position} onChange={handlePositionChange}>
+        <Form.Control className='player-filter' as="select" value={position} onChange={handlePositionChange}>
           {['All Positions', 'QB', 'RB', 'WR', 'TE', 'K', 'DEF'].map((position) => (
             <option key={position} value={position}>{position}</option>
           ))}
         </Form.Control>
       </Form>
       <div className='free-agents'>
-            {players.map((player, index) => (
-        <Card key={index}>
-          <Card.Body className="card-body">
-          <div className="free-agent-card" key={index}>
-              <div className="card-body">
-                <div className="free-agent-details">
+        {players.map((player, index) => (
+          <Card className="free-agent-card" key={index}>
+            <Card.Body className="card-body d-flex align-items-center">
               <Button variant="primary" className="button" onClick={() => addPlayer(player)}>+</Button>
-              <strong><Card.Text className="player-name">{player.Name}</Card.Text></strong>
-              {(player.Position === 'DEF') &&<strong><Card.Text className="player-name">{player.Team}</Card.Text></strong>}
-              <Card.Text> Position: {player.Position}</Card.Text>
-              {(player.Position != 'DEF') &&<Card.Text> Team: {player.Team}</Card.Text>}
-              {(player.Position === 'QB') && player.PassingYards && <Card.Text>PassYRD: {player.PassingYards}</Card.Text>}
-              {(player.Position === 'QB') && player.PassingTouchdowns && <Card.Text>PassTD: {player.PassingTouchdowns}</Card.Text>}
-              {(player.Position === 'QB') && player.PassingInterceptions && <Card.Text>INT: {player.PassingInterceptions}</Card.Text>}
-              {(player.Position === 'QB' || player.Position === 'RB') && player.RushingYards && <Card.Text>RushYRD: {player.RushingYards}</Card.Text>}
-              {(player.Position === 'QB' || player.Position === 'RB') && player.RushingTouchdowns && <Card.Text>RushTD: {player.RushingTouchdowns}</Card.Text>}
-              {(player.Position === 'RB' || player.Position === 'WR' || player.Position === 'TE') && player.ReceivingYards && <Card.Text>ReceivingYRD: {player.ReceivingYards}</Card.Text>}
-              {(player.Position === 'RB' || player.Position === 'WR' || player.Position === 'TE') && player.ReceivingTouchdowns && <Card.Text>ReceivingTD: {player.ReceivingTouchdowns}</Card.Text>}
-              {player.Position === 'K' && <Card.Text>FG Attempted: {player.FieldGoalsAttempted}</Card.Text>}
-              {player.Position === 'K' && player.FieldGoalsMade && <Card.Text>FG Made: {player.FieldGoalsMade}</Card.Text>}
-              {player.Position === 'K' && player.ExtraPointsMade && <Card.Text>Extra Points Made: {player.ExtraPointsMade}</Card.Text>}
-              {player.Position === 'DEF' && player.PointsAllowed && <Card.Text>Points Allowed: {player.PointsAllowed}</Card.Text>}
-              {player.Position === 'DEF' && player.Sacks && <Card.Text>Sacks: {player.Sacks}</Card.Text>}
-              {player.Position === 'DEF' && player.Interceptions && <Card.Text>Interceptions: {player.Interceptions}</Card.Text>}
-              {player.Position === 'DEF' && player.FumblesForced && <Card.Text>Fumbles Forced: {player.FumblesForced}</Card.Text>}
+              <div className="player-details">
+                <Card.Title className="player-name">{player.Name}</Card.Title>
+                {(player.Position === 'DEF') &&<strong><Card.Text className="player-card-text">{player.Team}</Card.Text></strong>}
+                <div className="d-flex flex-wrap">
+                  <Card.Text className="player-card-text"> Position: {player.Position}</Card.Text>
+                  {(player.Position != 'DEF') &&<Card.Text className="player-card-text"> Team: {player.Team}</Card.Text>}
+                  {(player.Position === 'QB') && player.PassingYards && <Card.Text className="player-card-text">PassYRD: {player.PassingYards}</Card.Text>}
+                  {(player.Position === 'QB') && player.PassingTouchdowns && <Card.Text className="player-card-text">PassTD: {player.PassingTouchdowns}</Card.Text>}
+                  {(player.Position === 'QB') && player.PassingInterceptions && <Card.Text className="player-card-text">INT: {player.PassingInterceptions}</Card.Text>}
+                  {(player.Position === 'QB' || player.Position === 'RB') && player.RushingYards && <Card.Text className="player-card-text">RushYRD: {player.RushingYards}</Card.Text>}
+                  {(player.Position === 'QB' || player.Position === 'RB') && player.RushingTouchdowns && <Card.Text className="player-card-text">RushTD: {player.RushingTouchdowns}</Card.Text>}
+                  {(player.Position === 'RB' || player.Position === 'WR' || player.Position === 'TE') && player.ReceivingYards && <Card.Text className="player-card-text">ReceivingYRD: {player.ReceivingYards}</Card.Text>}
+                  {(player.Position === 'RB' || player.Position === 'WR' || player.Position === 'TE') && player.ReceivingTouchdowns && <Card.Text className="player-card-text">ReceivingTD: {player.ReceivingTouchdowns}</Card.Text>}
+                  {(player.Position === 'RB' || player.Position === 'WR' || player.Position === 'TE') && player.Receptions && <Card.Text className="player-card-text">Receptions: {player.Receptions}</Card.Text>}
+                  {player.Position === 'K' && <Card.Text className="player-card-text">FG Attempted: {player.FieldGoalsAttempted}</Card.Text>}
+                  {player.Position === 'K' && player.FieldGoalsMade && <Card.Text className="player-card-text">FG Made: {player.FieldGoalsMade}</Card.Text>}
+                  {player.Position === 'K' && player.ExtraPointsMade && <Card.Text className="player-card-text">Extra Points Made: {player.ExtraPointsMade}</Card.Text>}
+                  {player.Position === 'DEF' && player.PointsAllowed && <Card.Text className="player-card-text">Points Allowed: {player.PointsAllowed}</Card.Text>}
+                  {player.Position === 'DEF' && player.Sacks && <Card.Text className="player-card-text">Sacks: {player.Sacks}</Card.Text>}
+                  {player.Position === 'DEF' && player.Interceptions && <Card.Text className="player-card-text">Interceptions: {player.Interceptions}</Card.Text>}
+                  {player.Position === 'DEF' && player.FumblesForced && <Card.Text className="player-card-text">Fumbles Forced: {player.FumblesForced}</Card.Text>}
+                </div>
               </div>
-              </div>
-            </div>
-            
-          </Card.Body>
-        </Card>
-      ))}
+            </Card.Body>
+          </Card>
+        ))}
       </div>
       <button onClick={loadMore}>Load More</button>
     </div>
   );
+  
+  
+  
 };
 
 export default AddFreeAgents;

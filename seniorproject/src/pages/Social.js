@@ -113,11 +113,44 @@ function Social() {
   }, []);
 
   return (
+    
     <div className="main-content">
+        <div className="add-friend-section">
+    <Button variant="primary" className="add-friend-button" onClick={handleShow}>
+      Add Friend
+    </Button>
+
+    <Modal show={show} onHide={handleClose} className="add-friend-modal">
+      <Modal.Header closeButton>
+        <Modal.Title>Add Friend</Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        <Form>
+          <Form.Group className="mb-3">
+            <Form.Label>Friend's Email</Form.Label>
+            <Form.Control type="email" placeholder="Enter email" value={email} onChange={e => setEmail(e.target.value)} />
+          </Form.Group>
+          <Form.Group className="mb-3">
+            <Form.Label>Message</Form.Label>
+            <Form.Control as="textarea" placeholder='Enter a greeting message here' rows={3} value={message} onChange={e => setMessage(e.target.value)} />
+          </Form.Group>
+        </Form>
+      </Modal.Body>
+      <Modal.Footer>
+        <Button variant="secondary" className="button-decline" onClick={handleClose}>
+          Close
+        </Button>
+        <Button variant="primary" className="button-accept"  onClick={handleSendRequest}>
+          Send Request
+        </Button>
+      </Modal.Footer>
+    </Modal>
+    </div>
       <Container fluid>
         <Row className="justify-content-md-center">
+            {requests.length > 0 && (
           <Card>
-            <Card.Header><h1>Friend Invites</h1></Card.Header>
+            <Card.Header><h1 className='friend-header'>Friend Invites</h1></Card.Header>
             <Card.Body className="friend-invite-cards">
               {requests.map((request, index) => (
                 <Card key={index} className="friend-invite-card m-2">
@@ -134,11 +167,12 @@ function Social() {
               ))}
             </Card.Body>
           </Card>
+        )}
         </Row>
         <hr />
         <Row className="justify-content-md-center">
           <Card>
-            <Card.Header><h1>Friends List</h1></Card.Header>
+            <Card.Header><h1 className='friend-header'>Friends List</h1></Card.Header>
             <Card.Body className="friend-cards">
               {friends.map((friendEmail, index) => (
                 <Card key={index} className="friend-card m-2">

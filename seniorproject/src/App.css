@@ -199,3 +199,9 @@ a {
   color: #92aabd !important; /* Black text */
   font-family: 'Quicksand', sans-serif;
 }
+
+.league-cards .modal-content {
+  border: none;
+  border-radius: 20px;
+}
+

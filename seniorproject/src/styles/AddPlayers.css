@@ -1,78 +1,130 @@
-div.free-agents div.free-agent-card {
+.free-agents .free-agent-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  min-height: auto;
+  height: auto;
+  padding: 1em;
+  margin: 1em;
+  font-family: 'Quicksand', sans-serif;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+  color: #2a454e;
+}
+
+.free-agents .add-player-button {
+  margin: 10px;
+  font-family: 'Quicksand', sans-serif;
+  background-color: #2a454e;
+  color: #ffffff;
+  border: none;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+}
+
+.free-agents .player-info {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  min-height: 15vh;
-  height: auto;
-  padding-bottom: 1em;
-  font-family: 'Quicksand', sans-serif;
-}
-
-
-div.free-agents div.add-player-button {
-  margin-right: 10px;
-  font-family: 'Quicksand', sans-serif;
-  background-color:  #1f3942;
-}
-
-div.free-agents div.player-info {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
   flex-grow: 1;
   font-family: 'Quicksand', sans-serif;
+  color: #93abbd;
 }
 
-div.free-agents div.player-name {
-  margin: 0;
-  margin-left: 10px;
+.free-agents .button {
+  width: 30px; /* Reduced from 40px */
+  height: 30px; /* Reduced from 40px */
+  border-radius: 50%; /* Makes the button circular */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 15px; /* Added to move the button to the side */
+  background-color: #2a454e;
+  border: 2px solid #93abbd; 
 }
 
-div.free-agents div.free-agent-details {
+
+.free-agents .player-details {
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Center the text vertically */
+}
+
+.free-agents .player-name {
+  font-size: 24px; /* Adjust as needed */
+  font-weight: bold;
+  color: #fe4a2a;
+}
+
+.free-agents .free-agent-details {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   gap: 10px;
   align-items: flex-start;
   justify-content: flex-start;
+  font-size: 14px;
+  color: #2a454e;
 }
 
 @media (max-width: 991px) {
-  div.free-agents div.free-agent-card {
-    display: flex;
-    flex-direction: row; /* Arrange sections side by side */
+  .free-agents .free-agent-card {
+    flex-direction: column;
     align-items: flex-start;
-    height: auto; /* Adjust the height dynamically */
-    padding: 0.1em; /* Reduce padding */
+    height: auto; /* You can adjust this to a fixed height if you want */
+    padding: 0.25em; /* Reduced from 0.5em */
+    margin: 0.25em; /* Reduced from 0.5em */
     font-size: smaller;
-    font-family: 'Quicksand', sans-serif;
-    line-height: 20%;
-
   }
   
-  div.free-agents div.add-player-button {
-    flex: 0.2; /* Make this section thinner */
-    order: 1; /* Place this section first */
+  .free-agents .add-player-button {
+    order: 1;
     margin-right: 5px;
-    font-family: 'Quicksand', sans-serif;
-    background-color:  #1f3942;
-    line-height: 20%;
   }
   
-  div.free-agents div.player-info {
-    line-height: 20%;
-    display: flex;
-    flex-direction: column; /* Arrange player details vertically */
-    align-items: flex-start;
-    order: 2; /* Place this section second */
+  .free-agents .player-info {
+    order: 2;
     margin: 0;
-    font-family: 'Quicksand', sans-serif;
   }
   
-  div.free-agents div.player-name,
-  div.free-agents div.free-agent-details {
-    line-height: 20%;
-    margin: 0;
-    font-size: smaller; /* Reduce font size */
+  .free-agents .player-name {
+    order: -1; /* This will keep the player's name at the top */
+    margin-bottom: 2px; /* Reduced from 10px */
+    font-size: small;
   }
+  
+  .free-agents .free-agent-details {
+    order: 2;
+    flex-direction: column;
+  }
+  
+  .player-card-text {
+    margin-bottom: 2px; /* Reduced from 10px */
+    font-size:smaller
+  }
+}
+
+
+
+
+.free-agents .free-agent-card .card-body .player-details .d-flex .flex-wrap Card.Text {
+  margin-right: 10px; /* Adjust as needed */
+  margin-bottom: 10px; /* Add this line */
+}
+
+.player-card-text {
+  margin-right: 10px;
+}
+
+
+.player-filter:hover, .player-filter:active {
+  box-shadow: 0 0 10px #93abbd;
 }
