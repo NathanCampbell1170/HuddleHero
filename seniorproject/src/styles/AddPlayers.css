@@ -3,7 +3,7 @@
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
-  min-height: auto;
+  
   height: auto;
   padding: 1em;
   margin: 1em;
@@ -111,8 +111,6 @@
     font-size:smaller
   }
 }
-
-
 
 
 .free-agents .free-agent-card .card-body .player-details .d-flex .flex-wrap Card.Text {

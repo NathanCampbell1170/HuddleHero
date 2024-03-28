@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { addDoc, collection, query, where, getDocs, serverTimestamp } from "firebase/firestore";
-import { db, auth } from "../Firebase-config";
+import {ref, getDownloadURL } from "firebase/storage";
+import { db, auth, storage } from "../Firebase-config";
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import Tab from 'react-bootstrap/Tab';
@@ -17,6 +18,9 @@ function CreateLeague() {
     const [showModal, setShowModal] = useState(false);
     const [friends, setFriends] = useState([]);
     const [selectedFriends, setSelectedFriends] = useState([]);
+
+    const LogoRef = ref(storage, `ProfilePictures/Logo.jpeg`);
+    
 
     const handleClick = () => {
       setShowModal(true);
@@ -327,12 +331,15 @@ function CreateLeague() {
                 }
             }
         
-    
+            const url = await getDownloadURL(LogoRef);
+            console.log(url)
             const messagesRef = collection(docRef, 'messages');
             await addDoc(messagesRef, {
-                sender: 'HuddleHero',
-                message: 'Welcome to the league! This is your chat space. Feel free to communicate here.',
-                timestamp: serverTimestamp() // import this from firebase.firestore.FieldValue
+                league:id,
+                user: 'HuddleHero',
+                text: 'Welcome to the league! This is your chat space. Feel free to communicate here.',
+                createdAt: serverTimestamp(), // import this from firebase.firestore.FieldValue,
+                picture: url,
             });
         } catch (e) {
             console.error("Error creating league: ", e);

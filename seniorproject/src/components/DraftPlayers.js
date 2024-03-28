@@ -5,6 +5,7 @@ import { db } from '../Firebase-config';
 //import {DragDropContext, Droppable, Draggable} from 'react-beautiful-dnd' 
 
 import playersData from '../NFLStats/SeasonStatsPlayers.json'
+import '../styles/DraftPlayers.css'
 
 const DraftPlayers = ({ selectedLeague, user }) => {
   const [players, setPlayers] = useState([]);
@@ -318,62 +319,53 @@ const randomizeOrder = async () => {
   return (
     
     <div>
-        
-        {user.email === selectedLeague.commissioner && leagueData.draftStatus === 'Not Started' && (
-      <div>
-        <button onClick={randomizeOrder}>Randomize Order</button>
 
-        {/*}
-        <DragDropContext onDragEnd={handleDragEnd}>
-          <Droppable droppableId="players">
-            {(provided) => (
-              <ul {...provided.droppableProps} ref={provided.innerRef}>
-                {selectedLeague.members.map((player, index) => (
-                  <Draggable key={player} draggableId={player} index={index}>
-                    {(provided) => (
-                      <li {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef}>
-                        {player}
-                      </li>
-                    )}
-                  </Draggable>
-                ))}
-                {provided.placeholder}
-              </ul>
-            )}
-          </Droppable>
-        </DragDropContext>
-                    */}
-      </div>
-    )}
-    
-    {user.email === selectedLeague.commissioner && leagueData.draftStatus === 'Not Started' && (
-        <Button variant="primary" onClick={startDraft}>Start Draft</Button>
-      )}
+{user.email === selectedLeague.commissioner && leagueData.draftStatus === 'Not Started' && (
+  <>
+    <h1 className="commissioner-draft-controls">Commissioner Controls:</h1>
+    <div className="commissioner-controls">
+      <Button className="draft-button randomize-order" onClick={randomizeOrder}>
+        Randomize Order
+      </Button>
+      <Button variant="primary" className="draft-button start-draft" onClick={startDraft}>
+        Start Draft
+      </Button>
+    </div>
+  </>
+)}
 
-<Card style={{ width: '18rem', margin: '1rem', backgroundColor: leagueData.draftStatus === 'Not Started' ? '#FF7f7F' : leagueData.draftStatus === 'Drafting' ? '#ADFF2F' : 'yellow' }}>
+
+
+
+<Card className={`draft-status-card ${leagueData.draftStatus === 'Drafting' ? 'drafting' : leagueData.draftStatus === 'Not Started' ? 'not-started' : 'finished'}`}>
+  <Card.Body>
+    <Card.Text>
+      Draft status: {leagueData.draftStatus}
+    </Card.Text>
+  </Card.Body>
+</Card>
+
+
+
+  
+<h2 className="draft-order-heading">Draft Order</h2>
+
+<div className="d-flex flex-wrap">
+  {leagueData.draftOrder && leagueData.draftOrder.map((userEmail, index) => (
+    <Card key={index} className={`draft-card ${userEmail === leagueData.currentDrafter ? 'current-drafter' : 'non-current-drafter'}`}>
     <Card.Body>
+      <Card.Title className="draft-card-title">
+        {selectedLeague.memberDisplayNames[selectedLeague.members.indexOf(userEmail)]}
+      </Card.Title>
       <Card.Text>
-        Draft status: {leagueData.draftStatus}
+        {leagueData && leagueData.currentDrafter && userEmail === leagueData.currentDrafter ? 'Currently Drafting' : 'Waiting for turn'}
       </Card.Text>
     </Card.Body>
   </Card>
   
-      <h2>Draft Order</h2>
-      
-      <div className="d-flex flex-wrap">
-  
-
-  {leagueData.draftOrder && leagueData.draftOrder.map((userEmail, index) => (
-    <Card key={index} style={{ width: '18rem', margin: '1rem', backgroundColor: leagueData && leagueData.currentDrafter && userEmail === leagueData.currentDrafter ? 'lightgreen' : 'white' }}>
-      <Card.Body>
-        <Card.Title>{selectedLeague.memberDisplayNames[selectedLeague.members.indexOf(userEmail)]}</Card.Title>
-        <Card.Text>
-          {leagueData && leagueData.currentDrafter && userEmail === leagueData.currentDrafter ? 'Currently Drafting' : 'Waiting for turn'}
-        </Card.Text>
-      </Card.Body>
-    </Card>
   ))}
 </div>
+
 
 
   
