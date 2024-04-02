@@ -13,6 +13,7 @@ import LeagueChat from './LeagueChat'
 import AddFreeAgents from './AddFreeAgents';
 import MyTeam from "./MyTeam"
 import DraftPlayers from './DraftPlayers';
+import LeagueSettings from "./LeagueSettings";
 
 
 function LeagueCards({ user }) {
@@ -142,7 +143,7 @@ function LeagueCards({ user }) {
         <LeagueChat selectedLeague={selectedLeague} user={user} />
       </Tab>
       <Tab eventKey="leagueSettings" title="League Settings" className="customTabContent">
-        {/* Content for League Settings tab */}
+        {/* Content for League Settings tab 
         <Card style={{ width: '18rem' }}>
           <Card.Body>
             <Card.Title>League Members</Card.Title>
@@ -189,6 +190,8 @@ function LeagueCards({ user }) {
             })}
           </Card.Body>
         </Card>
+        */}
+        <LeagueSettings selectedLeague = {selectedLeague}/>
       </Tab>
       {isUserCommissioner && 
         <Tab eventKey="leagueDetails" title="Edit League Settings">

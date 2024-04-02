@@ -11,8 +11,14 @@ import Dropdown from 'react-bootstrap/Dropdown';
 
 import '../styles/NavProfile.css'
 
+import defaultBeginner from "../Images/DefaultPFPBeginner.jpeg"
+import defautlExperienced from "../Images/DefaultPFPExperienced.jpeg"
+
 
 const NavProfile = ({ user, userDocument }) => {
+
+
+    const showImage1 = userDocument && userDocument.beginnerMode;
 
 
     const logOut = async () => {
@@ -28,7 +34,7 @@ const NavProfile = ({ user, userDocument }) => {
         <Card>
             <Card.Body>
                                             {/*userDocument.profilePicture*/}
-                <Card.Img className="profile-img" variant="top" src={userDocument ? userDocument.profilePicture :"placeholder.jpeg"} />
+            <Card.Img variant="top" className="profile-img" src={userDocument && userDocument.profilePicture ? userDocument.profilePicture : (showImage1 ? defaultBeginner : defautlExperienced)} />
                 <Card.Text>
                 </Card.Text>
                 <div className="dropdown-container">

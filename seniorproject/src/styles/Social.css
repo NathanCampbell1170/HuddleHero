@@ -10,7 +10,7 @@
   .friend-invite-cards {
     display: flex;
     flex-wrap: wrap;
-    justify-content: start;
+    justify-content: flex-start;
 
   }
   
@@ -18,7 +18,7 @@
   .friend-cards {
     display: flex;
     flex-wrap: wrap;
-    justify-content: start;
+    justify-content: flex-start;
   }
   
   /* Individual Friend Invite Card */

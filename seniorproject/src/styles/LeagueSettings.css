@@ -1,0 +1,85 @@
+/* LeagueSettings.css */
+
+.show-league-settings-container {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    background-color: #ffffff; /* White background for the container */
+}
+
+.show-league-settings-two-columns {
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: space-between !important;
+    width: 100% !important;
+}
+
+.show-league-settings-card {
+    margin: 1em !important;
+    width: 48% !important;
+    background-color: #2a454e; /* Dark teal background for the cards */
+    color: #ffffff; /* White text for the cards */
+}
+
+.show-league-settings-members-card .card-body,
+.show-league-settings-roster-card .card-body {
+    flex: 1 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    padding: 10px !important;
+    justify-content: center !important;
+}
+
+.show-league-settings-scoring-card {
+    width: 100% !important;
+}
+
+.show-league-settings-title {
+    color: #fe4a2a !important; /* Reddish color for the titles */
+}
+
+.show-league-settings-member,
+.show-league-settings-slot {
+    color: #93abbd !important; /* Light blue color for members and slots */
+}
+
+.show-league-settings-subcard {
+    flex-grow: 1 !important;
+    margin-bottom: 10px !important;
+    min-height: 50px !important;
+    background-color: #ffffff !important; /* White background for the subcards */
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    color: #2a454e; /* Dark teal text for the subcards */
+}
+
+.show-league-settings-member-card {
+    background-color: #2a454e !important;
+    color: #93abbd !important;
+}
+
+.show-league-settings-roster-setting-card {
+    background-color: #fe4a2a !important;
+    color: #93abbd !important;
+}
+
+.show-league-settings-scoring-category {
+    color: #2a454e !important;
+}
+
+.show-league-settings-scoring-inner-card {
+    background-color: #ffffff !important; /* White background for the scoring inner cards */
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    color: #2a454e; /* Dark teal text for the scoring inner cards */
+}
+
+.show-league-settings-scoring-inner-body {
+    color: #93abbd !important;
+}
+
+.show-league-settings-scoring-text {
+    color: #93abbd !important;
+}
