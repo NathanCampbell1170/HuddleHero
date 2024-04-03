@@ -1,85 +1,93 @@
 /* LeagueSettings.css */
 
 .show-league-settings-container {
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: center !important;
-    background-color: #ffffff; /* White background for the container */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #2a454e; 
+    font-family: 'Quicksand', sans-serif;
 }
 
 .show-league-settings-two-columns {
-    display: flex !important;
-    flex-direction: row !important;
-    justify-content: space-between !important;
-    width: 100% !important;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
 }
 
 .show-league-settings-card {
-    margin: 1em !important;
-    width: 48% !important;
-    background-color: #2a454e; /* Dark teal background for the cards */
-    color: #ffffff; /* White text for the cards */
+    margin: 1em;
+    width: 48%;
+    background-color: #2a454e;
+    border: 2px solid #93abbd;
+    color:white;
 }
 
 .show-league-settings-members-card .card-body,
 .show-league-settings-roster-card .card-body {
-    flex: 1 !important;
-    display: flex !important;
-    flex-direction: column !important;
-    padding: 10px !important;
-    justify-content: center !important;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    justify-content: center;
+}
+
+.show-league-settings-members-card, .show-league-settings-roster-setting-card .card-text {
+    color:white;
 }
 
 .show-league-settings-scoring-card {
-    width: 100% !important;
+    width: 100%;
 }
 
 .show-league-settings-title {
-    color: #fe4a2a !important; /* Reddish color for the titles */
-}
-
-.show-league-settings-member,
-.show-league-settings-slot {
-    color: #93abbd !important; /* Light blue color for members and slots */
+    font-weight: bold;
 }
 
 .show-league-settings-subcard {
-    flex-grow: 1 !important;
-    margin-bottom: 10px !important;
-    min-height: 50px !important;
-    background-color: #ffffff !important; /* White background for the subcards */
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    color: #2a454e; /* Dark teal text for the subcards */
+    flex-grow: 1;
+    margin-bottom: 10px;
+    min-height: 50px;
+    background-color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .show-league-settings-member-card {
-    background-color: #2a454e !important;
-    color: #93abbd !important;
+    background-color: #2a454e;
 }
 
-.show-league-settings-roster-setting-card {
-    background-color: #fe4a2a !important;
-    color: #93abbd !important;
+.show-league-settings-scoring-card {
+    background-color: #2a454e;
+    color: #ffffff;
+    border: 2px solid #93abbd;
+    margin-bottom: 2%
+}
+
+.show-league-settings-scoring-inner-card .card-title {
+    color: red;
+}
+
+.show-league-settings-scoring-flex {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
 }
 
 .show-league-settings-scoring-category {
-    color: #2a454e !important;
+    flex: 0 0 calc(50% - 2%);
+    margin-right: 1%;
+    margin-left: 1%;
 }
 
-.show-league-settings-scoring-inner-card {
-    background-color: #ffffff !important; /* White background for the scoring inner cards */
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    color: #2a454e; /* Dark teal text for the scoring inner cards */
+.defence-category {
+    flex:auto !important;
+    flex-direction: row !important;
+    justify-content: space-between;
 }
 
-.show-league-settings-scoring-inner-body {
-    color: #93abbd !important;
-}
-
-.show-league-settings-scoring-text {
-    color: #93abbd !important;
+.defence-category .show-league-settings-scoring-subcard {
+   
+    margin: 0.5%;
 }

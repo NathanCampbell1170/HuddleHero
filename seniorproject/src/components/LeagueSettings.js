@@ -10,8 +10,9 @@ import "../styles/LeagueSettings.css"
 const LeagueSettings = ({ selectedLeague }) => {
   const [leagueData, setLeagueData] = useState(null);
 
-  const scoringSettingsOrder = ['Passing', 'Rushing', 'Receiving', 'Defence', 'Kicking']
+  const scoringSettingsOrder = ['Passing', 'Rushing', 'Receiving', 'Kicking', 'Defence']
 
+  const defenceScoringOrder = ['shutout', 'points1_6', 'points7_13', 'points14_20', 'points21_27', 'points28_34', 'points35Plus', 'sack', 'defInterception', 'fumbleRecovery', 'safety', 'returnTD', 'blockedKick' ]
   const getDisplayName = async (email) => {
     const userRef = collection(db, 'users');
     const q = query(userRef, where('email', '==', email));
@@ -130,38 +131,41 @@ const LeagueSettings = ({ selectedLeague }) => {
         </Card>
       </div>
       <Card className="show-league-settings-card show-league-settings-scoring-card">
-        <Card.Body>
-          <Card.Title className="show-league-settings-title">Scoring Settings</Card.Title>
+      <Card.Body>
+        <Card.Title className="show-league-settings-title">Scoring Settings</Card.Title>
+        <div className="show-league-settings-scoring-flex">
           {scoringSettingsOrder.map((category, index) => {
             const settings = leagueData.settings.scoringSettings[category];
             if (!settings) return null;
+            const order = category === 'Defence' ? defenceScoringOrder : Object.keys(settings);
             return (
-              <div key={index} className="col-12 show-league-settings-scoring-category">
-                <div className="card show-league-settings-scoring-card">
-                  <div className="card-body show-league-settings-scoring-body">
-                    <h4 className="show-league-settings-scoring-title">{category}</h4>
-                    <div className="row show-league-settings-scoring-row">
-                      {Object.entries(settings).map(([key, value], i) => (
-                        <div className="col-6 show-league-settings-scoring-col" key={i}>
-                          <div className="card show-league-settings-scoring-inner-card">
-                            <div className="card-body show-league-settings-scoring-inner-body">
-                              <Card.Text className="show-league-settings-scoring-text">
-                                <strong>{keyMapping[key] || key}:</strong> {value}
-                              </Card.Text>
-                            </div>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <Card key={index} className={`show-league-settings-subcard show-league-settings-scoring-category ${category === 'Defence' ? 'defence-category' : ''}`}>
+
+                <Card.Body>
+                  <Card.Title className="show-league-settings-scoring-title">{category}</Card.Title>
+                  {order.map((key, i) => {
+                    const value = settings[key];
+                    if (value === undefined) return null;
+                    return (
+                      <Card key={i} className="show-league-settings-subcard show-league-settings-scoring-subcard">
+                        <Card.Body>
+                          <Card.Text className="show-league-settings-scoring-text">
+                            <strong>{keyMapping[key] || key}:</strong> {value}
+                          </Card.Text>
+                        </Card.Body>
+                      </Card>
+                    );
+                  })}
+                </Card.Body>
+              </Card>
             );
           })}
-        </Card.Body>
-      </Card>
-    </div>
-  );
+        </div>
+      </Card.Body>
+    </Card>
+  </div>
+);
+  
   
   
   
