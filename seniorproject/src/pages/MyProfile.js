@@ -221,56 +221,52 @@ const fetchImage = async () => {
           
           };
           if (user) {
-    return <> <div> 
-    
-
-    <Tabs defaultActiveKey="profile" id = "myProfile" fill className="customTabs">
-        <Tab eventKey="profile" title="Profile">
-        <div className="profileTab">
-            <Card style={{ width: '18rem', backgroundColor: "lightgray", border: "ridge", borderWidth:"5px", textAlign: "center"   }} >
-                <Card.Body>
-                    <Card.Img variant="top" src={imageUrl} /> 
-                    <Card.Title style = {{ paddingTop: "10px"}}>Current User: {displayName}</Card.Title>
-                    <Card.Text style={{textAlign: "center"}}>
-                        <label>Email: </label> {user.email}
-                        <label> Beginner Mode: </label> {beginnerModeSetting}
-                        <label> Display Name: </label> {displayName}
-                        <button onClick={logOut}>Log Out</button>
-                    </Card.Text>
-                
-                </Card.Body>
-            </Card>
-        </div>
-        </Tab>
-        <Tab eventKey="updateProfile" title="Update Profile Information">
-        <div className="updateProfileTab">
-            <Card style={{ width: '25rem', backgroundColor: "lightgray", border: "ridge", borderWidth:"5px", textAlign: "center"   }} >
-                <div className="Changepfp">Change Profile Picture :<input type="file" accept="image/*" onChange={uploadProfilePicture}/></div>
-                <Card.Img variant="top" src={imageUrl} /> 
-                    <Card.Title style = {{ paddingTop: "10px"}}></Card.Title>
-                    <Card.Text style={{textAlign: "center"}}>
-                        
-                    </Card.Text>
-                    Display Name: <input placeholder={displayName} onChange={(event) => {setChangeDisplayName(event.target.value)}}/>
-                    <input type="checkbox" checked={beginnerModeDefaultToggle} onChange={handleCheckboxChange}/> {"Beginner Mode"}
-                    <button onClick={updateUserProfile} >Upload Changes</button>
-           </Card>
-           </div>
-        </Tab>
-    </Tabs>
-
-    
-
-      
-
-     </div>
-
-
-
-    </>
-          } else {
+            return <> 
+            <div className="my-profile-container"> 
+                <Tabs defaultActiveKey="profile" id="myProfile" fill className="my-profile-customTabs">
+                    <Tab eventKey="profile" title="Profile" className="my-profile-profileTab">
+                        <Card className="my-profile-profileCard">
+                            <Card.Body>
+                                <Card.Img variant="top" src={imageUrl} className="my-profile-profileImage"/> 
+                                <Card.Title className="my-profile-cardTitle">Current User: {displayName}</Card.Title>
+                                <Card.Text className="my-profile-cardText">
+                                    <div><label>Email: </label> {user.email}</div>
+                                    <div><label> Beginner Mode: </label> {beginnerModeSetting}</div>
+                                    <div><label> Display Name: </label> {displayName}</div>
+                                    <button onClick={logOut} className="my-profile-logoutButton">Log Out</button>
+                                </Card.Text>
+                            </Card.Body>
+                        </Card>
+                    </Tab>
+                    <Tab eventKey="updateProfile" title="Update Profile Information" className="my-profile-updateProfileTab">
+                        <Card className="my-profile-updateProfileCard">
+                            <Card.Body>
+                                <div className="my-profile-Changepfp">
+                                    <label>Change Profile Picture:</label>
+                                    <input type="file" accept="image/*" onChange={uploadProfilePicture} className="my-profile-fileInput"/>
+                                </div>
+                                <Card.Img variant="top" src={imageUrl} className="my-profile-profileImage"/> 
+                                <div className="my-profile-inputGroup">
+                                    <label>Display Name:</label>
+                                    <input placeholder={displayName} onChange={(event) => {setChangeDisplayName(event.target.value)}} className="my-profile-inputField"/>
+                                </div>
+                                <div className="my-profile-checkboxGroup">
+                                    <input type="checkbox" checked={beginnerModeDefaultToggle} onChange={handleCheckboxChange}/>
+                                    <label>Beginner Mode</label>
+                                </div>
+                                <button onClick={updateUserProfile} className="my-profile-uploadChangesButton">Upload Changes</button>
+                            </Card.Body>
+                        </Card>
+                    </Tab>
+                </Tabs>
+            </div>
+            </>
+        } else {
             return (<></>)
-          }
+        }
+        
+        
+        
 }
 
 

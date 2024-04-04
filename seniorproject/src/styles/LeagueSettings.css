@@ -15,12 +15,13 @@
     width: 100%;
 }
 
+/* First level of cards */
 .show-league-settings-card {
     margin: 1em;
     width: 48%;
-    background-color: #2a454e;
-    border: 2px solid #93abbd;
-    color:white;
+    background-color: #2a454e !important;
+    border: 2px solid #93abbd !important;
+    color:white !important;
 }
 
 .show-league-settings-members-card .card-body,
@@ -44,14 +45,20 @@
     font-weight: bold;
 }
 
+/* Second level of cards */
 .show-league-settings-subcard {
     flex-grow: 1;
     margin-bottom: 10px;
     min-height: 50px;
-    background-color: #ffffff;
+    background-color: white !important;
     display: flex;
     align-items: center;
     justify-content: center;
+    color: #2a454e !important;
+   
+}
+
+.show-league-settings-scoring-card .card-title {
 }
 
 .show-league-settings-member-card {
@@ -75,10 +82,20 @@
     justify-content: space-between;
 }
 
+/* Third level of cards */
 .show-league-settings-scoring-category {
     flex: 0 0 calc(50% - 2%);
     margin-right: 1%;
     margin-left: 1%;
+    background-color: #2a454e !important;
+    color: white !important;
+    border: 2px solid #93abbd !important;
+    width: 100% !important; /* Set the width to 100% */
+}
+
+.show-league-settings-scoring-category .card-body {
+    width: 100% !important;
+    text-align: center !important;
 }
 
 .defence-category {
@@ -87,7 +104,84 @@
     justify-content: space-between;
 }
 
-.defence-category .show-league-settings-scoring-subcard {
-   
-    margin: 0.5%;
+.defence-category {
+    flex:auto !important;
+    display: grid; /* Use CSS Grid */
+    grid-template-columns: repeat(2, 1fr); /* Create two columns */
+    gap: 10px; /* Add a gap between grid items */
 }
+
+/* Innermost cards text colors */
+.show-league-settings-scoring-subcard .card-title {
+    color: red !important; /* Card.Title color */
+}
+
+.show-league-settings-scoring-subcard .card-text {
+    color: #2a454e !important; /* Card.Text color */
+}
+
+
+/* CSS for the strong section */
+.show-league-settings-scoring-subcard .card-text strong,
+.show-league-settings-members-card .card-text strong,
+.show-league-settings-roster-card .card-text strong {
+    color: #fe4a2a !important; /* replace with your color */
+}
+
+.show-league-settings-member {
+    color: #fe4a2a !important
+}
+
+
+@media (max-width: 991px) {
+    /* Adjustments for mobile view */
+
+    /* Container */
+    .show-league-settings-container {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important; /* Center items on the page */
+        background-color: #2a454e; 
+        font-family: 'Quicksand', sans-serif;
+    }
+
+    /* Two columns layout */
+    .show-league-settings-two-columns {
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: space-between !important;
+        width: 100% !important;
+    }
+
+    /* First level of cards */
+    .show-league-settings-card {
+        margin: 1em auto !important; /* Add vertical margins */
+        width: 100% !important; /* Full width on small screens */
+    }
+
+    /* Second level of cards */
+    .show-league-settings-subcard {
+        width: 100% !important; /* Full width on small screens */
+    }
+
+    /* Scoring settings section */
+    .show-league-settings-scoring-flex {
+        flex-direction: column !important; /* Stack items vertically */
+    }
+
+    /* Third level of cards */
+    .show-league-settings-scoring-category {
+        flex-direction: column !important; /* Stack items vertically */
+        width: 100% !important; /* Full width on small screens */
+    }
+
+    .defence-category .show-league-settings-scoring-subcard {
+        flex-direction: column !important; /* Stack items vertically */
+        width: 100% !important; /* Full width on small screens */
+    }
+}
+
+
+
+
+

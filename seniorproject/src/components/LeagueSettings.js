@@ -95,7 +95,7 @@ const LeagueSettings = ({ selectedLeague }) => {
               <Card key={index} className="show-league-settings-subcard show-league-settings-member-subcard">
                 <Card.Body>
                   <Card.Text className="show-league-settings-member">
-                    {displayName}
+                    <strong>{displayName}</strong>
                   </Card.Text>
                 </Card.Body>
               </Card>
@@ -150,7 +150,7 @@ const LeagueSettings = ({ selectedLeague }) => {
                       <Card key={i} className="show-league-settings-subcard show-league-settings-scoring-subcard">
                         <Card.Body>
                           <Card.Text className="show-league-settings-scoring-text">
-                            <strong>{keyMapping[key] || key}:</strong> {value}
+                             <strong>{keyMapping[key] || key}:</strong> {value}
                           </Card.Text>
                         </Card.Body>
                       </Card>
