@@ -34,8 +34,9 @@
   .NavProfile .card .card-body .profile-img {
     width: auto; /* Adjust this value as needed */
     height: 100%; /* Adjust this value as needed */
-    border: 5px solid #93abbd; /* Add a 5px solid border with the color #93abbd */
+    border: 3px solid #93abbd; /* Add a border to the image */
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    border-radius: 50%;
   }
   
   .dropdown-container {
