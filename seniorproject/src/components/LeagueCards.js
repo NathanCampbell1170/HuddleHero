@@ -16,7 +16,7 @@ import DraftPlayers from './DraftPlayers';
 import LeagueSettings from "./LeagueSettings";
 
 
-function LeagueCards({ user }) {
+function LeagueCards({ user, beginnerMode }) {
   const [leagues, setLeagues] = useState([]);
   const [selectedLeague, setSelectedLeague] = useState(null);
   const scoringSettingsOrder = ['Passing', 'Rushing', 'Receiving', 'Defence', 'Kicking']
@@ -140,57 +140,9 @@ function LeagueCards({ user }) {
       </Tab>
       <Tab eventKey="leagueChat" title="League Chat" className="customTabContent">
         {/* Content for League Chat tab */}
-        <LeagueChat selectedLeague={selectedLeague} user={user} />
+        <LeagueChat selectedLeague={selectedLeague} beginnerMode={beginnerMode} user={user} />
       </Tab>
       <Tab eventKey="leagueSettings" title="League Settings" className="customTabContent">
-        {/* Content for League Settings tab 
-        <Card style={{ width: '18rem' }}>
-          <Card.Body>
-            <Card.Title>League Members</Card.Title>
-            {selectedLeague?.memberDisplayNames.map((displayName, index) => (
-              <Card.Text key={index}>
-                {displayName}
-              </Card.Text>
-            ))}
-            {selectedLeague?.amountofPlayers && selectedLeague?.members && Array(Math.max(0, selectedLeague?.amountofPlayers - selectedLeague?.members.length)).fill().map((_, index) => (
-              <Card.Text key={index + selectedLeague?.members.length}>
-                <em>Empty Team Slot</em>
-              </Card.Text>
-            ))}
-          </Card.Body>
-        </Card>
-        <Card style={{ width: '100%' }}>
-          <Card.Body>
-            <Card.Title>Scoring Settings</Card.Title>
-            {scoringSettingsOrder.map((category, index) => {
-              const settings = selectedLeague?.settings?.scoringSettings[category];
-              if (!settings) return null;  // Skip if the category doesn't exist in the settings
-              return (
-                <div key={index} className="col-12">
-                  <div className="card">
-                    <div className="card-body">
-                      <h4>{category}</h4> <br></br>
-                      <div className="row">
-                        {Object.entries(settings).map(([key, value], i) => (
-                          <div className="col-6" key={i}>
-                            <div className="card">
-                              <div className="card-body">
-                                <Card.Text>
-                                  <strong>{keyMapping[key] || key}:</strong> {value}
-                                </Card.Text>
-                              </div>
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
-          </Card.Body>
-        </Card>
-        */}
         <LeagueSettings selectedLeague = {selectedLeague}/>
       </Tab>
       {isUserCommissioner && 

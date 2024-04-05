@@ -193,7 +193,7 @@ useEffect(() => {
             <input placeholder="Email..." onChange={(event) => {setRegisterEmail(event.target.value.toLowerCase())}} className="sign-up-input" />
             <input type="password" placeholder="Password..." onChange={(event) => {setRegisterPassword(event.target.value)}} className="sign-up-input"/>
             <input type="password" placeholder="Confirm Password..." onChange={(event) => {setConfirmRegisterPassword(event.target.value)}} onKeyDown={event => {if(event.key === 'Enter') register()}} className="sign-up-input" />
-            <input placeholder="DisplayName" onChange={(event) => {setUserName(event.target.value)}} className="sign-up-input" />
+            <input placeholder="DisplayName" onChange={(event) => {setUserName(event.target.value)}} className="sign-up-input" maxLength={"20"}/>
           </div>
           <div className="register-checkbox">
             <label>

@@ -239,7 +239,7 @@ const fetchImage = async () => {
                         </Card>
                     </Tab>
                     <Tab eventKey="updateProfile" title="Update Profile Information" className="my-profile-updateProfileTab">
-                        <Card className="my-profile-updateProfileCard">
+                        <Card className="my-profile-profileCard">
                             <Card.Body>
                                 <div className="my-profile-Changepfp">
                                     <label>Change Profile Picture:</label>
@@ -251,8 +251,8 @@ const fetchImage = async () => {
                                     <input placeholder={displayName} onChange={(event) => {setChangeDisplayName(event.target.value)}} className="my-profile-inputField"/>
                                 </div>
                                 <div className="my-profile-checkboxGroup">
-                                    <input type="checkbox" checked={beginnerModeDefaultToggle} onChange={handleCheckboxChange}/>
-                                    <label>Beginner Mode</label>
+                                    <input type="checkbox" checked={beginnerModeDefaultToggle} onChange={handleCheckboxChange} id="beginnerModeCheckbox"/>
+                                    <label htmlFor="beginnerModeCheckbox">Beginner Mode</label>
                                 </div>
                                 <button onClick={updateUserProfile} className="my-profile-uploadChangesButton">Upload Changes</button>
                             </Card.Body>

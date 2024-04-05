@@ -371,7 +371,7 @@ return (
                     <div className="card-body d-flex justify-content-between">
                         <div>
                             <label>League Name:</label> 
-                            <input placeholder="League Name" onChange={(event) => {setLeagueName(event.target.value)}}></input>
+                            <input placeholder="League Name" onChange={(event) => {setLeagueName(event.target.value)}} maxLength={"20"}></input>
                         </div>
                         <div>
                             <label>Number of Teams</label> 

@@ -87,3 +87,12 @@
   border: 1px solid #ced4da;
   font-size: 16px; /* Increase the font size */
 }
+
+.my-profile-checkboxGroup {
+  display: flex;
+  align-items: center; /* Align the checkbox and label vertically */
+}
+
+.my-profile-checkboxGroup input[type="checkbox"] {
+  margin-right: 10px; /* Add some space between the checkbox and label */
+}

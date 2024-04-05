@@ -11,6 +11,9 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
+import MyHuddleHero from '../components/MyHuddleHero'
+import HuddleHero from "../Images/Logo.jpeg"
+
 
 
 
@@ -20,6 +23,7 @@ function Home() {
   const [displayName, setDisplayName] = useState("")
   const [showComponent, setShowComponent] = useState(false);
   const [selectedLeague, setSelectedLeague] =useState(null)
+  const [beginnerMode, setBeginnerMode] = useState(false);
 
   const handleClick = () => {
     setShowComponent(!showComponent);
@@ -30,6 +34,8 @@ function Home() {
             const querySnapshot = await getDocs(fetchUserQuery);
             const userSettingsDocument = querySnapshot.docs[0];
             setDisplayName(userSettingsDocument.data().displayName)
+            console.log(userSettingsDocument.data().beginnerMode)
+            setBeginnerMode(userSettingsDocument.data().beginnerMode)
   }
 
   useEffect(() => {
@@ -73,7 +79,7 @@ function Home() {
     <Col md={6}>
       <div className="league-cards">
         <CreateLeague style={{width: "100%"}} />
-        <LeagueCards user={user} setSelectedLeague={setSelectedLeague} className="league-card" />
+        <LeagueCards user={user} beginnerMode={beginnerMode} setSelectedLeague={setSelectedLeague} className="league-card" />
       </div>
     </Col>
   </Row>
@@ -92,8 +98,13 @@ function Home() {
 </Modal>
 */}
 
+{beginnerMode && (
+<MyHuddleHero imageSrc={HuddleHero}>
+Test My Huddle Hero
 
-{/*<button onClick={UploadPlayerData}>UploadPlayerData</button>*/}
+</MyHuddleHero>
+)}
+
 
 </div>
 

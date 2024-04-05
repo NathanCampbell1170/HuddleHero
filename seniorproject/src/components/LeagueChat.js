@@ -6,8 +6,10 @@ import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import MyHuddleHero from './MyHuddleHero';
+import HuddleHero from "../Images/Logo.jpeg"
 
-const LeagueChat = ({ selectedLeague }) => {
+const LeagueChat = ({ selectedLeague, beginnerMode }) => {
     const [newMessage, setNewMessage] = useState('');
     const [user, setUser] = useState(null); // Initialize user state
     const [messages, setMessages] =useState([]);
@@ -134,6 +136,7 @@ const LeagueChat = ({ selectedLeague }) => {
 
     return (
         <div className="chat-page">
+          {console.log(beginnerMode)}
           <br />
           <div className="chat-container">
             {messages.slice().reverse().map((message, index) => (
@@ -173,6 +176,14 @@ const LeagueChat = ({ selectedLeague }) => {
               Send
             </Button>
           </Form>
+          {beginnerMode && (
+              <MyHuddleHero imageSrc={HuddleHero}>
+              Test My Huddle Hero For Chat Page
+              {console.log("Beginner Mode Loaded")}
+
+              </MyHuddleHero>
+              
+          )}
         </div>
       );
       
