@@ -5,10 +5,11 @@ import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import "../styles/AddPlayers.css"
+import MyHuddleHero from './MyHuddleHero';
 
 import playersData from '../NFLStats/SeasonStatsPlayers.json'
 
-const AddFreeAgents = ({ selectedLeague, user }) => {
+const AddFreeAgents = ({ selectedLeague, user, beginnerMode }) => {
   const [players, setPlayers] = useState([]);
   const [position, setPosition] = useState('All Positions');
   const [fetchedCount, setFetchedCount] = useState(0);

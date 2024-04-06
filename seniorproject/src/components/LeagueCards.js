@@ -124,30 +124,30 @@ function LeagueCards({ user, beginnerMode }) {
       {(selectedLeague?.commissioner === user.email || selectedLeague?.draftStatus) && (
         <Tab eventKey="draft" title="Draft" className="customTabContent">
           {/* Content for Draft tab */}
-          <DraftPlayers selectedLeague={selectedLeague} user={user}/>
+          <DraftPlayers selectedLeague={selectedLeague} beginnerMode={beginnerMode} user={user}/>
         </Tab>
       )}
       <Tab eventKey="myTeam" title="My Team" className="customTabContent">
         {/* Content for My Team tab */}
         <MyTeam selectedLeague={selectedLeague} user={user} />
       </Tab>
-      <Tab eventKey="matchup" title="Matchup" className="customTabContent">
+      <Tab eventKey="matchup" title="Matchup" beginnerMode={beginnerMode} className="customTabContent">
         {/* Content for Matchup tab */}
       </Tab>
       <Tab eventKey="addPlayers" title="Add Players" className="customTabContent">
         {/* Content for Add Players tab */}
-        <AddFreeAgents selectedLeague={selectedLeague} user={user} orderByField="AverageDraftPosition" />
+        <AddFreeAgents selectedLeague={selectedLeague} user={user} beginnerMode={beginnerMode} orderByField="AverageDraftPosition" />
       </Tab>
       <Tab eventKey="leagueChat" title="League Chat" className="customTabContent">
         {/* Content for League Chat tab */}
         <LeagueChat selectedLeague={selectedLeague} beginnerMode={beginnerMode} user={user} />
       </Tab>
       <Tab eventKey="leagueSettings" title="League Settings" className="customTabContent">
-        <LeagueSettings selectedLeague = {selectedLeague}/>
+        <LeagueSettings selectedLeague = {selectedLeague} beginnerMode={beginnerMode}/>
       </Tab>
       {isUserCommissioner && 
         <Tab eventKey="leagueDetails" title="Edit League Settings">
-          <EditLeagueSettings selectedLeague={selectedLeague} user={user} />
+          <EditLeagueSettings selectedLeague={selectedLeague} beginnerMode={beginnerMode} user={user} />
         </Tab>
       }
     </Tabs>

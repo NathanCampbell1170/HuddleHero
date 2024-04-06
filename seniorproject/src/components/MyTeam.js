@@ -23,6 +23,7 @@ import week18PlayersData from '../NFLStats/week18PlayersData.json'
 import  Card  from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button'
 import Dropdown from 'react-bootstrap/Dropdown';
+import MyHuddleHero from './MyHuddleHero';
 
 const weekData = {
   'Week 1': week1PlayersData,
@@ -48,7 +49,7 @@ const weekData = {
 
 
 
-const MyTeam = ({ selectedLeague, user }) => {
+const MyTeam = ({ selectedLeague, user, beginnerMode }) => {
   const [teamPlayers, setTeamPlayers] = useState([]);
   const [selectedWeek, setSelectedWeek] = useState('Season');  // New state variable
 

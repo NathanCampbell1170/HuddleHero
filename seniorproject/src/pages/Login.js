@@ -13,6 +13,9 @@ import Spinner from 'react-bootstrap/Spinner';
 import { getStorage } from "firebase/storage";
 import Tabs from "react-bootstrap/Tabs";
 import Tab from "react-bootstrap/Tab"
+import Button from 'react-bootstrap/Button'
+import Offcanvas from 'react-bootstrap/Offcanvas'
+import Carousel from 'react-bootstrap/Carousel'
 
 //import fetchUserDisplayName from "../functions/fetchUserDisplayName";
 function Login() {
@@ -36,6 +39,16 @@ function Login() {
 
   const [confirmRegisterPassword, setConfirmRegisterPassword] = useState("");
   const [passwordsMatch, setPasswordsMatch] = useState(true);
+
+
+  const [showTutorial, setShowTutorial] = useState(false);
+
+  const handleClose = () => setShowTutorial(false);
+  const handleShow = () => setShowTutorial(true);
+
+  const images = require.context('../Images/HuddleHeroes', true, /\.jpe?g$/);
+  const imageList = images.keys().map(image => images(image));
+
 
 
 
@@ -196,10 +209,38 @@ useEffect(() => {
             <input placeholder="DisplayName" onChange={(event) => {setUserName(event.target.value)}} className="sign-up-input" maxLength={"20"}/>
           </div>
           <div className="register-checkbox">
-            <label>
-              <input type="checkbox" checked={beginnerMode} onChange={handleCheckboxChange} className="sign-up-checkbox"/> {"Enable Fantasy Football Tutorial (for novice players)"}
-            </label>
-          </div>
+  <label>
+    <input type="checkbox" checked={beginnerMode} onChange={handleCheckboxChange} className="sign-up-checkbox"/> {"Enable Fantasy Football Tutorial (for novice players)"}
+    <Button variant="link" onClick={handleShow} style={{backgroundColor: 'grey', color: 'white', borderRadius: '50%', width: '20px', height: '20px', textAlign: 'center', padding: '0', fontSize: '0.8rem'}}>?</Button>
+  </label>
+</div>
+
+<Offcanvas show={showTutorial} onHide={handleClose}>
+  <Offcanvas.Header closeButton>
+    <Offcanvas.Title>Beginner Mode</Offcanvas.Title>
+  </Offcanvas.Header>
+  <Offcanvas.Body>
+  The "My HuddleHero" feature is designed to make fantasy football more accessible for beginners. Many traditional fantasy football systems can be overwhelming for new players, often requiring assistance from more experienced peers. This can hinder the enjoyment of the game for both beginners and their friends or family members.
+
+  "My HuddleHero" aims to alleviate this issue by allowing novice users to keep pace with more experienced players. This feature provides a more user-friendly experience, reducing the need for constant guidance from others and enabling beginners to enjoy the game at their own pace. This is recommended for users who are new to fantasy football or those who prefer a more guided experience.
+
+  When the "My HuddleHero" feature is enabled, you will see a Huddle Hero on various pages of the site. Clicking on this Hero will give you more explanation on the function of a page, tutorials, suggestions, and more. This interactive guide will help you navigate the site and understand the various features and functionalities at your own pace.
+          <br></br>
+          <br></br>
+          <h1 style={{textAlign: 'center'}}>Introducing the Huddle Heroes!</h1>
+  <Carousel indicators={false}>
+    {imageList.map((src, index) => (
+      <Carousel.Item interval={2000} key={index}>
+        <img
+          className="d-block w-100"
+          src={src}
+          alt={`Slide ${index}`}
+        />
+      </Carousel.Item>
+    ))}
+  </Carousel>
+</Offcanvas.Body>
+</Offcanvas>
           <div className="register-button">
             <button onClick={register} className="sign-up-button"> Register </button>
           </div>

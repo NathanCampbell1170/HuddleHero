@@ -5,9 +5,10 @@ import { auth, db } from "../Firebase-config";
 import { query, collection, where, getDocs } from 'firebase/firestore';
 
 import "../styles/LeagueSettings.css"
+import MyHuddleHero from './MyHuddleHero';
 
 
-const LeagueSettings = ({ selectedLeague }) => {
+const LeagueSettings = ({ selectedLeague, beginnerMode }) => {
   const [leagueData, setLeagueData] = useState(null);
 
   const scoringSettingsOrder = ['Passing', 'Rushing', 'Receiving', 'Kicking', 'Defence']

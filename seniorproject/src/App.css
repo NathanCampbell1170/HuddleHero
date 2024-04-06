@@ -211,3 +211,24 @@ a {
   background-color: rgba(42, 69, 78, 0.9) !important;
   color:white !important;
 }
+
+.myHuddleHero-icon {
+  width: 10%;
+  height: auto; 
+  border: 10px solid #fe4a2a 
+}
+
+
+.centered-huddle-hero {
+  display: block !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+.carousel-item img {
+  max-width: 300px; /* Adjust this to change the width */
+  max-height: auto; /* Adjust this to change the height */
+  width: auto;
+  height: auto;
+  margin: auto; /* This will center the image */
+}

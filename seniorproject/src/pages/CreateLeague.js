@@ -9,8 +9,9 @@ import Tabs from 'react-bootstrap/Tabs';
 import Card from 'react-bootstrap/Card';
 import { v4 as uuidv4 } from 'uuid';
 import "../styles/CreateLeague.css"
+import MyHuddleHero from '../components/MyHuddleHero';
 
-function CreateLeague() {
+function CreateLeague(beginnerMode) {
     const [user, setUser] = useState(null);
     const [key, setKey] = useState('leagueInfo');
     const [displayName, setDisplayName] = useState("")

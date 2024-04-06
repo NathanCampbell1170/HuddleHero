@@ -6,8 +6,9 @@ import { db } from '../Firebase-config';
 
 import playersData from '../NFLStats/SeasonStatsPlayers.json'
 import '../styles/DraftPlayers.css'
+import MyHuddleHero from './MyHuddleHero';
 
-const DraftPlayers = ({ selectedLeague, user }) => {
+const DraftPlayers = ({ selectedLeague, user, beginnerMode }) => {
   const [players, setPlayers] = useState([]);
   const [position, setPosition] = useState('All Positions');
   const [fetchedCount, setFetchedCount] = useState(0);

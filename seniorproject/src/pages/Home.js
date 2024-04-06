@@ -62,6 +62,11 @@ function Home() {
   <Row className="justify-content-md-center">
     <div className='welcome-message'>
     <h1>Welcome to HuddleHero, {displayName}</h1>
+    {beginnerMode && (
+      <MyHuddleHero imageSrc={HuddleHero}>
+      Test My Huddle Hero
+      </MyHuddleHero>
+    )}
     </div>
   </Row>
   <hr />
@@ -78,7 +83,7 @@ function Home() {
     {/* Right side - Existing Leagues */}
     <Col md={6}>
       <div className="league-cards">
-        <CreateLeague style={{width: "100%"}} />
+        <CreateLeague beginnerMode={beginnerMode} style={{width: "100%"}} />
         <LeagueCards user={user} beginnerMode={beginnerMode} setSelectedLeague={setSelectedLeague} className="league-card" />
       </div>
     </Col>
@@ -98,12 +103,7 @@ function Home() {
 </Modal>
 */}
 
-{beginnerMode && (
-<MyHuddleHero imageSrc={HuddleHero}>
-Test My Huddle Hero
 
-</MyHuddleHero>
-)}
 
 
 </div>

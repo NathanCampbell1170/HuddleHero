@@ -7,8 +7,9 @@ import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 import Card from 'react-bootstrap/Card';
 import "../styles/EditLeagueSettings.css"
+import MyHuddleHero from './MyHuddleHero';
 
-const EditLeagueSettings = ({ selectedLeague }) => {
+const EditLeagueSettings = ({ selectedLeague, beginnerMode }) => {
 
   const [user, setUser] = useState(null);
   const [key, setKey] = useState('leagueInfo');
