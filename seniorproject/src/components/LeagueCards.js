@@ -14,6 +14,7 @@ import AddFreeAgents from './AddFreeAgents';
 import MyTeam from "./MyTeam"
 import DraftPlayers from './DraftPlayers';
 import LeagueSettings from "./LeagueSettings";
+import Matchup from './Matchup';
 
 import MyHuddleHero from './MyHuddleHero';
 
@@ -149,6 +150,7 @@ function LeagueCards({ user, beginnerMode }) {
         <MyTeam selectedLeague={selectedLeague} user={user} />
       </Tab>
       <Tab eventKey="matchup" title="Matchup" beginnerMode={beginnerMode} className="customTabContent">
+        <Matchup selectedLeague={selectedLeague} user={user} beginnerMode={beginnerMode}/>
         {/* Content for Matchup tab */}
       </Tab>
       <Tab eventKey="addPlayers" title="Add Players" className="customTabContent">

@@ -211,7 +211,7 @@ useEffect(() => {
           <div className="register-checkbox">
   <label>
     <input type="checkbox" checked={beginnerMode} onChange={handleCheckboxChange} className="sign-up-checkbox"/> {"Enable Fantasy Football Tutorial (for novice players)"}
-    <Button variant="link" onClick={handleShow} style={{backgroundColor: 'grey', color: 'white', borderRadius: '50%', width: '20px', height: '20px', textAlign: 'center', padding: '0', fontSize: '0.8rem'}}>?</Button>
+    <Button onClick={handleShow} style={{backgroundColor: 'grey', color: 'white', borderRadius: '50%', width: '20px', height: '20px', marginLeft: "2px", textAlign: 'center', padding: '0', fontSize: '0.8rem', fontWeight: 'bold'}}>?</Button>
   </label>
 </div>
 
