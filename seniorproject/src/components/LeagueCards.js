@@ -15,12 +15,18 @@ import MyTeam from "./MyTeam"
 import DraftPlayers from './DraftPlayers';
 import LeagueSettings from "./LeagueSettings";
 
+import MyHuddleHero from './MyHuddleHero';
+
+import { AddFreeAgentsContent, DraftContent, EditLeagueSettingsContent, LeagueChatContent, LeagueSettingsContent, MatchupContent, MyTeamContent } from './MyHuddleHeroTutorials';
+
+
 
 function LeagueCards({ user, beginnerMode }) {
   const [leagues, setLeagues] = useState([]);
   const [selectedLeague, setSelectedLeague] = useState(null);
   const scoringSettingsOrder = ['Passing', 'Rushing', 'Receiving', 'Defence', 'Kicking']
   const isUserCommissioner = selectedLeague && selectedLeague.commissioner === user.email;
+  const [activeTab, setActiveTab] = useState("myTeam")
 
   
 
@@ -118,9 +124,20 @@ function LeagueCards({ user, beginnerMode }) {
       <Modal show={selectedLeague !== null} onHide={() => setSelectedLeague(null)} size="xl" dialogClassName="leagueModal">
   <Modal.Header closeButton className="league-title">
     <Modal.Title>League: <strong>{selectedLeague?.leagueName}</strong></Modal.Title>
+    <MyHuddleHero>
+      {activeTab === 'myTeam' && <MyTeamContent />}
+      {activeTab === 'matchup' && <MatchupContent />}
+      {activeTab === 'addPlayers' && <AddFreeAgentsContent />}
+      {activeTab === 'leagueChat' && <LeagueChatContent />}
+      {activeTab === 'leagueSettings' && <LeagueSettingsContent />}
+      {activeTab === 'draft' && <DraftContent />}
+      {activeTab === 'leagueDetails' && <EditLeagueSettingsContent />}
+      
+    </MyHuddleHero>
+
   </Modal.Header>
   <Modal.Body>
-    <Tabs defaultActiveKey="myTeam" id="uncontrolled-tab-example" className="customTabs">
+    <Tabs defaultActiveKey="myTeam" id="uncontrolled-tab-example" className="customTabs" onSelect={(k) => setActiveTab(k)}>
       {(selectedLeague?.commissioner === user.email || selectedLeague?.draftStatus) && (
         <Tab eventKey="draft" title="Draft" className="customTabContent">
           {/* Content for Draft tab */}

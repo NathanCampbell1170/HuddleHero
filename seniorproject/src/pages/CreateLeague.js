@@ -353,6 +353,8 @@ function CreateLeague(beginnerMode) {
 }
 
 return (
+
+    
     <div className="createLeague" style={{ display: 'block', position: 'initial', width: "100%" }}>
       <Button onClick={handleClick} className="create-league-button"><strong>Create League</strong></Button>
 
@@ -361,6 +363,16 @@ return (
       
         <Modal.Header closeButton>
           <Modal.Title>Create League</Modal.Title>
+          {beginnerMode && (
+              <MyHuddleHero className="centered-huddle-hero">
+                <div>
+                    <h2>Create League</h2>
+                    <p>This is the content for the Create League tab.</p>
+                    {/* Add more content here */}
+                </div>
+              {console.log("Beginner Mode Loaded")}
+            </MyHuddleHero>
+          )}
         </Modal.Header>
 
         <Tabs activeKey={key} onSelect={(k) => setKey(k)} id="createLeague" className="customTabs">

@@ -231,8 +231,15 @@ const MyTeam = ({ selectedLeague, user, beginnerMode }) => {
       </Card>
 
       {teamPlayers.map((player, index) => {
-        // Get the player's data for the selected week
-        const playerWeekData = weekData[selectedWeek].find(p => p.PlayerID === player.PlayerID);
+  // Get the player's data for the selected week
+  let playerWeekData = weekData[selectedWeek].find(p => p.PlayerID === player.PlayerID);
+
+  // If the player does not exist in the selected week, use their data from the all season data file
+  if (!playerWeekData) {
+    playerWeekData = weekData['Season'].find(p => p.PlayerID === player.PlayerID);
+    // Set all stats to 0
+    playerWeekData = { ...playerWeekData, PassingYards: 0, PassingTouchdowns: 0, PassingInterceptions: 0, RushingYards: 0, RushingTouchdowns: 0, ReceivingYards: 0, ReceivingTouchdowns: 0, Receptions: 0, FieldGoalsAttempted: 0, FieldGoalsMade: 0, ExtraPointsMade: 0, PointsAllowed: 0, Sacks: 0, Interceptions: 0, FumblesForced: 0 };
+  }
 
         return (
           <Card className="my-team-card" key={index}>

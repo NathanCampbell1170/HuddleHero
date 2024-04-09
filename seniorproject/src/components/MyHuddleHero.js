@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 
 
@@ -7,9 +7,19 @@ const images = require.context('../Images/HuddleHeroes', true, /\.jpe?g$/);
 const imageList = images.keys().map(image => images(image));
 
 // MyHuddleHero component
-const MyHuddleHero = ({ imageSrc = imageList[Math.floor(Math.random() * imageList.length)], children }) => {
+const MyHuddleHero = ({ children }) => {
   const [show, setShow] = useState(false);
   const overlayRef = useRef(null);
+
+  // State for the image source
+  const [imageSrc, setImageSrc] = useState(null);
+
+  // Set the image source on first render
+  useEffect(() => {
+    if (!imageSrc) {
+      setImageSrc(imageList[Math.floor(Math.random() * imageList.length)]);
+    }
+  }, [imageSrc]);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
