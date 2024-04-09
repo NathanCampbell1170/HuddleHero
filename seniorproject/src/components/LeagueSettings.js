@@ -14,6 +14,7 @@ const LeagueSettings = ({ selectedLeague, beginnerMode }) => {
   const scoringSettingsOrder = ['Passing', 'Rushing', 'Receiving', 'Kicking', 'Defence']
 
   const defenceScoringOrder = ['shutout', 'points1_6', 'points7_13', 'points14_20', 'points21_27', 'points28_34', 'points35Plus', 'sack', 'defInterception', 'fumbleRecovery', 'safety', 'returnTD', 'blockedKick' ]
+  
   const getDisplayName = async (email) => {
     const userRef = collection(db, 'users');
     const q = query(userRef, where('email', '==', email));
@@ -71,6 +72,7 @@ const LeagueSettings = ({ selectedLeague, beginnerMode }) => {
     FG40_49: "Field Goal Made 40-49 Yards",
     FG50Plus: "Field Goal Made 50+ Yards",
     FGMiss: "Field Goal Missed",
+    extraPoint: "Extra Point Made",
     shutout: "0 Points Allowed",
     points1_6: "1-6 Points Allowed",
     points7_13: "7-13 Points Allowed",

@@ -71,6 +71,7 @@ function CreateLeague(beginnerMode) {
     const [points21_27, setPoints21_27] = useState(2);
     const [points28_34, setPoints28_34] = useState(0);
     const [points35Plus, setPoints35Plus] = useState(-2);
+    const [extraPoint, setExtraPoint] = useState(1);
 
     //Invite Users UseStates
     const [emails, setEmails] = useState(Array(TEAMS).fill(""));
@@ -171,6 +172,9 @@ function CreateLeague(beginnerMode) {
                 break;
               case 'FGMiss':
                 setFGMiss(value);
+                break;
+              case 'extraPoint':
+                setExtraPoint(value);
                 break;
               case 'shutout':
                 setShutout(value);
@@ -306,7 +310,8 @@ function CreateLeague(beginnerMode) {
                   points14_20: points14_20,
                   points21_27: points21_27,
                   points28_34: points28_34,
-                  points35Plus: points35Plus
+                  points35Plus: points35Plus,
+                  extraPoint: extraPoint
                     },
                     Kicking: {
                   FG0_39: FG0_39,
@@ -801,6 +806,14 @@ return (
                                     <div className="card-body">
                                         <label>FG Miss</label> 
                                         <input type="text" name="FGMiss" value={FGMiss} onChange={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setFGMiss(value); } else if (/^-?\d*(\.\d*)?$/.test(value)) { setFGMiss(Number(value)); } }} onBlur={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setFGMiss(0); } }} style={{width: '100%'}} />
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="col-4">
+                                <div className="card">
+                                    <div className="card-body">
+                                        <label>FG Miss</label> 
+                                        <input type="text" name="extraPoint" value={extraPoint} onChange={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setExtraPoint(value); } else if (/^-?\d*(\.\d*)?$/.test(value)) {  setExtraPoint(Number(value)); } }} onBlur={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") {  setExtraPoint(0); } }} style={{width: '100%'}} />
                                     </div>
                                 </div>
                             </div>

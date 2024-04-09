@@ -59,6 +59,7 @@ const EditLeagueSettings = ({ selectedLeague, beginnerMode }) => {
     const [points21_27, setPoints21_27] = useState(selectedLeague.settings.scoringSettings.Defence.points21_27);
     const [points28_34, setPoints28_34] = useState(selectedLeague.settings.scoringSettings.Defence.points28_34);
     const [points35Plus, setPoints35Plus] = useState(selectedLeague.settings.scoringSettings.Defence.points35Plus);
+    const [extraPoint, setExtraPoint] = useState(selectedLeague.settings.scoringSettings.Kicking.extraPoint);
 
     const leagueInvitesRef = collection(db, 'leagueInvites');
 
@@ -192,6 +193,9 @@ const EditLeagueSettings = ({ selectedLeague, beginnerMode }) => {
           case 'FGMiss':
             setFGMiss(value);
             break;
+          case 'extraPoint':
+            setExtraPoint(value);
+            break;
           case 'shutout':
             setShutout(value);
             break;
@@ -292,7 +296,8 @@ const handleEmailChange = (index, event) => {
                 FG0_39: FG0_39 !== currentData.settings.scoringSettings.Kicking.FG0_39 ? FG0_39 : currentData.settings.scoringSettings.Kicking.FG0_39,
                 FG40_49: FG40_49 !== currentData.settings.scoringSettings.Kicking.FG40_49 ? FG40_49 : currentData.settings.scoringSettings.Kicking.FG40_49,
                 FG50Plus: FG50Plus !== currentData.settings.scoringSettings.Kicking.FG50Plus ? FG50Plus : currentData.settings.scoringSettings.Kicking.FG50Plus,
-                FGMiss: FGMiss !== currentData.settings.scoringSettings.Kicking.FGMiss ? FGMiss : currentData.settings.scoringSettings.Kicking.FGMiss
+                FGMiss: FGMiss !== currentData.settings.scoringSettings.Kicking.FGMiss ? FGMiss : currentData.settings.scoringSettings.Kicking.FGMiss,
+                extraPoint: extraPoint !== currentData.settings.scoringSettings.Kicking.extraPoint ? extraPoint : currentData.settings.scoringSettings.Kicking.extraPoint
               }
             }
           }
@@ -826,6 +831,14 @@ for (const email of emails) {
                                     <div className="card-body">
                                         <label>FG Miss</label> 
                                         <input type="text" name="FGMiss" value={FGMiss} onChange={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setFGMiss(value); } else if (/^-?\d*(\.\d*)?$/.test(value)) { setFGMiss(Number(value)); } }} onBlur={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setFGMiss(0); } }} style={{width: '100%'}} />
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="col-4">
+                                <div className="card">
+                                    <div className="card-body">
+                                        <label>Extra Point</label> 
+                                        <input type="text" name="extraPoint" value={extraPoint} onChange={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setExtraPoint(value); } else if (/^-?\d*(\.\d*)?$/.test(value)) {  setExtraPoint(Number(value)); } }} onBlur={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") {  setExtraPoint(0); } }} style={{width: '100%'}} />
                                     </div>
                                 </div>
                             </div>
