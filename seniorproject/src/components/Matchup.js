@@ -1,18 +1,60 @@
 import { useState, useEffect } from 'react';
-import { collection, query, where, getDocs, arrayRemove, updateDoc, onSnapshot } from 'firebase/firestore';
-import { db } from '../Firebase-config'  // Import your Firebase config
+import { collection, query, where, getDocs, onSnapshot } from 'firebase/firestore';
+import { db } from '../Firebase-config'
 import seasonPlayersData from '../NFLStats/SeasonStatsPlayers.json';
 import week1PlayersData from '../NFLStats/week1PlayersData.json'
 import  Card  from 'react-bootstrap/Card';
-import Button from 'react-bootstrap/Button'
 import Dropdown from 'react-bootstrap/Dropdown';
-import MyHuddleHero from './MyHuddleHero';
+
+import "../styles/Matchup.css"
 
 const weekData = {
   'Week 1': week1PlayersData,
   'Season': seasonPlayersData
 };
 
+const statMapping = {
+  'passTD': 'PassingTouchdowns',
+  'passYRD': 'PassingYards',
+  'interception': 'PassingInterceptions',
+  'recTD': 'ReceivingTouchdowns',
+  'recYRD': 'ReceivingYards',
+  'reception': 'Receptions',
+  'rushTD': 'RushingTouchdowns',
+  'rushYRD': 'RushingYards',
+  'fumble': 'Fumbles',
+  'fumbleLost': 'FumblesLost',
+  'FGMiss': ['FieldGoalsAttempted', 'FieldGoalsMade'],
+  'FG0_39': ['FieldGoalsMade0to19', 'FieldGoalsMade20to29', 'FieldGoalsMade30to39'],
+  'FG40_49': 'FieldGoalsMade40to49',
+  'FG50Plus': 'FieldGoalsMade50Plus',
+  'extraPoint': 'ExtraPointsMade',
+  'blockedKick': 'BlockedKicks',
+  'defInterception': 'Interceptions',
+  'fumblerecovery': 'FumblesRecovered',
+  'points14_20': 'PointsAllowed', 
+  'points1_6': 'PointsAllowed',
+  'points21_27': 'PointsAllowed',
+  'points28_34': 'PointsAllowed',
+  'points35Plus': 'PointsAllowed',
+  'points7_13': 'PointsAllowed',
+  'returnTD': ['DefensiveTouchdown', 'SpecialTeamsTouchdown'],
+  'sack': 'Sacks',
+  'safety': 'Safeties',
+  'shutout': 'PointsAllowed'
+};
+
+const positionMapping = {
+  'startQB': 'QB',
+  'startRB': 'RB',
+  'startWR': 'WR',
+  'startTE': 'TE',
+  'startK': 'K',
+  'startDEF': 'DEF',
+  'startFLEX': ['RB', 'WR', 'TE']
+};
+
+const positionOrder = ['startQB', 'startRB', 'startWR', 'startTE', 'startFLEX', 'startK', 'startDEF'];
 
 
 const Matchup = ({ selectedLeague, user, beginnerMode }) => {
@@ -20,8 +62,8 @@ const Matchup = ({ selectedLeague, user, beginnerMode }) => {
   const [selectedWeek, setSelectedWeek] = useState('Week 1');
   const [opponentTeamPlayers, setOpponentTeamPlayers] = useState([]);
   const [opponentDisplayName, setOpponentDisplayName] = useState('');
-
-
+  const [userProjectedScore, setUserProjectedScore] = useState(0);
+  const [opponentProjectedScore, setOpponentProjectedScore] = useState(0);
 
   useEffect(() => {
     const fetchTeams = async () => {
@@ -79,62 +121,8 @@ const Matchup = ({ selectedLeague, user, beginnerMode }) => {
     };
     fetchTeams();
   }, []);
-  
-
-  const getDisplayName = async (email) => {
-    const userRef = collection(db, 'users');
-    const q = query(userRef, where('email', '==', email));
-  
-    const querySnapshot = await getDocs(q);
-    if (!querySnapshot.empty) {
-      return querySnapshot.docs[0].data().displayName;
-    } else {
-      return null;
-    }
-  };
-  
-  // Calculate the maximum number of players
-  const maxPlayers = selectedLeague && selectedLeague.settings 
-    ? Object.values(selectedLeague.settings.rosterSettings).reduce((a, b) => a + b, 0)
-    : 0;
-
-  // Determine which data to use based on the selected week
-  const playersData = weekData[selectedWeek]
 
 
-
-  const statMapping = {
-    'passTD': 'PassingTouchdowns',
-    'passYRD': 'PassingYards',
-    'interception': 'PassingInterceptions',
-    'recTD': 'ReceivingTouchdowns',
-    'recYRD': 'ReceivingYards',
-    'reception': 'Receptions',
-    'rushTD': 'RushingTouchdowns',
-    'rushYRD': 'RushingYards',
-    'fumble': 'Fumbles',
-    'fumbleLost': 'FumblesLost',
-    'FGMiss': ['FieldGoalsAttempted', 'FieldGoalsMade'],
-    'FG0_39': ['FieldGoalsMade0to19', 'FieldGoalsMade20to29', 'FieldGoalsMade30to39'],
-    'FG40_49': 'FieldGoalsMade40to49',
-    'FG50Plus': 'FieldGoalsMade50Plus',
-    'extraPoint': 'ExtraPointsMade',
-    'blockedKick': 'BlockedKicks',
-    'defInterception': 'Interceptions',
-    'fumblerecovery': 'FumblesRecovered',
-    'points14_20': 'PointsAllowed', 
-    'points1_6': 'PointsAllowed',
-    'points21_27': 'PointsAllowed',
-    'points28_34': 'PointsAllowed',
-    'points35Plus': 'PointsAllowed',
-    'points7_13': 'PointsAllowed',
-    'returnTD': ['DefensiveTouchdown', 'SpecialTeamsTouchdown'], // Assuming 'KickReturnTouchdowns' represents return touchdowns
-    'sack': 'Sacks',
-    'safety': 'Safeties',
-    'shutout': 'PointsAllowed'
-  };
-  
-  
   const calculateProjectedPoints = (playerWeekData, scoringSettings) => {
     if (!scoringSettings) {
       return 0;
@@ -186,89 +174,259 @@ const Matchup = ({ selectedLeague, user, beginnerMode }) => {
     return projectedPoints;
   };
   
+
+  const getDisplayName = async (email) => {
+    const userRef = collection(db, 'users');
+    const q = query(userRef, where('email', '==', email));
   
+    const querySnapshot = await getDocs(q);
+    if (!querySnapshot.empty) {
+      return querySnapshot.docs[0].data().displayName;
+    } else {
+      return null;
+    }
+  };
   
+  // Calculate the maximum number of players
+const maxPlayers = selectedLeague && selectedLeague.settings 
+? Object.values(selectedLeague.settings.rosterSettings).reduce((a, b) => a + b, 0)
+: 0;
+
+// Determine which data to use based on the selected week
+const playersData = weekData[selectedWeek];
+
+// Sort the players by their projected points
+const sortedPlayers = [...playersData].sort((a, b) => {
+const aPoints = calculateProjectedPoints(a, selectedLeague?.settings?.scoringSettings);
+const bPoints = calculateProjectedPoints(b, selectedLeague?.settings?.scoringSettings);
+return bPoints - aPoints; // Sort in descending order
+});
+
+// Select the top players for each position
+const selectedPlayers = {};
+if (selectedLeague?.settings?.rosterSettings) {
+  for (const [position, count] of Object.entries(selectedLeague.settings.rosterSettings)) {
+    selectedPlayers[position] = sortedPlayers.filter(player => player.Position === position).slice(0, count);
+  }
+} else {
+  console.log('selectedLeague.settings.rosterSettings is undefined or null');
+}
+
+
+// Select the top remaining players for the FLEX position
+const remainingPlayers = sortedPlayers.filter(player => !Object.values(selectedPlayers).flat().includes(player));
+const flexCount = selectedLeague?.settings?.rosterSettings.startFLEX;
+selectedPlayers.startFLEX = remainingPlayers.slice(0, flexCount);
+
+const getSelectedPlayers = (teamPlayers) => {
+  // Sort the players by their projected points
+  let sortedPlayers = [...teamPlayers].sort((a, b) => {
+    const aPoints = calculateProjectedPoints(a, selectedLeague?.settings?.scoringSettings);
+    const bPoints = calculateProjectedPoints(b, selectedLeague?.settings?.scoringSettings);
+    return bPoints - aPoints; // Sort in descending order
+  });
+  
+// Select the top players for each position
+const selectedPlayers = {};
+if (selectedLeague?.settings?.rosterSettings) {
+  for (const [setting, count] of Object.entries(selectedLeague.settings.rosterSettings)) {
+    const position = positionMapping[setting];
+    const playersForPosition = sortedPlayers.filter(player => player.Position === position);
+    const selectedForPosition = playersForPosition.slice(0, count);
+    
+    // If not enough players to fill the slots, fill with "Empty Player Slot"
+    while (selectedForPosition.length < count) {
+      selectedForPosition.push({ Name: 'No Player', Position: 'N/A', Team: 'N/A' });
+    }
+
+    selectedPlayers[setting] = selectedForPosition;
+
+    // Remove the selected players from the sortedPlayers array
+    sortedPlayers = sortedPlayers.filter(player => !selectedForPosition.includes(player));
+  }
+}
+
+
+return selectedPlayers;
+
+
+};
+
+
+// Calculate selected players for user's team
+const userSelectedPlayers = getSelectedPlayers(teamPlayers);
+// Calculate selected players for opponent's team
+const opponentSelectedPlayers = getSelectedPlayers(opponentTeamPlayers);
+
+
+
+useEffect(() => {
+  const calculateProjectedScore = (selectedPlayers) => {
+    return Object.values(selectedPlayers).flat().reduce((total, player) => {
+      const playerWeekData = weekData[selectedWeek].find(p => p.PlayerID === player.PlayerID) || {};
+      return total + calculateProjectedPoints(playerWeekData, selectedLeague?.settings?.scoringSettings);
+    }, 0);
+  };
+
+  setUserProjectedScore(calculateProjectedScore(userSelectedPlayers));
+  setOpponentProjectedScore(calculateProjectedScore(opponentSelectedPlayers));
+}, [userSelectedPlayers, opponentSelectedPlayers]);
+
   
   
 
-
-  return (
-    <div>
+return (
+  <div>
+    <div className="matchupHeader">
       <Dropdown onSelect={setSelectedWeek}>
         <Dropdown.Toggle variant="success" id="dropdown-basic" disabled>
           {selectedWeek}
         </Dropdown.Toggle>
-  
+
         <Dropdown.Menu>
           <Dropdown.Item eventKey="Week 1">Week 1</Dropdown.Item>
           <Dropdown.Item eventKey="Season">Season</Dropdown.Item>
         </Dropdown.Menu>
       </Dropdown>
-  
-      <h2>Your Team</h2>
-      {teamPlayers.map((player, index) => {
-        // Get the player's data for the selected week
-        let playerWeekData = weekData[selectedWeek].find(p => p.PlayerID === player.PlayerID);
-  
-        // If the player does not exist in the selected week, use their data from the all season data file
-        if (!playerWeekData) {
-          playerWeekData = weekData['Season'].find(p => p.PlayerID === player.PlayerID);
-          // Set all stats to 0
-          playerWeekData = { ...playerWeekData, PassingYards: 0, PassingTouchdowns: 0, PassingInterceptions: 0, RushingYards: 0, RushingTouchdowns: 0, ReceivingYards: 0, ReceivingTouchdowns: 0, Receptions: 0, FieldGoalsAttempted: 0, FieldGoalsMade: 0, ExtraPointsMade: 0, PointsAllowed: 0, Sacks: 0, Interceptions: 0, FumblesForced: 0 };
-        }
-  
-        return (
-          <Card className="my-team-card" key={index}>
-            <Card.Body className="card-body d-flex align-items-center">
-              <div className="player-details">
-                <Card.Title className="player-name">{player.Name}</Card.Title>
-                <Card.Text className="player-card-text"> Position: {player.Position}</Card.Text>
-                <Card.Text className="player-card-text"> Team: {player.Team}</Card.Text>
-                <Card.Text className="player-card-text">
-                  Projected Points: {selectedLeague && calculateProjectedPoints(playerWeekData, selectedLeague.settings.scoringSettings).toFixed(2)}
-                </Card.Text>
-
-                
-              </div>
-            </Card.Body>
-          </Card>
-        );
-      })}
-  
-      <h2>{opponentDisplayName}'s Team</h2>
-
-      {opponentTeamPlayers.map((player, index) => {
-        // Get the player's data for the selected week
-        let playerWeekData = weekData[selectedWeek].find(p => p.PlayerID === player.PlayerID);
-  
-        // If the player does not exist in the selected week, use their data from the all season data file
-        if (!playerWeekData) {
-          playerWeekData = weekData['Season'].find(p => p.PlayerID === player.PlayerID);
-          // Set all stats to 0
-          playerWeekData = { ...playerWeekData, PassingYards: 0, PassingTouchdowns: 0, PassingInterceptions: 0, RushingYards: 0, RushingTouchdowns: 0, ReceivingYards: 0, ReceivingTouchdowns: 0, Receptions: 0, FieldGoalsAttempted: 0, FieldGoalsMade: 0, ExtraPointsMade: 0, PointsAllowed: 0, Sacks: 0, Interceptions: 0, FumblesForced: 0 };
-        }
-
-        
-  
-        return (
-          <Card className="opponent-team-card" key={index}>
-            <Card.Body className="card-body d-flex align-items-center">
-              <div className="player-details">
-                <Card.Title className="player-name">{player.Name}</Card.Title>
-                <Card.Text className="player-card-text"> Position: {player.Position}</Card.Text>
-                <Card.Text className="player-card-text"> Team: {player.Team}</Card.Text>
-                <Card.Text className="player-card-text">
-                  Projected Points: {selectedLeague && calculateProjectedPoints(playerWeekData, selectedLeague.settings.scoringSettings).toFixed(2)}
-                </Card.Text>
-
-              </div>
-            </Card.Body>
-          </Card>
-        );
-      })}
     </div>
-  );
-  
+    <div className="matchup">
+      <Card className="matchupUser-card">
+        <Card.Header>Your Team</Card.Header>
+        <Card.Body>
+          <h2>Projected Score: {userProjectedScore.toFixed(2)}</h2>
+          {positionOrder.map(slot => userSelectedPlayers[slot]?.map((player, index) => {
+            // Get the player's data for the selected week
+            let playerWeekData = weekData[selectedWeek].find(p => p.PlayerID === player.PlayerID);
+
+            // If the player does not exist in the selected week, use their data from the all season data file
+            if (!playerWeekData) {
+              playerWeekData = weekData['Season'].find(p => p.PlayerID === player.PlayerID);
+              // Set all stats to 0
+              playerWeekData = { ...playerWeekData, PassingYards: 0, PassingTouchdowns: 0, PassingInterceptions: 0, RushingYards: 0, RushingTouchdowns: 0, ReceivingYards: 0, ReceivingTouchdowns: 0, Receptions: 0, FieldGoalsAttempted: 0, FieldGoalsMade: 0, ExtraPointsMade: 0, PointsAllowed: 0, Sacks: 0, Interceptions: 0, FumblesForced: 0 };
+            }
+
+            return (
+              <Card className="matchupUser-card" key={index}>
+                <Card.Header>{slot}</Card.Header>
+                <Card.Body className="card-body d-flex align-items-center">
+                  <div className="matchupUser-details">
+                    <Card.Title className="player-name">
+                      {player.Name && player.Name.split(' ').map((namePart, index) => (
+                        <div key={index}>{namePart}</div>
+                      ))}
+                    </Card.Title>
+                    {player.Name !== 'Empty Player Slot' ? (
+                      <>
+                        <div className="matchupUser-stat">
+                          <div className="matchupUser-card-label">Position:</div>
+                          <div className="matchupUser-card-text">{player.Position}</div>
+                        </div>
+                        <div className="matchupUser-stat">
+                          <div className="matchupUser-card-label">Team:</div>
+                          <div className="matchupUser-card-text">{player.Team}</div>
+                        </div>
+                        <div className="matchupUser-stat">
+                          <div className="matchupUser-card-label">Projected Points:</div>
+                          <div className="matchupUser-card-text">
+                            {selectedLeague && calculateProjectedPoints(playerWeekData, selectedLeague.settings.scoringSettings).toFixed(2)}
+                          </div>
+                        </div>
+                      </>
+                    ) : (
+                      <>
+                        <div className="matchupUser-stat">
+                          <div className="matchupUser-card-label">Position:</div>
+                          <div className="matchupUser-card-text">N/A</div>
+                        </div>
+                        <div className="matchupUser-stat">
+                          <div className="matchupUser-card-label">Team:</div>
+                          <div className="matchupUser-card-text">N/A</div>
+                        </div>
+                        <div className="matchupUser-stat">
+                          <div className="matchupUser-card-label">Projected Points:</div>
+                          <div className="matchupUser-card-text">N/A</div>
+                        </div>
+                      </>
+                    )}
+                  </div>
+                </Card.Body>
+              </Card>
+            );
+          }))}
+        </Card.Body>
+      </Card>
+
+      <Card className="matchupOpponent-card">
+        <Card.Header>{opponentDisplayName}'s Team</Card.Header>
+        <Card.Body>
+          <h2>Projected Score: {opponentProjectedScore.toFixed(2)}</h2>
+          {positionOrder.map(slot => opponentSelectedPlayers[slot]?.map((player, index) => {
+            // Get the player's data for the selected week
+            let playerWeekData = weekData[selectedWeek].find(p => p.PlayerID === player.PlayerID);
+
+            // If the player does not exist in the selected week, use their data from the all season data file
+            if (!playerWeekData) {
+              playerWeekData = weekData['Season'].find(p => p.PlayerID === player.PlayerID);
+              // Set all stats to 0
+              playerWeekData = { ...playerWeekData, PassingYards: 0, PassingTouchdowns: 0, PassingInterceptions: 0, RushingYards: 0, RushingTouchdowns: 0, ReceivingYards: 0, ReceivingTouchdowns: 0, Receptions: 0, FieldGoalsAttempted: 0, FieldGoalsMade: 0, ExtraPointsMade: 0, PointsAllowed: 0, Sacks: 0, Interceptions: 0, FumblesForced: 0 };
+            }
+
+            return (
+              <Card className="matchupOpponent-card" key={index}>
+                <Card.Header>{slot}</Card.Header>
+                <Card.Body className="card-body d-flex align-items-center">
+                  <div className="matchupOpponent-details">
+                    <Card.Title className="player-name">
+                      {player.Name && player.Name.split(' ').map((namePart, index) => (
+                        <div key={index}>{namePart}</div>
+                      ))}
+                    </Card.Title>
+                    {player.Name !== 'Empty Player Slot' ? (
+                      <>
+                        <div className="matchupOpponent-stat">
+                          <div className="matchupOpponent-card-label">Position:</div>
+                          <div className="matchupOpponent-card-text">{player.Position}</div>
+                        </div>
+                        <div className="matchupOpponent-stat">
+                          <div className="matchupOpponent-card-label">Team:</div>
+                          <div className="matchupOpponent-card-text">{player.Team}</div>
+                        </div>
+                        <div className="matchupOpponent-stat">
+                          <div className="matchupOpponent-card-label">Projected Points:</div>
+                          <div className="matchupOpponent-card-text">
+                            {selectedLeague && calculateProjectedPoints(playerWeekData, selectedLeague.settings.scoringSettings).toFixed(2)}
+                          </div>
+                        </div>
+                      </>
+                    ) : (
+                      <>
+                        <div className="matchupOpponent-stat">
+                          <div className="matchupOpponent-card-label">Position:</div>
+                          <div className="matchupOpponent-card-text">N/A</div>
+                        </div>
+                        <div className="matchupOpponent-stat">
+                          <div className="matchupOpponent-card-label">Team:</div>
+                          <div className="matchupOpponent-card-text">N/A</div>
+                        </div>
+                        <div className="matchupOpponent-stat">
+                          <div className="matchupOpponent-card-label">Projected Points:</div>
+                          <div className="matchupOpponent-card-text">N/A</div>
+                        </div>
+                      </>
+                    )}
+                  </div>
+                </Card.Body>
+              </Card>
+            );
+          }))}
+        </Card.Body>
+      </Card>
+    </div>
+  </div>
+);
+
+
+
 };
 
 export default Matchup;

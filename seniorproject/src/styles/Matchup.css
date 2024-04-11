@@ -1,0 +1,47 @@
+/* Make the parent a flex container */
+.matchup {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+/* Style for your team and the opponent's team */
+.matchupUser-card, .matchupOpponent-card {
+    width: 100%;
+    min-height: 150px; /* Adjust as needed */
+  }
+  
+  
+  /* Style for the player details */
+  .matchupUser-details, .matchupOpponent-details {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  
+  /* Style for the player name */
+  .player-name div {
+    display: block;
+    margin-right: 10px;
+    text-align: center; /* Align text in the center */
+  }
+  
+  /* Style for the labels */
+  .matchupUser-card-label, .matchupOpponent-card-label {
+    margin-right: 10px; /* Adjust as needed */
+    text-align: center; /* Align text in the center */
+  }
+  
+  /* Style for the text */
+  .matchupUser-card-text, .matchupOpponent-card-text {
+    margin-right: 10px; /* Adjust as needed */
+    text-align: center; /* Align text in the center */
+  }
+  
+  /* Style for the stats */
+  .matchupUser-stat, .matchupOpponent-stat {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-bottom: 10px; /* Adjust as needed */
+  }
+  

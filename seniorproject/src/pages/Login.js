@@ -1,23 +1,18 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom"
-import { db, auth, signInWithGoogle } from "../Firebase-config";
+import { db, auth } from "../Firebase-config";
 import { addDoc, collection, getDocs, query, where, doc, updateDoc } from "firebase/firestore"; 
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut, sendPasswordResetEmail } from "firebase/auth";
 import Alert from 'react-bootstrap/Alert';
 import "../styles/Login.css"
 import 'bootstrap/dist/css/bootstrap.min.css';
-import SignInToast from "../toasts/SignInToast";
-import Toast from 'react-bootstrap/Toast';
 import Spinner from 'react-bootstrap/Spinner';
-import { getStorage } from "firebase/storage";
 import Tabs from "react-bootstrap/Tabs";
 import Tab from "react-bootstrap/Tab"
 import Button from 'react-bootstrap/Button'
 import Offcanvas from 'react-bootstrap/Offcanvas'
 import Carousel from 'react-bootstrap/Carousel'
 
-//import fetchUserDisplayName from "../functions/fetchUserDisplayName";
 function Login() {
   const [registerEmail, setRegisterEmail] = useState("");
   const [registerPassword, setRegisterPassword] = useState("");
@@ -27,13 +22,12 @@ function Login() {
   const [userDisplayName, setUserDisplayName] = useState("")
   const [user, setUser] = useState("")
   const userCollection = collection(db, "users");
-  const [show, setShow] = useState(false);
 
   const [emailAlreadyExists, setEmailAlreadyExists] = useState(false)
   const [passwordTooShort, setPasswordTooShort] = useState(false)
   const [badSignIn, setBadSignIn] = useState(false)
 
-  const [signInToast, setSignInToast] = useState(false);
+
 
   const [beginnerMode,setBeginnerMode] = useState(false);
 
@@ -105,19 +99,12 @@ useEffect(() => {
   const register = async () => {
     if (registerPassword !== confirmRegisterPassword) {
       setPasswordsMatch(false);
-      return;
+      return
     }
-  
     try {
-      const user = await createUserWithEmailAndPassword(auth, registerEmail, registerPassword);
-      console.log(user);
-        
+      const user = await createUserWithEmailAndPassword(auth, registerEmail, registerPassword);   
       if (user) {
-        // User logged in already or has just logged in.
-        console.log(user.uid);
       }
-  
-      // Call the createFullUser function here, after the user is created
     } catch (error) {
       if (error.code === 'auth/email-already-in-use') {
         setEmailAlreadyExists(true)
@@ -144,10 +131,8 @@ useEffect(() => {
   
   const logIn = async () => {
     try {
-      const user = await signInWithEmailAndPassword(auth, loginEmail, loginPassword);
+       await signInWithEmailAndPassword(auth, loginEmail, loginPassword);
       window.location.href = "/"
-      //setSignInToast(true)
-      //setTimeout(() => setSignInToast(false), 5000)
       } catch (error) {
         if (error.code === 'auth/invalid-credential') {
           console.log('invalid log in')
@@ -160,16 +145,12 @@ useEffect(() => {
   const sendResetEmail = () => {
     sendPasswordResetEmail(auth, loginEmail)
       .then(() => {
-        // Email sent.
         alert('Password reset email sent!');
       })
       .catch((error) => {
-        // An error occurred.
         console.error(error);
       });
   };
-
-  const toggleSignInToast = () => setSignInToast(!signInToast)
 
   const logOut = async () => {
     await setUserDisplayName("")
@@ -252,6 +233,11 @@ useEffect(() => {
           {passwordTooShort === true && ( 
             <Alert variant='danger' onClose={() => setPasswordTooShort(false)} dismissible>
               Passwords must be 6 characters long at minimum.
+            </Alert>
+          )}
+          {passwordsMatch === false && ( 
+            <Alert variant='danger' onClose={() => setPasswordsMatch(true)} dismissible>
+              Passwords do not match.
             </Alert>
           )}
         </Tab>
