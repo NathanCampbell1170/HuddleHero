@@ -53,11 +53,21 @@ const positionMapping = {
   'startDEF': 'DEF',
   'startFLEX': ['RB', 'WR', 'TE']
 };
+const positionLabelMapping = {
+  'startQB': 'QB',
+  'startRB': 'RB',
+  'startWR': 'WR',
+  'startTE': 'TE',
+  'startK': 'K',
+  'startDEF': 'DEF',
+  'startFLEX': 'FLEX'
+};
+
 
 const positionOrder = ['startQB', 'startRB', 'startWR', 'startTE', 'startFLEX', 'startK', 'startDEF'];
 
 
-const Matchup = ({ selectedLeague, user, beginnerMode }) => {
+const Matchup = ({ selectedLeague, user }) => {
   const [teamPlayers, setTeamPlayers] = useState([]);
   const [selectedWeek, setSelectedWeek] = useState('Week 1');
   const [opponentTeamPlayers, setOpponentTeamPlayers] = useState([]);
@@ -226,31 +236,42 @@ const getSelectedPlayers = (teamPlayers) => {
     return bPoints - aPoints; // Sort in descending order
   });
   
-// Select the top players for each position
-const selectedPlayers = {};
-if (selectedLeague?.settings?.rosterSettings) {
-  for (const [setting, count] of Object.entries(selectedLeague.settings.rosterSettings)) {
-    const position = positionMapping[setting];
-    const playersForPosition = sortedPlayers.filter(player => player.Position === position);
-    const selectedForPosition = playersForPosition.slice(0, count);
-    
-    // If not enough players to fill the slots, fill with "Empty Player Slot"
-    while (selectedForPosition.length < count) {
-      selectedForPosition.push({ Name: 'No Player', Position: 'N/A', Team: 'N/A' });
+  // Select the top players for each position
+  const selectedPlayers = {};
+  if (selectedLeague?.settings?.rosterSettings) {
+    for (const [setting, count] of Object.entries(selectedLeague.settings.rosterSettings)) {
+      const position = positionMapping[setting];
+      const playersForPosition = sortedPlayers.filter(player => player.Position === position);
+      const selectedForPosition = playersForPosition.slice(0, count);
+      
+      // If not enough players to fill the slots, fill with "Empty Player Slot"
+      while (selectedForPosition.length < count) {
+        selectedForPosition.push({ Name: 'No Player', Position: 'N/A', Team: 'N/A' });
+      }
+
+      selectedPlayers[setting] = selectedForPosition;
+
+      // Remove the selected players from the sortedPlayers array
+      sortedPlayers = sortedPlayers.filter(player => !selectedForPosition.includes(player));
     }
-
-    selectedPlayers[setting] = selectedForPosition;
-
-    // Remove the selected players from the sortedPlayers array
-    sortedPlayers = sortedPlayers.filter(player => !selectedForPosition.includes(player));
+  } else {
+    console.log('selectedLeague.settings.rosterSettings is undefined or null');
   }
-}
 
+  // Select the top remaining players for the FLEX position
+  const flexPositions = ['RB', 'WR', 'TE'];
+  const remainingPlayers = sortedPlayers.filter(player => flexPositions.includes(player.Position));
+  remainingPlayers.sort((a, b) => {
+    const aPoints = calculateProjectedPoints(a, selectedLeague?.settings?.scoringSettings);
+    const bPoints = calculateProjectedPoints(b, selectedLeague?.settings?.scoringSettings);
+    return bPoints - aPoints; // Sort in descending order
+  });
+  const flexCount = selectedLeague?.settings?.rosterSettings.startFLEX;
+  selectedPlayers.startFLEX = remainingPlayers.slice(0, flexCount);
 
-return selectedPlayers;
-
-
+  return selectedPlayers;
 };
+
 
 
 // Calculate selected players for user's team
@@ -279,7 +300,7 @@ return (
   <div>
     <div className="matchupHeader">
       <Dropdown onSelect={setSelectedWeek}>
-        <Dropdown.Toggle variant="success" id="dropdown-basic" disabled>
+        <Dropdown.Toggle className="matchupDropdown" variant="success" id="dropdown-basic" disabled>
           {selectedWeek}
         </Dropdown.Toggle>
 
@@ -291,7 +312,7 @@ return (
     </div>
     <div className="matchup">
       <Card className="matchupUser-card">
-        <Card.Header>Your Team</Card.Header>
+        <Card.Header className='matchup-Team-Owner'>Your Team</Card.Header>
         <Card.Body>
           <h2>Projected Score: {userProjectedScore.toFixed(2)}</h2>
           {positionOrder.map(slot => userSelectedPlayers[slot]?.map((player, index) => {
@@ -306,17 +327,17 @@ return (
             }
 
             return (
-              <Card className="matchupUser-card" key={index}>
-                <Card.Header>{slot}</Card.Header>
-                <Card.Body className="card-body d-flex align-items-center">
+              <Card className="matchupUser-playerCard" key={index}>
+                <Card.Header className="matchupUser-playerCard-header">{positionLabelMapping[slot]}</Card.Header>
+                <Card.Body className="matchupUser-playerCard-body">
                   <div className="matchupUser-details">
-                    <Card.Title className="player-name">
-                      {player.Name && player.Name.split(' ').map((namePart, index) => (
-                        <div key={index}>{namePart}</div>
-                      ))}
-                    </Card.Title>
                     {player.Name !== 'Empty Player Slot' ? (
                       <>
+                        <Card.Title className="player-name">
+                          {player.Name && player.Name.split(' ').map((namePart, index) => (
+                            <div key={index}>{namePart}</div>
+                          ))}
+                        </Card.Title>
                         <div className="matchupUser-stat">
                           <div className="matchupUser-card-label">Position:</div>
                           <div className="matchupUser-card-text">{player.Position}</div>
@@ -357,7 +378,7 @@ return (
       </Card>
 
       <Card className="matchupOpponent-card">
-        <Card.Header>{opponentDisplayName}'s Team</Card.Header>
+        <Card.Header className='matchup-Team-Owner'>{opponentDisplayName}'s Team</Card.Header>
         <Card.Body>
           <h2>Projected Score: {opponentProjectedScore.toFixed(2)}</h2>
           {positionOrder.map(slot => opponentSelectedPlayers[slot]?.map((player, index) => {
@@ -372,9 +393,9 @@ return (
             }
 
             return (
-              <Card className="matchupOpponent-card" key={index}>
-                <Card.Header>{slot}</Card.Header>
-                <Card.Body className="card-body d-flex align-items-center">
+              <Card className="matchupOpponent-playerCard" key={index}>
+                <Card.Header className='matchupOpponent-playerCard-header'>{positionLabelMapping[slot]}</Card.Header>
+                <Card.Body className="matchupOpponent-playerCard-body">
                   <div className="matchupOpponent-details">
                     <Card.Title className="player-name">
                       {player.Name && player.Name.split(' ').map((namePart, index) => (

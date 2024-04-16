@@ -1,0 +1,143 @@
+/* General styles */
+body {
+    font-family: Quicksand, sans-serif !important;
+    background-color: #f4f4f4 !important; /* Light grey background for a modern look */
+}
+
+/* Style for the dropdown */
+.myTeam-dropdown {
+    color: white !important;
+    border: none !important;
+    border-radius: 5px !important;
+    transition: all 0.3s ease 0s !important; /* Smooth transition for hover effects */
+}
+
+
+/* Style for the card */
+.myTeam-teamStatsCard, .myTeam-myTeamCard {
+    border: 2px solid !important;
+    border-color: #93abbd !important;
+    border-radius: 10px !important;
+    background-color: #2a454e !important; /* Bright placeholder color */
+    color: white !important;
+    margin-bottom: 20px !important;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+}
+
+.myTeam-teamStatsCard, .myTeam-myTeamCard:hover {
+    box-shadow: 0px 0px 15px 5px #fe4a2a !important;
+}
+
+/* Style for the card body */
+.myTeam-cardBody {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important; /* Centers items horizontally in the container */
+    padding: 20px !important;
+}
+
+/* Style for the button */
+.dropButton {
+    background-color: #fe4a2a !important; /* Bright placeholder color */
+    color: white !important;
+    border: none !important;
+    border-radius: 5px !important;
+    margin-right: 20px !important;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1) !important; /* Adds a subtle shadow for a 3D effect */
+    transition: all 0.3s ease 0s !important; /* Smooth transition for hover effects */
+}
+
+.dropButton:hover {
+    background-color: #fc6a50 !important; /* Slightly lighter color when hovered */
+    box-shadow: 0px 8px 20px #fe4a2a !important; /* Bigger shadow when hovered */
+    
+}
+
+/* Style for player details */
+.myTeam-playerDetails {
+    flex-grow: 1 !important;
+    display: flex !important; /* Makes this a flex container */
+    flex-direction: column !important;
+    align-items: flex-start !important; /* Aligns items to the left in the container */
+}
+
+/* Style for player name */
+.myTeam-playerName {
+    font-size: 20px !important;
+    font-weight: bold !important;
+}
+
+/* Style for player card text */
+.myTeam-playerCardText {
+    margin-bottom: 0 !important;
+}
+
+/* Style for stat block */
+.myTeam-statBlock {
+    width: auto !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    margin: 0 10px !important; /* Adds some horizontal space between stat blocks */
+}
+
+.d-flex.flex-wrap-myTeam {
+    justify-content: space-around !important; /* Spaces the stat blocks evenly */
+}
+
+
+.MyTeam-rosterStatus {
+    border: 2px solid !important;
+    border-color: #93abbd !important;
+    border-radius: 10px !important;
+    background-color: #fe4a2a !important; /* Bright placeholder color */
+    color: white !important;
+    margin-bottom: 20px !important;
+}
+
+.MyTeam-rosterStatusCardBody {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important; /* Spaces the title and the text evenly */
+    padding: 20px !important;
+    
+}
+
+.MyTeam-rosterStatusTitleContainer {
+    align-self: flex-start !important; /* Aligns the title container to the left */
+}
+
+.MyTeam-rosterStatusTitle {
+    text-align: left !important; /* Aligns the title to the left */
+}
+
+.MyTeam-rosterStatusText {
+    align-self: flex-end !important; /* Aligns the text to the right */
+}
+
+
+.myTeam-dropdownMenu {
+    max-height: 200px; /* Adjust as needed */
+    overflow-y: auto; /* Makes the menu scrollable */
+    background-color: #93abbd !important; /* Bright placeholder color */
+    color: white !important;
+    border: none !important;
+    font-size: 12px !important;
+    border-radius: 5px !important;
+}
+
+.myTeam-dropdownMenu .dropdown-item {
+    font-size: 18px !important; /* Adjust as needed */
+    width: auto !important; /* Adjust as needed */
+    text-align: center !important;
+    color:white
+}
+
+.myTeam-dropdownbutton {
+    background-color: #93abbd !important;
+    border: none !important;
+}
+
+.myTeam-dropdownbutton:hover {
+    background-color: #93abbd !important;
+}

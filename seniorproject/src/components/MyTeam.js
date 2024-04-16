@@ -23,7 +23,7 @@ import week18PlayersData from '../NFLStats/week18PlayersData.json'
 import  Card  from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button'
 import Dropdown from 'react-bootstrap/Dropdown';
-import MyHuddleHero from './MyHuddleHero';
+import "../styles/MyTeam.css"
 
 const weekData = {
   'Week 1': week1PlayersData,
@@ -124,83 +124,15 @@ const MyTeam = ({ selectedLeague, user, beginnerMode }) => {
   // Determine which data to use based on the selected week
   const playersData = weekData[selectedWeek]
 
-
-
-
-
-   /*let playersData;
-  switch (selectedWeek) {
-    case 'Week 1':
-      playersData = week1PlayersData;
-      break;
-    case 'Week 2':
-      playersData = week2PlayersData;
-      break;
-    case 'Week 3':
-      playersData = week3PlayersData;
-      break;
-    case 'Week 4':
-      playersData = week4PlayersData;
-      break;
-    case 'Week 5':
-      playersData = week5PlayersData;
-      break;
-    case 'Week 6':
-      playersData = week6PlayersData;
-      break;
-      case 'Week 7':
-      playersData = week7PlayersData;
-    break;
-      case 'Week 8':
-      playersData = week8PlayersData;
-    break;
-      case 'Week 9':
-      playersData = week9PlayersData;
-    break;
-      case 'Week 9':
-      playersData = week9PlayersData;
-    break;
-      case 'Week 10':
-      playersData = week10PlayersData;
-    break;
-      case 'Week 11':
-      playersData = week11PlayersData;
-    break;
-      case 'Week 12':
-      playersData = week12PlayersData;
-    break;
-      case 'Week 13':
-      playersData = week13PlayersData;
-    break;
-      case 'Week 14':
-      playersData = week14PlayersData;
-    break;
-      case 'Week 15':
-      playersData = week15PlayersData;
-    break;
-      case 'Week 16':
-      playersData = week16PlayersData;
-    break;
-      case 'Week 17':
-      playersData = week17PlayersData;
-    break;
-      case 'Week 18':
-      playersData = week18PlayersData;
-    break;
-    case 'Season':
-    default:
-      playersData = seasonPlayersData;
-      break;
-  }
-*/
   return (
-    <div>
-      <Dropdown onSelect={setSelectedWeek}>
-        <Dropdown.Toggle variant="success" id="dropdown-basic">
+    <div className="myTeam">
+      <Dropdown className="myTeam-dropdown" onSelect={setSelectedWeek}>
+        <Dropdown.Toggle variant="success" id="dropdown-basic" className="myTeam-dropdownbutton">
           {selectedWeek}
         </Dropdown.Toggle>
 
-        <Dropdown.Menu>
+        <Dropdown.Menu className="myTeam-dropdownMenu">
+          <Dropdown.Item eventKey="Season">Season</Dropdown.Item>
           <Dropdown.Item eventKey="Week 1">Week 1</Dropdown.Item>
           <Dropdown.Item eventKey="Week 2">Week 2</Dropdown.Item>
           <Dropdown.Item eventKey="Week 3">Week 3</Dropdown.Item>
@@ -219,16 +151,20 @@ const MyTeam = ({ selectedLeague, user, beginnerMode }) => {
           <Dropdown.Item eventKey="Week 16">Week 16</Dropdown.Item>
           <Dropdown.Item eventKey="Week 17">Week 17</Dropdown.Item>
           <Dropdown.Item eventKey="Week 18">Week 18</Dropdown.Item>
-          <Dropdown.Item eventKey="Season">Season</Dropdown.Item>
         </Dropdown.Menu>
       </Dropdown>
 
-      <Card className="team-stats-card">
-        <Card.Body>
-          <Card.Title>Team Stats</Card.Title>
-          <Card.Text>Players: {teamPlayers.length} / {maxPlayers}</Card.Text>
+      <Card className="MyTeam-rosterStatus">
+        <Card.Body className="MyTeam-rosterStatusCardBody">
+          <div className="MyTeam-rosterStatusTitleContainer">
+            <Card.Title className="MyTeam-rosterStatusTitle">Your Team:</Card.Title>
+          </div>
+          <Card.Text className="MyTeam-rosterStatusText">Players: {teamPlayers.length} / {maxPlayers}</Card.Text>
         </Card.Body>
       </Card>
+
+
+
 
       {teamPlayers.map((player, index) => {
   // Get the player's data for the selected week
@@ -241,36 +177,120 @@ const MyTeam = ({ selectedLeague, user, beginnerMode }) => {
     playerWeekData = { ...playerWeekData, PassingYards: 0, PassingTouchdowns: 0, PassingInterceptions: 0, RushingYards: 0, RushingTouchdowns: 0, ReceivingYards: 0, ReceivingTouchdowns: 0, Receptions: 0, FieldGoalsAttempted: 0, FieldGoalsMade: 0, ExtraPointsMade: 0, PointsAllowed: 0, Sacks: 0, Interceptions: 0, FumblesForced: 0 };
   }
 
-        return (
-          <Card className="my-team-card" key={index}>
-            <Card.Body className="card-body d-flex align-items-center">
-              <Button variant="danger" onClick={() => dropPlayer(player)}>Drop</Button>
-              <div className="player-details">
-                <Card.Title className="player-name">{player.Name}</Card.Title>
-                {(player.Position === 'DEF') &&<strong><Card.Text className="player-card-text">{player.Team}</Card.Text></strong>}
-                <div className="d-flex flex-wrap">
-                  <Card.Text className="player-card-text"> Position: {player.Position}</Card.Text>
-                  {(player.Position != 'DEF') &&<Card.Text className="player-card-text"> Team: {player.Team}</Card.Text>}
-                  {(player.Position === 'QB') && <Card.Text className="player-card-text">PassYRD: {playerWeekData.PassingYards || 0}</Card.Text>}
-                  {(player.Position === 'QB') && <Card.Text className="player-card-text">PassTD: {playerWeekData.PassingTouchdowns || 0}</Card.Text>}
-                  {(player.Position === 'QB') && <Card.Text className="player-card-text">INT: {playerWeekData.PassingInterceptions || 0}</Card.Text>}
-                  {(player.Position === 'QB' || player.Position === 'RB') && <Card.Text className="player-card-text">RushYRD: {playerWeekData.RushingYards || 0}</Card.Text>}
-                  {(player.Position === 'QB' || player.Position === 'RB') && <Card.Text className="player-card-text">RushTD: {playerWeekData.RushingTouchdowns || 0}</Card.Text>}
-                  {(player.Position === 'RB' || player.Position === 'WR' || player.Position === 'TE') && <Card.Text className="player-card-text">ReceivingYRD: {playerWeekData.ReceivingYards || 0}</Card.Text>}
-                  {(player.Position === 'RB' || player.Position === 'WR' || player.Position === 'TE') && <Card.Text className="player-card-text">ReceivingTD: {playerWeekData.ReceivingTouchdowns || 0}</Card.Text>}
-                  {(player.Position === 'RB' || player.Position === 'WR' || player.Position === 'TE') && <Card.Text className="player-card-text">Receptions: {playerWeekData.Receptions || 0}</Card.Text>}
-                  {player.Position === 'K' && <Card.Text className="player-card-text">FG Attempted: {playerWeekData.FieldGoalsAttempted || 0}</Card.Text>}
-                  {player.Position === 'K' && <Card.Text className="player-card-text">FG Made: {playerWeekData.FieldGoalsMade || 0}</Card.Text>}
-                  {player.Position === 'K' && <Card.Text className="player-card-text">Extra Points Made: {playerWeekData.ExtraPointsMade || 0}</Card.Text>}
-                  {player.Position === 'DEF' && <Card.Text className="player-card-text">Points Allowed: {playerWeekData.PointsAllowed || 0}</Card.Text>}
-                  {player.Position === 'DEF' && <Card.Text className="player-card-text">Sacks: {playerWeekData.Sacks || 0}</Card.Text>}
-                  {player.Position === 'DEF' && <Card.Text className="player-card-text">Interceptions: {playerWeekData.Interceptions || 0}</Card.Text>}
-                  {player.Position === 'DEF' && <Card.Text className="player-card-text">Fumbles Forced: {playerWeekData.FumblesForced || 0}</Card.Text>}
-                </div>
+  return (
+    <Card className="myTeam-myTeamCard" key={index}>
+      <Card.Body className="myTeam-cardBody d-flex align-items-center">
+        <Button className="dropButton" variant="danger" onClick={() => dropPlayer(player)}>Drop</Button>
+        <div className="myTeam-playerDetails">
+          <Card.Title className="myTeam-playerName">{player.Name}</Card.Title>
+          {(player.Position === 'DEF') &&<strong><Card.Text className="myTeam-playerCardText">{player.Team}</Card.Text></strong>}
+          <div className="d-flex flex-wrap-myTeam">
+            <div className="myTeam-statBlock">
+              <Card.Text className="myTeam-playerCardText">Position:</Card.Text>
+              <Card.Text className="myTeam-playerCardText">{player.Position}</Card.Text>
+            </div>
+            {(player.Position != 'DEF') &&
+              <div className="myTeam-statBlock">
+                <Card.Text className="myTeam-playerCardText">Team:</Card.Text>
+                <Card.Text className="myTeam-playerCardText">{player.Team}</Card.Text>
               </div>
-            </Card.Body>
-          </Card>
-        );
+            }
+            {(player.Position === 'QB') && 
+              <div className="myTeam-statBlock">
+                <Card.Text className="myTeam-playerCardText">PassYRD:</Card.Text>
+                <Card.Text className="myTeam-playerCardText">{playerWeekData.PassingYards || 0}</Card.Text>
+              </div>
+            }
+            {(player.Position === 'QB') && 
+              <div className="myTeam-statBlock">
+                <Card.Text className="myTeam-playerCardText">PassTD:</Card.Text>
+                <Card.Text className="myTeam-playerCardText">{playerWeekData.PassingTouchdowns || 0}</Card.Text>
+              </div>
+            }
+            {(player.Position === 'QB') && 
+              <div className="myTeam-statBlock">
+                <Card.Text className="myTeam-playerCardText">INT:</Card.Text>
+                <Card.Text className="myTeam-playerCardText">{playerWeekData.PassingInterceptions || 0}</Card.Text>
+              </div>
+            }
+            {(player.Position === 'QB' || player.Position === 'RB') && 
+              <div className="myTeam-statBlock">
+                <Card.Text className="myTeam-playerCardText">RushYRD:</Card.Text>
+                <Card.Text className="myTeam-playerCardText">{playerWeekData.RushingYards || 0}</Card.Text>
+              </div>
+            }
+            {(player.Position === 'QB' || player.Position === 'RB') && 
+              <div className="myTeam-statBlock">
+                <Card.Text className="myTeam-playerCardText">RushTD:</Card.Text>
+                <Card.Text className="myTeam-playerCardText">{playerWeekData.RushingTouchdowns || 0}</Card.Text>
+              </div>
+            }
+            {(player.Position === 'RB' || player.Position === 'WR' || player.Position === 'TE') && 
+              <div className="myTeam-statBlock">
+                <Card.Text className="myTeam-playerCardText">ReceivingYRD:</Card.Text>
+                <Card.Text className="myTeam-playerCardText">{playerWeekData.ReceivingYards || 0}</Card.Text>
+              </div>
+            }
+            {(player.Position === 'RB' || player.Position === 'WR' || player.Position === 'TE') && 
+              <div className="myTeam-statBlock">
+                <Card.Text className="myTeam-playerCardText">ReceivingTD:</Card.Text>
+                <Card.Text className="myTeam-playerCardText">{playerWeekData.ReceivingTouchdowns || 0}</Card.Text>
+              </div>
+            }
+            {(player.Position === 'RB' || player.Position === 'WR' || player.Position === 'TE') && 
+              <div className="myTeam-statBlock">
+                <Card.Text className="myTeam-playerCardText">Receptions:</Card.Text>
+                <Card.Text className="myTeam-playerCardText">{playerWeekData.Receptions || 0}</Card.Text>
+              </div>
+            }
+            {player.Position === 'K' && 
+              <div className="myTeam-statBlock">
+                <Card.Text className="myTeam-playerCardText">FG Attempted:</Card.Text>
+                <Card.Text className="myTeam-playerCardText">{playerWeekData.FieldGoalsAttempted || 0}</Card.Text>
+              </div>
+            }
+            {player.Position === 'K' && 
+              <div className="myTeam-statBlock">
+                <Card.Text className="myTeam-playerCardText">FG Made:</Card.Text>
+                <Card.Text className="myTeam-playerCardText">{playerWeekData.FieldGoalsMade || 0}</Card.Text>
+              </div>
+            }
+            {player.Position === 'K' && 
+              <div className="myTeam-statBlock">
+                <Card.Text className="myTeam-playerCardText">Extra Points Made:</Card.Text>
+                <Card.Text className="myTeam-playerCardText">{playerWeekData.ExtraPointsMade || 0}</Card.Text>
+              </div>
+            }
+            {player.Position === 'DEF' && 
+              <div className="myTeam-statBlock">
+                <Card.Text className="myTeam-playerCardText">Points Allowed:</Card.Text>
+                <Card.Text className="myTeam-playerCardText">{playerWeekData.PointsAllowed || 0}</Card.Text>
+              </div>
+            }
+            {player.Position === 'DEF' && 
+              <div className="myTeam-statBlock">
+                <Card.Text className="myTeam-playerCardText">Sacks:</Card.Text>
+                <Card.Text className="myTeam-playerCardText">{playerWeekData.Sacks || 0}</Card.Text>
+              </div>
+            }
+            {player.Position === 'DEF' && 
+              <div className="myTeam-statBlock">
+                <Card.Text className="myTeam-playerCardText">Interceptions:</Card.Text>
+                <Card.Text className="myTeam-playerCardText">{playerWeekData.Interceptions || 0}</Card.Text>
+              </div>
+            }
+            {player.Position === 'DEF' && 
+              <div className="myTeam-statBlock">
+                <Card.Text className="myTeam-playerCardText">Fumbles Forced:</Card.Text>
+                <Card.Text className="myTeam-playerCardText">{playerWeekData.FumblesForced || 0}</Card.Text>
+              </div>
+            }
+          </div>
+        </div>
+      </Card.Body>
+    </Card>
+  );
+  
       })}
     </div>
   );
