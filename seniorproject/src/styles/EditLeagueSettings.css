@@ -1,63 +1,29 @@
-.edit-league-settings .card {
-    margin: 10px 0;
-}
-
-.edit-league-settings .card-body {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    flex-wrap: wrap;
-    font-family: 'Quicksand', sans-serif;
-}
-
-@media (min-width: 992px) {
-    .nav-tabs {
-        /* Your styles for larger screens here */
-        display: flex;
-        justify-content: center;
-        margin-right: 0; /* Add this line */
-        font-family: 'Quicksand', sans-serif;
-    }
-}
-
-/* Style for smaller screens */
-@media (max-width: 991px) {
-    .nav-tabs {
-        /* Your styles for smaller screens here */
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        overflow-x: auto;
-        margin-right: 0; /* Add this line */
-    }
-
-    .nav-tabs .nav-item {
-        flex: 0 0 auto;
-    }
-}
-
-.nav-tabs .nav-link.active {
-    /* Your styles for selected tabs here */
+.edit-league-settings {
     background-color: #2a454e;
-    color: white; /* You can change this to any color you want for the text */
+    color: white;
 }
 
-.nav-tabs .nav-link {
-    /* Your styles for non-selected tabs here */
-    background-color: grey;
-    color: white; /* You can change this to any color you want for the text */
+.league-commissionercard {
+    background-color: #2a454e !important;
+    color: white !important;
+    border-bottom: 2px solid #93abbd !important;
+    border-radius: 0% !important;
 }
 
-.placeholder {
-    .card {
-    margin: 10px 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    }
+.league-commissionercard .card-title {
+    width: 50% !important;
+}
+.league-commissionercard .card-body {
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important; /* This will center the items vertically */
 }
 
-input {
-    font-family: 'Quicksand', sans-serif;
+.league-commissionercard .card-body .card-text {
+    display: flex !important;
+    justify-content: space-between !important;
 }
 
+.league-commissionercard .card-body .card-text button {
+    margin-left: auto !important;
+}

@@ -1,11 +1,13 @@
 .leagueTab {
     display: flex;
     justify-content: center;
+    background-color: #2a454e !important;
   }
 
 .leagueModal{
   max-width: 90%;
   height: 80vh;
+  background-color: #2a454e !important;
   
 }
 
@@ -19,6 +21,7 @@
 .leagueModal .modal-content {
   border: none;
   border-radius: 10px;
+  background-color: #2a454e !important;
 }
 
 .league-title {
@@ -74,4 +77,13 @@ font-family: 'Quicksand', sans-serif;
   /*background-color: #2a454e; /* Replace with your desired color */
   padding: 20px; /* Adjust as needed */
   border-radius: 5px; /* Optional, for rounded corners */
+}
+
+.myHuddleHero-LeagueHeader {
+  justify-content: flex-end !important;
+  border-radius: 50% !important;
+  width: 80px !important;
+  height: 80px !important;
+  object-fit: cover !important;
+  border: 2px solid #fe4a2a 
 }

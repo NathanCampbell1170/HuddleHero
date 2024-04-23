@@ -43,7 +43,7 @@ const NavProfile = ({ user, userDocument }) => {
                         {userDocument ? userDocument.displayName : 'Loading...'}
                     </Dropdown.Toggle>
                     <Dropdown.Menu className="my-dropdown-menu">
-                        <Dropdown.Item className="my-dropdown-item" href="/">Leagues</Dropdown.Item>
+                        <Dropdown.Item className="my-dropdown-item" href="/">Home/Leagues</Dropdown.Item>
                         <Dropdown.Item className="my-dropdown-item" href="/myprofile">My Profile</Dropdown.Item>
                         <Dropdown.Item className="my-dropdown-item" href="/social">My Friends</Dropdown.Item>
                         <Dropdown.Item className="my-dropdown-item" onClick={logOut}>Logout</Dropdown.Item>

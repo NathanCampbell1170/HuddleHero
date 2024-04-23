@@ -22,21 +22,14 @@ function Login() {
   const [userDisplayName, setUserDisplayName] = useState("")
   const [user, setUser] = useState("")
   const userCollection = collection(db, "users");
-
   const [emailAlreadyExists, setEmailAlreadyExists] = useState(false)
   const [passwordTooShort, setPasswordTooShort] = useState(false)
   const [badSignIn, setBadSignIn] = useState(false)
-
-
-
   const [beginnerMode,setBeginnerMode] = useState(false);
-
   const [confirmRegisterPassword, setConfirmRegisterPassword] = useState("");
   const [passwordsMatch, setPasswordsMatch] = useState(true);
-
-
   const [showTutorial, setShowTutorial] = useState(false);
-
+  
   const handleClose = () => setShowTutorial(false);
   const handleShow = () => setShowTutorial(true);
 
@@ -165,7 +158,7 @@ useEffect(() => {
         <div className="Login">  
         { userDisplayName === "" && ( 
       <Tabs defaultActiveKey="login" id="uncontrolled-tab-example">
-        <Tab eventKey="login" title="Sign In">
+        <Tab eventKey="login" title="Log In">
           <h3> Log in </h3>
           <div className="login-inputs">
             <input placeholder="Email..." onChange={(event) => {setloginEmail(event.target.value)}} />
@@ -191,7 +184,7 @@ useEffect(() => {
           </div>
           <div className="register-checkbox">
   <label>
-    <input type="checkbox" checked={beginnerMode} onChange={handleCheckboxChange} className="sign-up-checkbox"/> {"Enable Fantasy Football Tutorial (for novice players)"}
+    <input type="checkbox" checked={beginnerMode} onChange={handleCheckboxChange} className="sign-up-checkbox"/> {"Enable 'My HuddleHero' Beginner Mode"}
     <Button onClick={handleShow} style={{backgroundColor: 'grey', color: 'white', borderRadius: '50%', width: '20px', height: '20px', marginLeft: "2px", textAlign: 'center', padding: '0', fontSize: '0.8rem', fontWeight: 'bold'}}>?</Button>
   </label>
 </div>

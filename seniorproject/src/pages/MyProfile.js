@@ -252,7 +252,7 @@ const fetchImage = async () => {
                                 </div>
                                 <div className="my-profile-checkboxGroup">
                                     <input type="checkbox" checked={beginnerModeDefaultToggle} onChange={handleCheckboxChange} id="beginnerModeCheckbox"/>
-                                    <label htmlFor="beginnerModeCheckbox">Beginner Mode</label>
+                                    <label htmlFor="beginnerModeCheckbox">Enable My HuddleHero Beginner Mode</label>
                                 </div>
                                 <button onClick={updateUserProfile} className="my-profile-uploadChangesButton">Upload Changes</button>
                             </Card.Body>

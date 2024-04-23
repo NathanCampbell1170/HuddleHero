@@ -84,11 +84,11 @@ function App() {
           <nav>
           <img src={Logo} alt="Logo" className="logo" />
             <Button variant="primary" onClick={handleShow} className="login-button">
-              Login
+              Log In/Sign Up
             </Button>
             <Modal show={show} onHide={handleClose} className="login-modal">
               <Modal.Header closeButton className="login-modal-header">
-                <Modal.Title>Log in/Sign up</Modal.Title>
+                <Modal.Title>Log In/Sign Up</Modal.Title>
               </Modal.Header>
               <Modal.Body className="login-modal-body">
                 <Login /> {/* Your Login component goes here */}

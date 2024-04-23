@@ -7,7 +7,7 @@ const images = require.context('../Images/HuddleHeroes', true, /\.jpe?g$/);
 const imageList = images.keys().map(image => images(image));
 
 // MyHuddleHero component
-const MyHuddleHero = ({ children }) => {
+const MyHuddleHero = ({ children, applyClassToImage }) => {
   const [show, setShow] = useState(false);
   const overlayRef = useRef(null);
 
@@ -28,12 +28,13 @@ const MyHuddleHero = ({ children }) => {
     <>
       {/* Image that triggers the popup */}
       <img
-        className="myHuddleHero-icon"
+        className={applyClassToImage ? "myHuddleHero-LeagueHeader" : ""}
         src={imageSrc}
         alt="MyHuddleHero Image"
         onClick={handleShow}
         style={{ cursor: 'pointer' }}
       />
+
 
       {/* Offcanvas component */}
       <Offcanvas show={show} onHide={handleClose} backdrop={false}>

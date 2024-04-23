@@ -10,6 +10,7 @@ import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import Accordion from 'react-bootstrap/Accordion'
 
 import MyHuddleHero from '../components/MyHuddleHero'
 import HuddleHero from "../Images/Logo.jpeg"
@@ -71,7 +72,6 @@ function Home() {
   </Row>
   <hr />
   <Row>
-    {/* Left side - Dummy Invite Cards */}
     <Col md={6}>
       <div className="invite-cards">
 
@@ -83,7 +83,7 @@ function Home() {
     {/* Right side - Existing Leagues */}
     <Col md={6}>
       <div className="league-cards">
-        <CreateLeague beginnerMode={beginnerMode} style={{width: "100%"}} />
+        <CreateLeague beginnerMode={beginnerMode} />
         <LeagueCards user={user} beginnerMode={beginnerMode} setSelectedLeague={setSelectedLeague} className="league-card" />
       </div>
     </Col>
@@ -121,37 +121,33 @@ function Home() {
       <hr />
       <Row>
         {/* Left side - Dummy Invite Cards */}
-        <Card>
-          <Card.Body>
-            <Card.Title>
-            What is HuddleHero?
-            </Card.Title>
-            <Card.Text>
-            HuddleHero is .........
-            </Card.Text>
-          </Card.Body>
-        </Card>
-        <Card>
-          <Card.Body>
-            <Card.Title>
-            Why Choose HuddleHero?
-            </Card.Title>
-            <Card.Text>
-            HuddleHero is .........
-            </Card.Text>
-          </Card.Body>
-        </Card>
-        <Card>
-          <Card.Body>
-            <Card.Title>
-            What is HuddleHero?
-            </Card.Title>
-            <Card.Text>
-            HuddleHero is .........
-            </Card.Text>
-          </Card.Body>
-        </Card>
-    
+        <Accordion className="About" defaultActiveKey="0">
+      <Accordion.Item eventKey="1">
+        <Accordion.Header>What is HuddleHero?</Accordion.Header>
+        <Accordion.Body>
+        HuddleHero is .........
+        </Accordion.Body>
+      </Accordion.Item>
+      <Accordion.Item eventKey="2">
+        <Accordion.Header>Why Choose HuddleHero?</Accordion.Header>
+        <Accordion.Body>
+        HuddleHero is .........
+        </Accordion.Body>
+      </Accordion.Item>
+      <Accordion.Item eventKey="3">
+        <Accordion.Header>What is HuddleHero?</Accordion.Header>
+        <Accordion.Body>
+        HuddleHero is .........
+        </Accordion.Body>
+      </Accordion.Item>
+      <Accordion.Item eventKey="4">
+        <Accordion.Header>What is HuddleHero?</Accordion.Header>
+        <Accordion.Body>
+        HuddleHero is .........
+        </Accordion.Body>
+      </Accordion.Item>
+      </Accordion>
+
         {/* Right side - Existing Leagues */}
         <Col md={6}>
           

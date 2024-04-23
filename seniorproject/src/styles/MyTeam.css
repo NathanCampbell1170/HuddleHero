@@ -141,3 +141,64 @@ body {
 .myTeam-dropdownbutton:hover {
     background-color: #93abbd !important;
 }
+
+
+/* Mobile styling */
+@media (max-width: 991px) {
+    .myTeam {
+        width: 100% !important;
+    }
+    .myTeam-dropdown,
+    .myTeam-teamStatsCard,
+    .myTeam-myTeamCard,
+    .MyTeam-rosterStatus {
+        width: 100% !important; /* Makes the elements take up the full width of the screen */
+    }
+
+    .myTeam-cardBody,
+    .MyTeam-rosterStatusCardBody {
+        flex-direction: column !important; /* Stacks the items vertically */
+        align-items: flex-start !important; /* Aligns items to the left in the container */
+    }
+
+    .myTeam-cardBody {
+        justify-content: center !important; /* Centers items horizontally in the container */
+    }
+
+    .dropButton {
+        width: 110%;
+        margin-right: 0px !important;
+        margin-top: .5em !important;
+        order: 700 !important; /* Moves the button to the bottom */
+    }
+
+    .myTeam-playerDetails {
+        align-items: center !important; /* Centers items horizontally in the container */
+        font-size: .7em !important;
+    }
+
+    .d-flex.flex-wrap-myTeam {
+        display: grid !important; /* Changes the layout to grid */
+        grid-template-columns: repeat(2, 1fr) !important; /* Creates two columns */
+        gap: 10px !important; /* Adds some space between the grid items */
+    }
+
+    .MyTeam-rosterStatusTitle {
+        text-align: center !important; /* Aligns the title to the left */
+        align-self: center !important;
+    }
+    
+    .MyTeam-rosterStatusText {
+        align-self: center !important; /* Aligns the text to the right */
+    }
+
+    .MyTeam-rosterStatusCardBody {
+        justify-content: center !important; /* Centers items horizontally in the container */
+    }
+
+    .MyTeam-rosterStatusTitleContainer {
+        width: 100% !important; /* Makes the title container take up the full width of the card body */
+        text-align: center !important; /* Aligns the title to the center */
+    }
+    
+}

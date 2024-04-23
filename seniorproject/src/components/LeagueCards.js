@@ -123,18 +123,19 @@ function LeagueCards({ user, beginnerMode }) {
 
       {/* Modal for displaying league details */}
       <Modal show={selectedLeague !== null} onHide={() => setSelectedLeague(null)} size="xl" dialogClassName="leagueModal">
-  <Modal.Header closeButton className="league-title">
-    <Modal.Title>League: <strong>{selectedLeague?.leagueName}</strong></Modal.Title>
-    <MyHuddleHero>
-      {activeTab === 'myTeam' && <MyTeamContent />}
-      {activeTab === 'matchup' && <MatchupContent />}
-      {activeTab === 'addPlayers' && <AddFreeAgentsContent />}
-      {activeTab === 'leagueChat' && <LeagueChatContent />}
-      {activeTab === 'leagueSettings' && <LeagueSettingsContent />}
-      {activeTab === 'draft' && <DraftContent />}
-      {activeTab === 'leagueDetails' && <EditLeagueSettingsContent />}
-      
-    </MyHuddleHero>
+  <Modal.Header style={{justifyContent: "flex-end"}} closeButton className="league-title">
+    <Modal.Title >League: <strong>{selectedLeague?.leagueName}</strong></Modal.Title>
+    {beginnerMode && (<MyHuddleHero className="myHuddleHero-LeagueHeader" applyClassToImage>
+  {activeTab === 'myTeam' && <MyTeamContent />}
+  {activeTab === 'matchup' && <MatchupContent />}
+  {activeTab === 'addPlayers' && <AddFreeAgentsContent />}
+  {activeTab === 'leagueChat' && <LeagueChatContent />}
+  {activeTab === 'leagueSettings' && <LeagueSettingsContent />}
+  {activeTab === 'draft' && <DraftContent />}
+  {activeTab === 'leagueDetails' && <EditLeagueSettingsContent />}
+</MyHuddleHero>
+    )}
+
 
   </Modal.Header>
   <Modal.Body>

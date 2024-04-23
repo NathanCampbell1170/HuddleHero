@@ -61,7 +61,7 @@
   
   /* Current Drafter Styles */
   .draft-card.current-drafter {
-    background-color: #2a454e; /* Green for current drafter */
+    background-color: #fe4a2a; /* Green for current drafter */
     color: white;
   }
   
@@ -75,6 +75,7 @@
   .commissioner-draft-controls, .draft-order-heading {
     font-family: 'Quicksand', sans-serif;
     font-weight: bold;
+    color:white
 
   }
 
@@ -102,7 +103,7 @@
   }
   
   .draft-button.randomize-order:hover {
-    background-color: #005ea3; /* Darker color on hover */
+    background-color:#fF4F2a !important; /* Darker color on hover */
     border-color: #96aabb; /* Show border on hover */
   }
   
@@ -112,7 +113,7 @@
     font-size: 14px;
     font-weight: bold;
     color: white;
-    background-color: #2a454e;
+    background-color: #96aabb;
     border: 2px solid transparent; /* Add a border */
     padding: 0.5rem 1rem;
     cursor: pointer;

@@ -180,10 +180,10 @@ const MyTeam = ({ selectedLeague, user, beginnerMode }) => {
   return (
     <Card className="myTeam-myTeamCard" key={index}>
       <Card.Body className="myTeam-cardBody d-flex align-items-center">
-        <Button className="dropButton" variant="danger" onClick={() => dropPlayer(player)}>Drop</Button>
+        <Button className="dropButton"  onClick={() => dropPlayer(player)}>Drop</Button>
         <div className="myTeam-playerDetails">
           <Card.Title className="myTeam-playerName">{player.Name}</Card.Title>
-          {(player.Position === 'DEF') &&<strong><Card.Text className="myTeam-playerCardText">{player.Team}</Card.Text></strong>}
+          {(player.Position === 'DEF') &&<strong><Card.Text className="myTeam-playerName">{player.Team} Defence</Card.Text></strong>}
           <div className="d-flex flex-wrap-myTeam">
             <div className="myTeam-statBlock">
               <Card.Text className="myTeam-playerCardText">Position:</Card.Text>

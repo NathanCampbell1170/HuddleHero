@@ -232,3 +232,59 @@ a {
   height: auto;
   margin: auto; /* This will center the image */
 }
+
+
+/* CSS for the Accordion with className 'About' */
+.About {
+  font-family: 'Quicksand', sans-serif; /* Use the Quicksand font */
+}
+
+.About .accordion-header {
+  background-color: #2a454e; /* Main theme color for the header */
+  color: white; /* White text for better contrast */
+  font-size: 20px; /* Larger font size for a modern look */
+  padding: 20px; /* Increased padding for taller headers */
+  transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth transition for a modern look */
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); /* Subtle box shadow for a modern look */
+}
+
+.About .accordion-header:hover {
+  background-color: #1d353a; /* Darker shade of the main theme color when hovered */
+  transform: scale(1.008); /* Slightly larger when hovered for a modern look */
+}
+
+.About .accordion-header.active {
+  background-color: #93abbd; /* Tertiary color when active */
+}
+
+.About .accordion-body {
+  background-color: white; /* White color for the body */
+  color: #2a454e; /* Main theme color for the text */
+  font-size: 16px; /* Slightly smaller font size for the body */
+  padding: 20px; /* Increased padding for taller bodies */
+  transition: background-color 0.3s ease; /* Smooth transition for a modern look */
+  border: 2px solid #fe4a2a;
+}
+
+.About .accordion-body:hover {
+  
+  
+}
+
+.About .accordion-button {
+  background-color: white; /* Main theme color for the button */
+  color: #2a454e; /* Secondary theme color for the text */
+  font-weight: bold;
+  transition: background-color 0.3s ease; /* Smooth transition for a modern look */
+  text-align: center;
+}
+
+.About .accordion-button:not(.collapsed) {
+  background-color: #93abbd; /* Tertiary color when the accordion item is opened */
+  color: white; /* White color for the text when the accordion item is opened */
+}
+
+.About .accordion-button:focus {
+  box-shadow: none/* Remove the box-shadow */
+}
+

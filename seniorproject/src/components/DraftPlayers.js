@@ -347,8 +347,8 @@ const randomizeOrder = async () => {
 </Card>
 
 
-
-  
+{ leagueData.draftOrder && (
+<div>
 <h2 className="draft-order-heading">Draft Order</h2>
 
 <div className="d-flex flex-wrap">
@@ -367,9 +367,9 @@ const randomizeOrder = async () => {
   ))}
 </div>
 
+</div>
 
-
-  
+)}
       
   
 <Form>

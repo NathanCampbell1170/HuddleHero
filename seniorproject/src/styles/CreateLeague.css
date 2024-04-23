@@ -1,99 +1,204 @@
-.create-League .card {
-    margin: 10px 0;
-    font-family: 'Quicksand', sans-serif;
-}
-
-.create-League {
+/* Existing CSS */
+.createLeague {
     width: 50vw;
-}
-.create-League .Button {
-    width: 100%;
+    background-color: red !important;
+    font-family: 'Quicksand', sans-serif;
 }
 
 .create-league-button {
     width: 100%;
-    border: 1px solid #333 !important; /* Add a small border */
-    box-shadow: 8px 5px 7px rgba(0, 0, 0, 0.2); /* Add a box shadow */
-    transition: all 0.3s ease; /* Smooth transition for hover effect */
+    border: 1px solid #333 !important;
+    box-shadow: 8px 5px 7px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
     background-color: #fe4a2a !important;
-  }
-  
-  .create-league-button:hover {
-    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4); /* Increase box shadow on hover */
-    cursor: pointer; /* Change cursor to pointer on hover */
-  }
-  
-
-.create-League .card .input-container select {
-    width: 100%; /* adjust as needed */
-    /* rest of your styles */
 }
 
+.create-league-button:hover {
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+    cursor: pointer;
+}
 
-.inviteUsers .input-container {
+.customTabs {
+    background-color: #2a454e !important;
+    justify-content: center;
+}
+
+.customTabs .nav {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: 20px;
+    justify-content: center;
 }
 
-
-
-.inviteUsers .input {
-    width:40vh;
-
+.customTabs .nav-item {
+    border-right: 1px solid #2a454e; /* Change the color as needed */
 }
 
-
-.create-League .card-body {
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* Change from flex-start to center */
-    flex-wrap: wrap;
-    font-family: 'Quicksand', sans-serif;
-}
-
-
-
-
-
-@media (min-width: 992px) {
-    .nav-tabs {
-        /* Your styles for larger screens here */
-        display: flex;
-        justify-content: center;
-        margin-right: 0; /* Add this line */
-        font-family: 'Quicksand', sans-serif;
-    }
-}
-
-/* Style for smaller screens */
-@media (max-width: 991px) {
-    .nav-tabs {
-        /* Your styles for smaller screens here */
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        overflow-x: auto;
-        margin-right: 0; /* Add this line */
-        font-family: 'Quicksand', sans-serif;
-    }
-
-    .nav-tabs .nav-item {
-        flex: 0 0 auto;
-        font-family: 'Quicksand', sans-serif;
-    }
+.customTabs .nav-item:last-child {
+    border-right: none;
 }
 
 .customTabs .nav-link {
-    background-color: gray; /* non-selected tab color */
-  color: white; /* text color */
-  font-family: 'Quicksand', sans-serif;
-  }
-
-  .customTabs .nav-link.active {
-    background-color: #2a454e; /* selected tab color */
+    background-color: #93abbd !important;
     color: white;
     font-family: 'Quicksand', sans-serif;
+}
 
-  }
+.customTabs .nav-link.active {
+    background-color: #fe4a2a !important;
+    color: white !important;
+    font-family: 'Quicksand', sans-serif;
+    outline:none !important;
+    border: none !important;
+}
+.customTabs .nav-link:hover {
+    border: none !important;
+    color: white
+}
+
+.createleague-nextbutton {
+    background-color: #fe4a2a !important;
+    border: none !important
+}
+
+.createleague-createleaguebutton {
+    background-color: #fe4a2a !important;
+    border: none !important   
+}
+
+
+.leagueInfo-card, .rosterSettings-card, .scoringSettings-card, .inviteUsers-card {
+    background-color: #2a454e !important;
+    border-radius: 15px;
+   border:none !important;
+    color: white !important;
+    font-size: larger;
+    font-size: 1em;
+}
+
+.leagueInfo-card input, .rosterSettings-card select, .scoringSettings-card input, .inviteUsers-card input {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.leagueInfo-card input:hover, .leagueInfo-card input:focus {
+    box-shadow: 0px 0px 5px 3px #93abbd !important;
+    outline: none;
+}
+
+.scoringSettings-card input:hover, .scoringSettings-card input:focus {
+    box-shadow: 0px 0px 5px 3px #93abbd !important;
+    outline: none;
+}
+
+.inviteUsers input:hover, .inviteUsers input:focus {
+    box-shadow: 0px 0px 5px 3px #93abbd !important;
+    outline: none;
+}
+
+
+
+.inviteUsers-card .input-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.inviteUsers-card .input-container .input {
+    width: 45%;
+}
+
+.modal-footer {
+    background-color: #2a454e !important;
+}
+
+.rosterSettings .card-body {
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: space-between !important;
+    flex-wrap: wrap;
+}
+
+.rosterSettings-card {
+    width: 100% !important; /* The value 21% is calculated based on (100% - (margins + paddings)) / number of cards. Adjust accordingly. */
+    
+}
+
+/* New additions */
+.rosterSettings-card .rosterSettings-subcard {
+    width: fit-content !important ;
+    flex: 1 0 calc(100% / 10); /* Adjust this value to change the size of the subcards. */
+    margin: .1em;
+}
+
+.rosterSettings-card .rosterSettings-subcard > div {
+    flex: 1 0 auto;
+    margin: 0.5em;
+}
+
+/* Header styles */
+.rosterSettings h4 {
+    display: block;
+    width: 100%;
+    text-align: center;
+}
+
+
+.leagueInfo {
+    background-color: #2a454e !important;
+}
+
+/* Scoring settings styles */
+.scoringSettings-passing,
+.scoringSettings-rushing,
+.scoringSettings-receiving,
+.scoringSettings-defence,
+.scoringSettings-kicking {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.scoringSettings-passing > div,
+.scoringSettings-rushing > div,
+.scoringSettings-receiving > div,
+.scoringSettings-defence > div,
+.scoringSettings-kicking > div {
+    flex: 1 0 calc(100% / 6); /* Adjust this value to change the size of the items. */
+    margin: 0.5em;
+}
+
+
+.scoringSettings {
+    background-color: #2a454e;
+    color: white;
+}
+
+.scoringSettings h4 {
+    font-weight: bold 
+}
+
+.inviteUsers {
+    background-color: #2a454e;
+    color: white;
+}
+
+.inviteUsers h4 {
+    font-weight: bold
+}
+
+
+
+.createleague-modal .modal-header {
+    background-color: #2a454e !important;
+    border: none !important;
+    border-radius: 0% !important;
+    color: white;
+}
+
+.createleague-modal .modal-title {
+    font-weight: bold !important;
+}

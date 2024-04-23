@@ -311,13 +311,13 @@ function CreateLeague(beginnerMode) {
                   points21_27: points21_27,
                   points28_34: points28_34,
                   points35Plus: points35Plus,
-                  extraPoint: extraPoint
                     },
                     Kicking: {
                   FG0_39: FG0_39,
                   FG40_49: FG40_49,
                   FG50Plus: FG50Plus,
                   FGMiss: FGMiss,
+                  extraPoint: extraPoint
                 }
                   
                 }
@@ -358,485 +358,402 @@ function CreateLeague(beginnerMode) {
 }
 
 return (
+    <div className="createLeague">
+        <Button onClick={handleClick} className="create-league-button"><strong>Create League</strong></Button>
 
-    
-    <div className="createLeague" style={{ display: 'block', position: 'initial', width: "100%" }}>
-      <Button onClick={handleClick} className="create-league-button"><strong>Create League</strong></Button>
+        {/* Modal */}
+        <Modal show={showModal} onHide={handleClose} size="xl" className="createleague-modal">
+            <Modal.Header closeButton>
+                <Modal.Title>Create League</Modal.Title>
 
-      {/* Modal */}
-      <Modal show={showModal} onHide={handleClose} size="xl">
-      
-        <Modal.Header closeButton>
-          <Modal.Title>Create League</Modal.Title>
-          {beginnerMode && (
-              <MyHuddleHero className="centered-huddle-hero">
-                <div>
-                    <h2>Create League</h2>
-                    <p>This is the content for the Create League tab.</p>
-                    {/* Add more content here */}
-                </div>
-              {console.log("Beginner Mode Loaded")}
-            </MyHuddleHero>
-          )}
-        </Modal.Header>
+            </Modal.Header>
 
-        <Tabs activeKey={key} onSelect={(k) => setKey(k)} id="createLeague" className="customTabs">
-        <Tab eventKey="leagueInfo" title="League Info">
-    <Modal.Body>
-        <div className="row">
-            <div className="col-12">
-                <div className="card">
-                    <div className="card-body d-flex justify-content-between">
-                        <div>
-                            <label>League Name:</label> 
-                            <input placeholder="League Name" onChange={(event) => {setLeagueName(event.target.value)}} maxLength={"20"}></input>
-                        </div>
-                        <div>
-                            <label>Number of Teams</label> 
-                            <select name="Teams" value={TEAMS} onChange={handleChange}> 
-                                <option value="2">2</option>
-                                <option value="4">4</option>
-                                <option value="6">6</option>
-                                <option value="8">8</option>
-                                <option value="10">10</option>
-                                <option value="12">12</option>
-                                <option value="16">16</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div className="col-12">
-                <div className="card">
-                    <div className="card-body">
-                        <label>Roster Settings</label>
-
-                        <div className="row">
-                            <div className="col-4">
-                                <div className="card">
-                                    <div className="card-body">
-                                        <label>QB</label> 
-                                        <select name="QB" value={QB} onChange={handleChange}>
-                                            <option value="1">1</option>
-                                            <option value="2">2</option>
-                                            <option value="3">3</option>
-                                            <option value="4">4</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="col-4">
-                                <div className="card">
-                                    <div className="card-body">
-                                        <label>RB</label> 
-                                        <select name="RB" value={RB} onChange={handleChange}>
-                                            <option value="1">1</option>
-                                            <option value="2">2</option>
-                                            <option value="3">3</option>
-                                            <option value="4">4</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="col-4">
-                                <div className="card">
-                                    <div className="card-body">
-                                        <label>WR</label> 
-                                        <select name="WR" value={WR} onChange={handleChange}>
-                                            <option value="1">1</option>
-                                            <option value="2">2</option>
-                                            <option value="3">3</option>
-                                            <option value="4">4</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="col-4">
-                                <div className="card">
-                                    <div className="card-body">
-                                        <label>TE</label> 
-                                        <select name="TE" value={TE} onChange={handleChange}>
-                                            <option value="1">1</option>
-                                            <option value="2">2</option>
-                                            <option value="3">3</option>
-                                            <option value="4">4</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="col-4">
-                                <div className="card">
-                                    <div className="card-body">
-                                        <label>FLEX</label> 
-                                        <select name="FLEX" value={FLEX} onChange={handleChange}>
-                                            <option value="1">1</option>
-                                            <option value="2">2</option>
-                                            <option value="3">3</option>
-                                            <option value="4">4</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="col-4">
-                                <div className="card">
-                                    <div className="card-body">
-                                        <label>K</label> 
-                                        <select name="K" value={K} onChange={handleChange}>
-                                            <option value="1">1</option>
-                                            <option value="2">2</option>
-                                            <option value="3">3</option>
-                                            <option value="4">4</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="col-4">
-                                <div className="card">
-                                    <div className="card-body">
-                                        <label>DEF</label> 
-                                        <select name="DEF" value={DEF} onChange={handleChange}>
-                                            <option value="1">1</option>
-                                            <option value="2">2</option>
-                                            <option value="3">3</option>
-                                            <option value="4">4</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="col-4">
-                                <div className="card">
-                                    <div className="card-body">
-                                        <label>BENCH</label> 
-                                        <select name="BENCH" value={BENCH} onChange={handleChange}>
-                                            <option value="1">1</option>
-                                            <option value="2">2</option>
-                                            <option value="3">3</option>
-                                            <option value="4">4</option>
-                                            <option value="5">5</option>
-                                            <option value="6">6</option>
-                                            <option value="7">7</option>
-                                            <option value="8">8</option>
-                                            <option value="9">9</option>
-                                            <option value="10">10</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <Button onClick={() => setKey('scoringSettings')}>Next</Button>
+            <Tabs activeKey={key} onSelect={(k) => setKey(k)} id="createLeague" className="customTabs">
+                <Tab eventKey="leagueInfo" title="League Info">
+                    <Modal.Body className="leagueInfo">
+                    <div className="leagueInfo">
+    <Card className="leagueInfo-card">
+        <Card.Body>
+            <label>League Name:</label> 
+            <input placeholder="League Name" onChange={(event) => {setLeagueName(event.target.value)}} maxLength={"20"}></input>
+            <label style={{marginRight: ".5em"}}>Number of Teams:</label>
+            <select name="Teams" value={TEAMS} onChange={handleChange}> 
+                <option value="2">2</option>
+                <option value="4">4</option>
+                <option value="6">6</option>
+                <option value="8">8</option>
+                <option value="10">10</option>
+                <option value="12">12</option>
+                <option value="16">16</option>
+            </select>
+        </Card.Body>
+    </Card>
+    </div>
+    <div className="rosterSettings">
+        <Card className="rosterSettings-card">
+            <Card.Body>
+                <h4>Roster Settings</h4>
+                <Card className="rosterSettings-subcard">
+                    <Card.Body>
+                        <label>QB</label> 
+                        <select name="QB" value={QB} onChange={handleChange}>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                        </select>
+                    </Card.Body>
+                </Card>
+                <Card className="rosterSettings-subcard">
+                    <Card.Body>
+                        <label>RB</label> 
+                        <select name="RB" value={RB} onChange={handleChange}>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                        </select>
+                    </Card.Body>
+                </Card>
+                <Card className="rosterSettings-subcard">
+                    <Card.Body>
+                        <label>WR</label> 
+                        <select name="WR" value={WR} onChange={handleChange}>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                        </select>
+                    </Card.Body>
+                </Card>
+                <Card className="rosterSettings-subcard">
+                    <Card.Body>
+                        <label>TE</label> 
+                        <select name="TE" value={TE} onChange={handleChange}>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                        </select>
+                    </Card.Body>
+                </Card>
+                <Card className="rosterSettings-subcard">
+                    <Card.Body>
+                        <label>FLEX</label> 
+                        <select name="FLEX" value={FLEX} onChange={handleChange}>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                        </select>
+                    </Card.Body>
+                </Card>
+                <Card className="rosterSettings-subcard">
+                    <Card.Body>
+                        <label>K</label> 
+                        <select name="K" value={K} onChange={handleChange}>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                        </select>
+                    </Card.Body>
+                </Card>
+                <Card className="rosterSettings-subcard">
+                    <Card.Body>
+                        <label>DEF</label> 
+                        <select name="DEF" value={DEF} onChange={handleChange}>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                        </select>
+                    </Card.Body>
+                </Card>
+                <Card className="rosterSettings-subcard">
+                    <Card.Body>
+                        <label>BENCH</label> 
+                        <select name="BENCH" value={BENCH} onChange={handleChange}>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
+                        </select>
+                    </Card.Body>
+                </Card>
+            </Card.Body>
+        </Card>
+    </div>
+        <Button className="createleague-nextbutton" onClick={() => setKey('scoringSettings')}>Next</Button>
     </Modal.Body>
 </Tab>
 
 
 <Tab eventKey="scoringSettings" title="Scoring Settings">
-    <Modal.Body>
-        <p>This is scoring settings</p>
-        <br></br>
-
-        <div className="row">
-            <div className="col-12">
-                <div className="card">
-                    <div className="card-body">
-                        <h4><label>Passing</label></h4> <br></br> 
-                        <div className="row">
-                            <div className="col-4">
-                                <div className="card">
-                                    <div className="card-body">
-                                        <label>Pass YRD</label> 
-                                        <input type="text" name="passYRD" value={passYRD} onChange={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setPassYRD(value); } else if (/^-?\d*(\.\d*)?$/.test(value)) { setPassYRD(Number(value)); } }} onBlur={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setPassYRD(0); } }} style={{width: '100%'}} />
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="col-4">
-                                <div className="card">
-                                    <div className="card-body">
-                                        <label>Pass TD</label> 
-                                        <input type="text" name="passTD" value={passTD} onChange={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setPassTD(value); } else if (/^-?\d*(\.\d*)?$/.test(value)) { setPassTD(Number(value)); } }} onBlur={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setPassTD(0); } }} style={{width: '100%'}} />
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="col-4">
-                                <div className="card">
-                                    <div className="card-body">
-                                        <label>Interception</label> 
-                                        <input type="text" name="interception" value={interception} onChange={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setInterception(value); } else if (/^-?\d*(\.\d*)?$/.test(value)) { setInterception(Number(value)); } }} onBlur={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setInterception(0); } }} style={{width: '100%'}} />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+    <div className="scoringSettings">
+    <Modal.Body className="scoringSettings">
+        <h4>Passing</h4>
+        <div className="scoringSettings-passing">
+                <Card className="scoringSettings-card">
+    <Card.Body>
+        <div className="scoringSettings-option">
+                    <label>Pass YRD</label> 
+                    <input type="text" name="passYRD" value={passYRD} onChange={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setPassYRD(value); } else if (/^-?\d*(\.\d*)?$/.test(value)) { setPassYRD(Number(value)); } }} onBlur={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setPassYRD(0); } }}  />
                 </div>
-            </div>
-
-            <div className="col-12">
-                <div className="card">
-                    <div className="card-body">
-                        <h4><label>Rushing</label></h4> <br></br> 
-                        <div className="row">
-                            <div className="col-4">
-                                <div className="card">
-                                    <div className="card-body">
-                                        <label>Rush YRD</label> 
-                                        <input type="text" name="rushYRD" value={rushYRD} onChange={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setRushYRD(value); } else if (/^-?\d*(\.\d*)?$/.test(value)) { setRushYRD(Number(value)); } }} onBlur={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setRushYRD(0); } }} style={{width: '100%'}} />
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="col-4">
-                                <div className="card">
-                                    <div className="card-body">
-                                        <label>Rush TD</label> 
-                                        <input type="text" name="rushTD" value={rushTD} onChange={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setRushTD(value); } else if (/^-?\d*(\.\d*)?$/.test(value)) { setRushTD(Number(value)); } }} onBlur={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setRushTD(0); } }} style={{width: '100%'}} />
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="col-4">
-                                <div className="card">
-                                    <div className="card-body">
-                                        <label>Fumble</label> 
-                                        <input type="text" name="fumble" value={fumble} onChange={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setFumble(value); } else if (/^-?\d*(\.\d*)?$/.test(value)) { setFumble(Number(value)); } }} onBlur={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setFumble(0); } }} style={{width: '100%'}} />
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="col-4">
-                                <div className="card">
-                                    <div className="card-body">
-                                        <label>Fumble Lost</label> 
-                                        <input type="text" name="fumbleLost" value={fumbleLost} onChange={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setFumbleLost(value); } else if (/^-?\d*(\.\d*)?$/.test(value)) { setFumbleLost(Number(value)); } }} onBlur={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setFumbleLost(0); } }} style={{width: '100%'}} />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+            </Card.Body>
+        </Card>
+                <Card className="scoringSettings-card">
+    <Card.Body>
+        <div className="scoringSettings-option">
+                    <label>Pass TD</label> 
+                    <input type="text" name="passTD" value={passTD} onChange={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setPassTD(value); } else if (/^-?\d*(\.\d*)?$/.test(value)) { setPassTD(Number(value)); } }} onBlur={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setPassTD(0); } }}  />
                 </div>
-            </div>
-
-            <div className="col-12">
-                <div className="card">
-                    <div className="card-body">
-                        <h4><label>Receiving</label></h4> <br></br> 
-                        <div className="row">
-                            <div className="col-4">
-                                <div className="card">
-                                    <div className="card-body">
-                                        <label>Rec YRD</label> 
-                                        <input type="text" name="recYRD" value={recYRD} onChange={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setRecYRD(value); } else if (/^-?\d*(\.\d*)?$/.test(value)) { setRecYRD(Number(value)); } }} onBlur={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setRecYRD(0); } }} style={{width: '100%'}} />
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="col-4">
-                                <div className="card">
-                                    <div className="card-body">
-                                        <label>Rec TD</label> 
-                                        <input type="text" name="recTD" value={recTD} onChange={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setRecTD(value); } else if (/^-?\d*(\.\d*)?$/.test(value)) { setRecTD(Number(value)); } }} onBlur={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setRecTD(0); } }} style={{width: '100%'}} />
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="col-4">
-                                <div className="card">
-                                    <div className="card-body">
-                                        <label>Receptions</label> 
-                                        <input type="text" name="reception" value={reception} onChange={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setReceptions(value); } else if (/^-?\d*(\.\d*)?$/.test(value)) { setReceptions(Number(value)); } }} onBlur={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setReceptions(0); } }} style={{width: '100%'}} />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+            </Card.Body>
+        </Card>
+                <Card className="scoringSettings-card">
+    <Card.Body>
+        <div className="scoringSettings-option">
+                    <label>Interception</label> 
+                    <input type="text" name="interception" value={interception} onChange={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setInterception(value); } else if (/^-?\d*(\.\d*)?$/.test(value)) { setInterception(Number(value)); } }} onBlur={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setInterception(0); } }}  />
                 </div>
-            </div>
-
-            <div className="col-12">
-                <div className="card">
-                    <div className="card-body">
-                        <h4><label>Defence</label></h4> <br></br> 
-                        <div className="row">
-                            <div className="col-4">
-                                <div className="card">
-                                    <div className="card-body">
-                                        <label>Sack</label> 
-                                        <input type="text" name="sack" value={sack} onChange={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setSack(value); } else if (/^-?\d*(\.\d*)?$/.test(value)) { setSack(Number(value)); } }} onBlur={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setSack(0); } }} style={{width: '100%'}} />
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="col-4">
-                                <div className="card">
-                                    <div className="card-body">
-                                        <label>Def Interception</label> 
-                                        <input type="text" name="defInterception" value={defInterception} onChange={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setDefInterception(value); } else if (/^-?\d*(\.\d*)?$/.test(value)) { setDefInterception(Number(value)); } }} onBlur={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setDefInterception(0); } }} style={{width: '100%'}} />
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="col-4">
-                                <div className="card">
-                                    <div className="card-body">
-                                        <label>Fumble Recovery</label> 
-                                        <input type="text" name="fumblerecovery" value={fumblerecovery} onChange={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setFumblerecovery(value); } else if (/^-?\d*(\.\d*)?$/.test(value)) { setFumblerecovery(Number(value)); } }} onBlur={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setFumblerecovery(0); } }} style={{width: '100%'}} />
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="col-4">
-                                <div className="card">
-                                    <div className="card-body">
-                                        <label>Return TD</label> 
-                                        <input type="text" name="returnTD" value={returnTD} onChange={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setReturnTD(value); } else if (/^-?\d*(\.\d*)?$/.test(value)) { setReturnTD(Number(value)); } }} onBlur={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setReturnTD(0); } }} style={{width: '100%'}} />
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="col-4">
-                                <div className="card">
-                                    <div className="card-body">
-                                        <label>Safety</label> 
-                                        <input type="text" name="safety" value={safety} onChange={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setSafety(value); } else if (/^-?\d*(\.\d*)?$/.test(value)) { setSafety(Number(value)); } }} onBlur={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setSafety(0); } }} style={{width: '100%'}} />
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="col-4">
-                                <div className="card">
-                                    <div className="card-body">
-                                        <label>Blocked Kick</label> 
-                                        <input type="text" name="blockedKick" value={blockedKick} onChange={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setBlockedKick(value); } else if (/^-?\d*(\.\d*)?$/.test(value)) { setBlockedKick(Number(value)); } }} onBlur={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setBlockedKick(0); } }} style={{width: '100%'}} />
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="col-4">
-                                <div className="card">
-                                    <div className="card-body">
-                                        <label>Shutout</label> 
-                                        <input type="text" name="shutout" value={shutout} onChange={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setShutout(value); } else if (/^-?\d*(\.\d*)?$/.test(value)) { setShutout(Number(value)); } }} onBlur={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setShutout(0); } }} style={{width: '100%'}} />
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="col-4">
-                                <div className="card">
-                                    <div className="card-body">
-                                        <label>Points 1-6</label> 
-                                        <input type="text" name="points1_6" value={points1_6} onChange={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setPoints1_6(value); } else if (/^-?\d*(\.\d*)?$/.test(value)) { setPoints1_6(Number(value)); } }} onBlur={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setPoints1_6(0); } }} style={{width: '100%'}} />
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="col-4">
-                                <div className="card">
-                                    <div className="card-body">
-                                        <label>Points 7-13</label> 
-                                        <input type="text" name="points7_13" value={points7_13} onChange={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setPoints7_13(value); } else if (/^-?\d*(\.\d*)?$/.test(value)) { setPoints7_13(Number(value)); } }} onBlur={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setPoints7_13(0); } }} style={{width: '100%'}} />
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="col-4">
-                                <div className="card">
-                                    <div className="card-body">
-                                        <label>Points 14-20</label> 
-                                        <input type="text" name="points14_20" value={points14_20} onChange={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setPoints14_20(value); } else if (/^-?\d*(\.\d*)?$/.test(value)) { setPoints14_20(Number(value)); } }} onBlur={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setPoints14_20(0); } }} style={{width: '100%'}} />
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="col-4">
-                                <div className="card">
-                                    <div className="card-body">
-                                        <label>Points 21-27</label> 
-                                        <input type="text" name="points21_27" value={points21_27} onChange={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setPoints21_27(value); } else if (/^-?\d*(\.\d*)?$/.test(value)) { setPoints21_27(Number(value)); } }} onBlur={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setPoints21_27(0); } }} style={{width: '100%'}} />
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="col-4">
-                                <div className="card">
-                                    <div className="card-body">
-                                    <label>Points 28-34</label> 
-                                    <input type="text" name="points28_34" value={points28_34} onChange={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setPoints28_34(value); } else if (/^-?\d*(\.\d*)?$/.test(value)) { setPoints28_34(Number(value)); } }} onBlur={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setPoints28_34(0); } }} style={{width: '100%'}} />
-
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="col-4">
-                                <div className="card">
-                                    <div className="card-body">
-                                        <label>Points 35 Plus</label> 
-                                        <input type="text" name="points35Plus" value={points35Plus} onChange={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setPoints35Plus(value); } else if (/^-?\d*(\.\d*)?$/.test(value)) { setPoints35Plus(Number(value)); } }} onBlur={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setPoints35Plus(0); } }} style={{width: '100%'}} />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div className="col-12">
-                <div className="card">
-                    <div className="card-body">
-                        <h4><label>Kicking</label></h4> <br></br> 
-                        <div className="row">
-                            <div className="col-4">
-                                <div className="card">
-                                    <div className="card-body">
-                                        <label>FG 0-39</label> 
-                                        <input type="text" name="FG0_39" value={FG0_39} onChange={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setFG0_39(value); } else if (/^-?\d*(\.\d*)?$/.test(value)) { setFG0_39(Number(value)); } }} onBlur={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setFG0_39(0); } }} style={{width: '100%'}} />
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="col-4">
-                                <div className="card">
-                                    <div className="card-body">
-                                        <label>FG 40-49</label> 
-                                        <input type="text" name="FG40_49" value={FG40_49} onChange={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setFG40_49(value); } else if (/^-?\d*(\.\d*)?$/.test(value)) { setFG40_49(Number(value)); } }} onBlur={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setFG40_49(0); } }} style={{width: '100%'}} />
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="col-4">
-                                <div className="card">
-                                    <div className="card-body">
-                                        <label>FG 50 Plus</label> 
-                                        <input type="text" name="FG50Plus" value={FG50Plus} onChange={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setFG50Plus(value); } else if (/^-?\d*(\.\d*)?$/.test(value)) { setFG50Plus(Number(value)); } }} onBlur={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setFG50Plus(0); } }} style={{width: '100%'}} />
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="col-4">
-                                <div className="card">
-                                    <div className="card-body">
-                                        <label>FG Miss</label> 
-                                        <input type="text" name="FGMiss" value={FGMiss} onChange={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setFGMiss(value); } else if (/^-?\d*(\.\d*)?$/.test(value)) { setFGMiss(Number(value)); } }} onBlur={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setFGMiss(0); } }} style={{width: '100%'}} />
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="col-4">
-                                <div className="card">
-                                    <div className="card-body">
-                                        <label>FG Miss</label> 
-                                        <input type="text" name="extraPoint" value={extraPoint} onChange={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setExtraPoint(value); } else if (/^-?\d*(\.\d*)?$/.test(value)) {  setExtraPoint(Number(value)); } }} onBlur={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") {  setExtraPoint(0); } }} style={{width: '100%'}} />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
+            </Card.Body>
+        </Card>
         </div>
-
-        <Button onClick={() => setKey('inviteUsers')}>Next</Button>
-    </Modal.Body>
-</Tab>
+        <h4>Rushing</h4>
+        <div className="scoringSettings-rushing">
+                <Card className="scoringSettings-card">
+    <Card.Body>
+        <div className="scoringSettings-option">
+                    <label>Rush YRD</label> 
+                    <input type="text" name="rushYRD" value={rushYRD} onChange={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setRushYRD(value); } else if (/^-?\d*(\.\d*)?$/.test(value)) { setRushYRD(Number(value)); } }} onBlur={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setRushYRD(0); } }}  />
+                </div>
+            </Card.Body>
+        </Card>
+                <Card className="scoringSettings-card">
+    <Card.Body>
+        <div className="scoringSettings-option">
+                    <label>Rush TD</label> 
+                    <input type="text" name="rushTD" value={rushTD} onChange={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setRushTD(value); } else if (/^-?\d*(\.\d*)?$/.test(value)) { setRushTD(Number(value)); } }} onBlur={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setRushTD(0); } }}  />
+                </div>
+            </Card.Body>
+        </Card>
+                <Card className="scoringSettings-card">
+    <Card.Body>
+        <div className="scoringSettings-option">
+                    <label>Fumble</label> 
+                    <input type="text" name="fumble" value={fumble} onChange={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setFumble(value); } else if (/^-?\d*(\.\d*)?$/.test(value)) { setFumble(Number(value)); } }} onBlur={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setFumble(0); } }}  />
+                </div>
+            </Card.Body>
+        </Card>
+                <Card className="scoringSettings-card">
+    <Card.Body>
+        <div className="scoringSettings-option">
+                    <label>Fumble Lost</label> 
+                    <input type="text" name="fumbleLost" value={fumbleLost} onChange={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setFumbleLost(value); } else if (/^-?\d*(\.\d*)?$/.test(value)) { setFumbleLost(Number(value)); } }} onBlur={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setFumbleLost(0); } }}  />
+                </div>
+            </Card.Body>
+        </Card>
+        </div>
+        <h4>Receiving</h4>
+        <div className="scoringSettings-receiving">
+                <Card className="scoringSettings-card">
+    <Card.Body>
+        <div className="scoringSettings-option">
+                    <label>Rec YRD</label> 
+                    <input type="text" name="recYRD" value={recYRD} onChange={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setRecYRD(value); } else if (/^-?\d*(\.\d*)?$/.test(value)) { setRecYRD(Number(value)); } }} onBlur={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setRecYRD(0); } }}  />
+                </div>
+            </Card.Body>
+        </Card>
+                <Card className="scoringSettings-card">
+    <Card.Body>
+        <div className="scoringSettings-option">
+                    <label>Rec TD</label> 
+                    <input type="text" name="recTD" value={recTD} onChange={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setRecTD(value); } else if (/^-?\d*(\.\d*)?$/.test(value)) { setRecTD(Number(value)); } }} onBlur={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setRecTD(0); } }}  />
+                </div>
+            </Card.Body>
+        </Card>
+                <Card className="scoringSettings-card">
+    <Card.Body>
+        <div className="scoringSettings-option">
+                    <label>Receptions</label> 
+                    <input type="text" name="reception" value={reception} onChange={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setReceptions(value); } else if (/^-?\d*(\.\d*)?$/.test(value)) { setReceptions(Number(value)); } }} onBlur={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setReceptions(0); } }}  />
+                </div>
+            </Card.Body>
+        </Card>
+        </div>
+        <h4>Defence</h4>
+        <div className="scoringSettings-defence">
+        <Card className="scoringSettings-card">
+    <Card.Body>
+        <div className="scoringSettings-option">
+            <label>Sack</label> 
+            <input type="text" name="sack" value={sack} onChange={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setSack(value); } else if (/^-?\d*(\.\d*)?$/.test(value)) { setSack(Number(value)); } }} onBlur={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setSack(0); } }}  />
+        </div>
+        </Card.Body>
+        </Card>
+        <Card className="scoringSettings-card">
+    <Card.Body>
+        <div className="scoringSettings-option">
+    <label>Def Interception</label> 
+    <input type="text" name="defInterception" value={defInterception} onChange={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setDefInterception(value); } else if (/^-?\d*(\.\d*)?$/.test(value)) { setDefInterception(Number(value)); } }} onBlur={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setDefInterception(0); } }}  />
+        </div>
+    </Card.Body>
+            </Card>
+    <Card className="scoringSettings-card">
+        <Card.Body>
+            <div className="scoringSettings-option">
+        <label>Fumble Recovery</label> 
+        <input type="text" name="fumblerecovery" value={fumblerecovery} onChange={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setFumblerecovery(value); } else if (/^-?\d*(\.\d*)?$/.test(value)) { setFumblerecovery(Number(value)); } }} onBlur={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setFumblerecovery(0); } }}  />
+    </div>
+    </Card.Body>
+            </Card>
+    <Card className="scoringSettings-card">
+        <Card.Body>
+            <div className="scoringSettings-option">
+        <label>Return TD</label> 
+        <input type="text" name="returnTD" value={returnTD} onChange={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setReturnTD(value); } else if (/^-?\d*(\.\d*)?$/.test(value)) { setReturnTD(Number(value)); } }} onBlur={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setReturnTD(0); } }}  />
+    </div>
+    </Card.Body>
+            </Card>
+    <Card className="scoringSettings-card">
+        <Card.Body>
+            <div className="scoringSettings-option">
+        <label>Safety</label> 
+        <input type="text" name="safety" value={safety} onChange={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setSafety(value); } else if (/^-?\d*(\.\d*)?$/.test(value)) { setSafety(Number(value)); } }} onBlur={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setSafety(0); } }}  />
+    </div>
+    </Card.Body>
+            </Card>
+    <Card className="scoringSettings-card">
+        <Card.Body>
+            <div className="scoringSettings-option">
+        <label>Blocked Kick</label> 
+        <input type="text" name="blockedKick" value={blockedKick} onChange={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setBlockedKick(value); } else if (/^-?\d*(\.\d*)?$/.test(value)) { setBlockedKick(Number(value)); } }} onBlur={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setBlockedKick(0); } }}  />
+    </div>
+    </Card.Body>
+            </Card>
+    <Card className="scoringSettings-card">
+        <Card.Body>
+            <div className="scoringSettings-option">
+        <label>Shutout</label> 
+        <input type="text" name="shutout" value={shutout} onChange={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setShutout(value); } else if (/^-?\d*(\.\d*)?$/.test(value)) { setShutout(Number(value)); } }} onBlur={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setShutout(0); } }}  />
+    </div>
+    </Card.Body>
+            </Card>
+    <Card className="scoringSettings-card">
+        <Card.Body>
+            <div className="scoringSettings-option">
+        <label> 1-6 Points Allowed</label> 
+        <input type="text" name="points1_6" value={points1_6} onChange={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setPoints1_6(value); } else if (/^-?\d*(\.\d*)?$/.test(value)) { setPoints1_6(Number(value)); } }} onBlur={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setPoints1_6(0); } }}  />
+    </div>
+    </Card.Body>
+            </Card>
+    <Card className="scoringSettings-card">
+        <Card.Body>
+            <div className="scoringSettings-option">
+        <label> 7-13 Points Allowed</label> 
+        <input type="text" name="points7_13" value={points7_13} onChange={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setPoints7_13(value); } else if (/^-?\d*(\.\d*)?$/.test(value)) { setPoints7_13(Number(value)); } }} onBlur={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setPoints7_13(0); } }}  />
+    </div>
+    </Card.Body>
+            </Card>
+    <Card className="scoringSettings-card">
+        <Card.Body>
+            <div className="scoringSettings-option">
+        <label> 14-20 Points Allowed</label> 
+        <input type="text" name="points14_20" value={points14_20} onChange={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setPoints14_20(value); } else if (/^-?\d*(\.\d*)?$/.test(value)) { setPoints14_20(Number(value)); } }} onBlur={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setPoints14_20(0); } }}  />
+    </div>
+    </Card.Body>
+            </Card>
+    <Card className="scoringSettings-card">
+        <Card.Body>
+            <div className="scoringSettings-option">
+        <label> 21-27 Points Allowed</label> 
+        <input type="text" name="points21_27" value={points21_27} onChange={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setPoints21_27(value); } else if (/^-?\d*(\.\d*)?$/.test(value)) { setPoints21_27(Number(value)); } }} onBlur={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setPoints21_27(0); } }}  />
+    </div>
+    </Card.Body>
+            </Card>
+    <Card className="scoringSettings-card">
+        <Card.Body>
+            <div className="scoringSettings-option">
+        <label> 28-34 Points Allowed</label> 
+        <input type="text" name="points28_34" value={points28_34} onChange={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setPoints28_34(value); } else if (/^-?\d*(\.\d*)?$/.test(value)) { setPoints28_34(Number(value)); } }} onBlur={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setPoints28_34(0); } }}  />
+    </div>
+    </Card.Body>
+            </Card>
+    <Card className="scoringSettings-card">
+        <Card.Body>
+            <div className="scoringSettings-option">
+        <label> 35+ Points Allowed</label> 
+        <input type="text" name="points35Plus" value={points35Plus} onChange={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setPoints35Plus(value); } else if (/^-?\d*(\.\d*)?$/.test(value)) { setPoints35Plus(Number(value)); } }} onBlur={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setPoints35Plus(0); } }}  />
+    </div>
+        </Card.Body>
+    </Card>
+    </div>    
+        <h4>Kicking</h4>
+        <div className="scoringSettings-defence">
+        <Card className="scoringSettings-card">
+            <Card.Body>
+                <div className="scoringSettings-option">
+            <label>FG 0-39 Yards</label> 
+            <input type="text" name="FG0_39" value={FG0_39} onChange={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setFG0_39(value); } else if (/^-?\d*(\.\d*)?$/.test(value)) { setFG0_39(Number(value)); } }} onBlur={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setFG0_39(0); } }}  />
+        </div>
+        </Card.Body>
+                </Card>
+        <Card className="scoringSettings-card">
+            <Card.Body>
+                <div className="scoringSettings-option">
+            <label>FG 40-49 Yards</label> 
+            <input type="text" name="FG40_49" value={FG40_49} onChange={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setFG40_49(value); } else if (/^-?\d*(\.\d*)?$/.test(value)) { setFG40_49(Number(value)); } }} onBlur={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setFG40_49(0); } }}  />
+        </div>
+        </Card.Body>
+                </Card>
+        <Card className="scoringSettings-card">
+            <Card.Body>
+                <div className="scoringSettings-option">
+            <label>FG 50+ Yards</label> 
+            <input type="text" name="FG50Plus" value={FG50Plus} onChange={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setFG50Plus(value); } else if (/^-?\d*(\.\d*)?$/.test(value)) { setFG50Plus(Number(value)); } }} onBlur={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setFG50Plus(0); } }}  />
+        </div>
+        </Card.Body>
+                </Card>
+        <Card className="scoringSettings-card">
+            <Card.Body>
+                <div className="scoringSettings-option">
+            <label>FG Miss</label> 
+            <input type="text" name="FGMiss" value={FGMiss} onChange={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setFGMiss(value); } else if (/^-?\d*(\.\d*)?$/.test(value)) { setFGMiss(Number(value)); } }} onBlur={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setFGMiss(0); } }}  />
+        </div>
+        </Card.Body>
+                </Card>
+        <Card className="scoringSettings-card">
+            <Card.Body>
+                <div className="scoringSettings-option">
+            <label>Extra Point</label> 
+            <input type="text" name="extraPoint" value={extraPoint} onChange={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setExtraPoint(value); } else if (/^-?\d*(\.\d*)?$/.test(value)) { setExtraPoint(Number(value)); } }} onBlur={(e) => { const value = e.target.value; if (value === "" || value === "-" || value === "." || value === "-.") { setExtraPoint(0); } }}  />
+        </div>
+        </Card.Body>
+                </Card>
+                </div>
+                <Button className="createleague-nextbutton" onClick={() => setKey('inviteUsers')}>Next</Button>
+            </Modal.Body>
+            </div>
+        </Tab>
         
-
-            <Tab eventKey="inviteUsers" title="Invite Users">
-                <div className="inviteUsers">
-                <Modal.Body>
-                    <p>This is Invite Users</p> <br></br>
-                    <h4>Members: </h4>
-                    <input type = "email" value= {user ? user.email : ''} readOnly />
-                    {Array.from({ length: TEAMS - 1 }, (_, index) => (
-                        <div key={index}>
+<Tab eventKey="inviteUsers" title="Invite Users">
+    <div className="inviteUsers">
+        <Modal.Body>
+            <h4>Members: </h4>
+            <Card className="inviteUsers-card">
+                    <Card.Body>
+            <input type = "email" value= {user ? user.email : ''} readOnly />
+            </Card.Body>
+            </Card>
+            {Array.from({ length: TEAMS - 1 }, (_, index) => (
+                <Card className="inviteUsers-card" key={index}>
+                    <Card.Body>
                         <div className="input-container"> 
                             <select
                                 className="input"
@@ -856,15 +773,17 @@ return (
                                 onChange={(event) => handleEmailChange(index, event)}
                             />
                         </div> 
-                    </div>
-                    ))}
-                </Modal.Body>
-                <Modal.Footer>
-                    <Button variant="secondary">Close</Button>
-                    <Button variant="primary" onClick={createLeague}>Create League</Button>
-                </Modal.Footer>
-                </div>
-            </Tab>
+                    </Card.Body>
+                </Card>
+            ))}
+        </Modal.Body>
+        <Modal.Footer>
+            <Button className="createleague-cancelbutton" variant="secondary">Close</Button>
+            <Button className="createleague-createleaguebutton" variant="primary" onClick={createLeague}>Create League</Button>
+        </Modal.Footer>
+    </div>
+</Tab>
+
 
 
         </Tabs>
