@@ -11,9 +11,10 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Accordion from 'react-bootstrap/Accordion'
-
+import Logo from '../Images/Logo.jpeg'
 import MyHuddleHero from '../components/MyHuddleHero'
 import HuddleHero from "../Images/Logo.jpeg"
+import { HomeContent } from '../components/MyHuddleHeroTutorials';
 
 
 
@@ -61,14 +62,16 @@ function Home() {
 
 <Container fluid>
   <Row className="justify-content-md-center">
-    <div className='welcome-message'>
-    <h1>Welcome to HuddleHero, {displayName}</h1>
-    {beginnerMode && (
-      <MyHuddleHero imageSrc={HuddleHero}>
-      Test My Huddle Hero
-      </MyHuddleHero>
-    )}
-    </div>
+  <div className='welcome-message'>
+  <h1>Welcome to HuddleHero, {displayName}</h1>
+  {beginnerMode && (
+    <MyHuddleHero imageSrc={HuddleHero} applyClassToImage="HomeContent">
+      <HomeContent />
+      <img src={Logo} alt="HuddleHero Logo" />
+    </MyHuddleHero>
+  )}
+</div>
+
   </Row>
   <hr />
   <Row>

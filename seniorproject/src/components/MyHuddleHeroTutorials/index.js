@@ -5,3 +5,4 @@ export { default as LeagueChatContent } from './LeagueChatContent';
 export { default as LeagueSettingsContent } from './LeagueSettingsContent';
 export { default as MatchupContent } from './MatchupContent';
 export { default as MyTeamContent } from './MyTeamContent';
+export { default as HomeContent } from './HomeContent'
