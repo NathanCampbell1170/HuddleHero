@@ -27,3 +27,22 @@
 .league-commissionercard .card-body .card-text button {
     margin-left: auto !important;
 }
+
+@media (max-width: 991px) {
+    .league-commissionercard .card-title {
+        width: 100%; /* Adjust width to fit mobile screens */
+    }
+    .league-commissionercard .card-body {
+        padding: 10px; /* Add padding for better spacing on smaller screens */
+    }
+    .league-commissionercard .card-body .card-text {
+        flex-direction: column; /* Stack elements vertically */
+        align-items: flex-start; /* Align items to the start of the flex container */
+        font-size: smaller;
+    }
+    .league-commissionercard .card-body .card-text button {
+        margin-top: 10px; /* Add margin above button when stacked */
+        width: 100%; /* Full-width button for better mobile interaction */
+    }
+}
+

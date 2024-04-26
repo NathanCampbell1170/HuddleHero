@@ -1,7 +1,7 @@
 /* Existing CSS */
 .createLeague {
     width: 50vw;
-    background-color: red !important;
+   
     font-family: 'Quicksand', sans-serif;
 }
 
@@ -202,3 +202,57 @@
 .createleague-modal .modal-title {
     font-weight: bold !important;
 }
+
+@media (max-width: 991px) {
+    .createLeague, .invite-cards {
+        width: 100vw;
+    }
+
+    .rosterSettings .card-body {
+        display: flex !important;
+        flex-wrap: wrap; /* Allow items to wrap to the next row */
+        justify-content: space-between !important;
+        align-items: center;
+        font-size: smaller;
+    }
+
+    .rosterSettings-card .rosterSettings-subcard {
+        width: fit-content !important ;
+        flex: 1 0 calc(100% / 3); /* Adjust this value to change the size of the subcards. */
+        margin: .1em;
+    }
+
+    .scoringSettings-passing .card-body,
+    .scoringSettings-rushing .card-body,
+    .scoringSettings-receiving .card-body,
+    .scoringSettings-defence .card-body,
+    .scoringSettings-kicking .card-body {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        min-height: max-content !important;
+        width: 100% !important
+    }
+    .scoringSettings-passing > div,
+    .scoringSettings-rushing > div,
+    .scoringSettings-receiving > div,
+    .scoringSettings-defence > div,
+    .scoringSettings-kicking > div {
+        flex: 1 0 calc(100% / 3); /* Adjust this value to change the size of the items. */
+        
+    }
+
+    .scoringSettings-option {
+        min-height: fit-content;
+        min-width: fit-content;
+        font-size: smaller;
+        width:100%
+        
+    }
+    .inviteUsers-card .input-container .input {
+        font-size: 11px;
+    }
+
+}
+

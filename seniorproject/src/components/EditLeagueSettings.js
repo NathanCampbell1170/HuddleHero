@@ -398,9 +398,9 @@ for (const email of emails) {
       </Card>
 
  
-        <Modal.Header closeButton>
+        
           <Modal.Title>Edit League Settings</Modal.Title>
-        </Modal.Header>
+        
 
         <Tabs activeKey={key} onSelect={(k) => setKey(k)} id="createLeague" className="customTabs">
         <Tab eventKey="leagueInfo" title="League Info">
