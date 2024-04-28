@@ -11,6 +11,7 @@
     box-shadow: 8px 5px 7px rgba(0, 0, 0, 0.2);
     transition: all 0.3s ease;
     background-color: #fe4a2a !important;
+    margin-bottom: 1vh;
 }
 
 .create-league-button:hover {
@@ -252,6 +253,10 @@
     }
     .inviteUsers-card .input-container .input {
         font-size: 11px;
+    }
+
+    .customTabs {
+        font-size: 12px;
     }
 
 }

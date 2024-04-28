@@ -1,5 +1,9 @@
-.friend-chat-page {
-    /* The main page should be light silver/grey */
+.friend-chat-page .modal-content {
+    background-color: #2a454e;
+    color:white;
+    text-wrap:balance;
+    word-wrap: break-word !important;
+    font-size: ;
 }
 
 .friend-chat-container {
@@ -18,19 +22,27 @@
 
 .friend-chat-card {
     max-width: 100%;
-    margin-bottom: 10px;
-    color: white; 
-    border: none; 
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); 
-    border-radius: 40px !important; 
+    margin-bottom: 10px; /* Increase the space between messages */
+    color: white; /* Set the text color to white for better contrast */
+    border: none; /* Remove the border */
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); /* Use a subtler shadow */
+    border-radius: 40px !important; /* Increase border radius for a "bubble" effect */
+    position: relative !important; /* Set position to relative */
+    z-index: 1; /* Ensure the chat card is above other elements */
 }
 
+.friend-chat-card:hover {
+    z-index: 2000 !important;
+    transform: scale(1.02);
+}
 .friend-chat-card-image {
     width: 50px;
     height: 50%;
     border-radius: 50%;
     border: 2px solid #93abbd;
 }
+
+
 
 .friend-chat-card-text-container {
     margin-left: 10px;
@@ -85,3 +97,10 @@
 .message-timestamp {
     color: #93abbd;
 }
+
+@media (max-width: 991px) {
+    .friend-chat-page .modal-content .h4{
+        font-size: 14px;
+    }
+}
+

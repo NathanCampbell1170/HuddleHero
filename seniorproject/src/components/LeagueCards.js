@@ -123,7 +123,7 @@ function LeagueCards({ user, beginnerMode }) {
 
       {/* Modal for displaying league details */}
       <Modal show={selectedLeague !== null} onHide={() => setSelectedLeague(null)} size="xl" dialogClassName="leagueModal">
-  <Modal.Header style={{justifyContent: "flex-end"}} closeButton className="league-title">
+  <Modal.Header  closeButton className="league-title">
     <Modal.Title >League: <strong>{selectedLeague?.leagueName}</strong></Modal.Title>
     {beginnerMode && (<MyHuddleHero className="myHuddleHero-LeagueHeader" applyClassToImage>
   {activeTab === 'myTeam' && <MyTeamContent />}

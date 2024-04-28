@@ -15,17 +15,17 @@ body {
 
 /* Style for the card */
 .myTeam-teamStatsCard, .myTeam-myTeamCard {
-    border: 2px solid !important;
-    border-color: #93abbd !important;
+    
     border-radius: 10px !important;
-    background-color: #2a454e !important; /* Bright placeholder color */
-    color: white !important;
+    background-color: white !important; /* Bright placeholder color */
+    color: #2a454e !important;
     margin-bottom: 20px !important;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
 }
 
 .myTeam-teamStatsCard, .myTeam-myTeamCard:hover {
     box-shadow: 0px 0px 15px 5px #fe4a2a !important;
+    transition: all 0.3s ease !important;
 }
 
 /* Style for the card body */
@@ -49,7 +49,7 @@ body {
 
 .dropButton:hover {
     background-color: #fc6a50 !important; /* Slightly lighter color when hovered */
-    box-shadow: 0px 8px 20px #fe4a2a !important; /* Bigger shadow when hovered */
+    
     
 }
 
@@ -87,12 +87,12 @@ body {
 
 
 .MyTeam-rosterStatus {
-    border: 2px solid !important;
-    border-color: #93abbd !important;
+    
     border-radius: 10px !important;
     background-color: #fe4a2a !important; /* Bright placeholder color */
     color: white !important;
     margin-bottom: 20px !important;
+    margin-top: 1vh;
 }
 
 .MyTeam-rosterStatusCardBody {
@@ -100,6 +100,7 @@ body {
     align-items: center !important;
     justify-content: space-between !important; /* Spaces the title and the text evenly */
     padding: 20px !important;
+    
     
 }
 

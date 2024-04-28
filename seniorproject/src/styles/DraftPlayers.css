@@ -126,3 +126,10 @@
     border-color: #96aabb; /* Show border on hover */
     background-color: #2a454e;
   }
+
+@media (max-width: 991px) {
+  .draft-card {
+    margin-right:.1em;
+  }
+
+}

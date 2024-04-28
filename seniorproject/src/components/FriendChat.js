@@ -132,7 +132,7 @@ function FriendChat({ friendEmail }) {
         Message
       </Button>
   
-      <Modal show={show} onHide={handleClose}>
+      <Modal show={show} onHide={handleClose} className='friend-chat-page'>
         <Modal.Header closeButton>
           <Modal.Title>Chat with {friendEmail}</Modal.Title>
         </Modal.Header>

@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { db, auth } from "../Firebase-config";
 import { addDoc, collection, getDocs, query, where, doc, updateDoc } from "firebase/firestore"; 
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut, sendPasswordResetEmail } from "firebase/auth";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import Alert from 'react-bootstrap/Alert';
 import "../styles/Login.css"
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -12,6 +13,8 @@ import Tab from "react-bootstrap/Tab"
 import Button from 'react-bootstrap/Button'
 import Offcanvas from 'react-bootstrap/Offcanvas'
 import Carousel from 'react-bootstrap/Carousel'
+
+
 
 function Login() {
   const [registerEmail, setRegisterEmail] = useState("");
@@ -80,39 +83,43 @@ useEffect(() => {
     })})
  
 
-    const createFullUser = async () => { 
+    const createFullUser = async () => {
       await addDoc(userCollection, {
-      email: registerEmail,
-      displayName: userName,
-      beginnerMode: beginnerMode,
-      leagueCount: 0
-    })
-  }
+        email: registerEmail,
+        displayName: userName,
+        beginnerMode: beginnerMode,
+        leagueCount: 0,
+        profilePicture: beginnerMode
+          ? "https://firebasestorage.googleapis.com/v0/b/huddlehero-2cf73.appspot.com/o/ProfilePictures%2FDefaultPFPBeginner.jpeg?alt=media&token=9c518bcd-657c-49df-80de-a676adce9eac"
+          : "https://firebasestorage.googleapis.com/v0/b/huddlehero-2cf73.appspot.com/o/ProfilePictures%2FDefaultPFPBeginner.jpeg?alt=media&token=9c518bcd-657c-49df-80de-a676adce9eac"
+      });
+    }
+    
     
   const register = async () => {
     if (registerPassword !== confirmRegisterPassword) {
       setPasswordsMatch(false);
-      return
+      return;
     }
     try {
-      const user = await createUserWithEmailAndPassword(auth, registerEmail, registerPassword);   
+      const user = await createUserWithEmailAndPassword(auth, registerEmail, registerPassword);
       if (user) {
+        // Perform any additional actions related to successful user creation here
+        await createFullUser(); // Moved inside the try block
       }
     } catch (error) {
       if (error.code === 'auth/email-already-in-use') {
-        setEmailAlreadyExists(true)
-        console.log(error.message)
-      }
-      if (error.code === 'auth/weak-password') {
-        setPasswordTooShort(true)
+        setEmailAlreadyExists(true);
         console.log(error.message);
       }
-      console.log(error.message)
-    }
-    finally {
-      await createFullUser()
+      if (error.code === 'auth/weak-password') {
+        setPasswordTooShort(true);
+        console.log(error.message);
+      }
+      console.log(error.message);
     }
   };
+  
   
   
   
@@ -157,7 +164,7 @@ useEffect(() => {
     return (
         <div className="Login">  
         { userDisplayName === "" && ( 
-      <Tabs defaultActiveKey="login" id="uncontrolled-tab-example">
+      <Tabs defaultActiveKey="login" id="login-tab" className="login-tabs">
         <Tab eventKey="login" title="Log In">
           <h3> Log in </h3>
           <div className="login-inputs">

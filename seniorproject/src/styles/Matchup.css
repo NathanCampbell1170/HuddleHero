@@ -3,7 +3,7 @@
   display: flex;
   justify-content: space-between;
   font-family: 'Quicksand', sans-serif;
-  background-color: white !important; /* Main background color */
+  border:none
 }
 
 /* Style for your team and the opponent's team */
@@ -15,11 +15,12 @@
   margin: .1em;
   border-radius: 5px !important; /* Added border radius */
   transition: all 0.3s ease !important; /* Added transition */
+  border: 1px solid white !important;
 }
 
 .matchupUser-card:hover, .matchupOpponent-card:hover {
   
-  box-shadow: 2px 4px 8px #93abbd !important; /* Added box shadow */
+  box-shadow: 1px 2px 0px #93abbd !important; /* Added box shadow */
 }
 
 /* Style for the player details */
@@ -31,7 +32,7 @@
 }
 
 .matchupUser-card:hover, .matchupOpponent-card:hover {
-  box-shadow: 4px 8px 16px #93abbd !important; /* Added box shadow */
+ 
 }
 
 /* Style for the player name */
@@ -129,7 +130,7 @@ background-color: #93abbd !important;
 
   /* Style for your team and the opponent's team */
   .matchupUser-card, .matchupOpponent-card {
-    font-size: 0.8em !important; /* Reduced font size */
+    font-size: 1.2em !important; /* Reduced font size */
   }
 
   /* Style for the player details */

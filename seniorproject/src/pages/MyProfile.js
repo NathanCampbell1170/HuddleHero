@@ -5,6 +5,7 @@ import { addDoc, collection, getDocs, query, where, doc, updateDoc } from "fireb
 import { storage } from "../Firebase-config";
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "firebase/auth";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { Offcanvas, Carousel } from "react-bootstrap";
 
 import defaultImage from '../Images/DefaultPFPExperienced.jpeg';
 
@@ -20,17 +21,18 @@ import Modal from 'react-bootstrap/Modal';
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 
-
-
-
-
+const images = require.context('../Images/HuddleHeroes', true, /\.jpe?g$/);
+const imageList = images.keys().map(image => images(image));
 
 
 function MyProfile() {
 
 
-const [beginnerModeDefaultToggle, setbeginnerModeDefaultToggle] = useState(false)
+const [beginnerModeDefaultToggle, setbeginnerModeDefaultToggle] = useState(null)
+const [showTutorial, setShowTutorial] = useState(false);
 const isFirstRender = useRef(true); // This will be true only for the first render
+const handleClose = () => setShowTutorial(false);
+const handleShow = () => setShowTutorial(true);
 
 async function fetchUserSettings() {
     const fetchUserQuery = query(userCollection, where("email", '==', user.email));
@@ -62,49 +64,16 @@ const [imageUrl, setImageUrl] = useState("");
 const [pfp, setPfp] = useState(null);
 
 const fetchImage = async () => {
-    const imageRef = ref(storage, `ProfilePictures/${user.uid}`);
     const fetchUserQuery = query(userCollection, where("email", '==', user.email));
             const querySnapshot = await getDocs(fetchUserQuery);
             const userSettingsDocument = querySnapshot.docs[0];
+            console.log(userSettingsDocument)
+            setPfp(userSettingsDocument.data().profilePicture)
+            console.log(pfp)
 
             const userRef = doc(db, 'users', userSettingsDocument.id)
-    try {
-        const url = await getDownloadURL(imageRef);
-        if (!url) {
-            throw new Error('Image not found');
-        }
-        setImageUrl(url);
+            
         
-    } catch (error) {
-    
-        const defaultImageRefBeginner = ref(storage, 'ProfilePictures/DefaultPFPBeginner.jpeg');
-        const defaultImageRefExperienced = ref(storage, 'ProfilePictures/DefaultPFPExperienced.jpeg');
-        if (userSettingsDocument.data().beginnerMode == true) {
-            console.log("reached checkpoint 1")
-        const url = await getDownloadURL(defaultImageRefBeginner)
-        setImageUrl(url); // Replace with your placeholder image URL
-        try {
-            await updateDoc(userRef, { profilePicture: imageUrl });
-        } catch (error) {
-            console.error(error)
-        }
-    } else if (userSettingsDocument.data().beginnerMode == false) {
-            console.log("reached checkpoint 2")
-        const url = await getDownloadURL(defaultImageRefExperienced)
-        setImageUrl(url); // Replace with your placeholder image URL
-        try {
-            await updateDoc(userRef, { profilePicture: imageUrl });
-        } catch (error) {
-            console.error(error)
-        }
-    }
-            try {
-                await updateDoc(userRef, { profilePicture: imageUrl });
-            } catch (error) {
-                console.error(error)
-            }
-        }
-    
 }
 
 
@@ -176,12 +145,19 @@ const fetchImage = async () => {
           
 
       
-          const [changeBeginnerMode,setChangeBeginnerMode] = useState(false);
+          const [changeBeginnerMode,setChangeBeginnerMode] = useState(null);
         const [finalNameChange,setFinalNameChange] = useState(false);
+
+
+
         const handleCheckboxChange = (event) => {
-            setbeginnerModeDefaultToggle(event.target.checked);
-            setChangeBeginnerMode(event.target.checked)
-          };
+            const newBeginnerMode = event.target.checked;
+            setbeginnerModeDefaultToggle(newBeginnerMode);
+            setChangeBeginnerMode(newBeginnerMode);
+            
+        };
+        
+        
         
 
 
@@ -193,7 +169,15 @@ const fetchImage = async () => {
             const userSettingsDocument = querySnapshot.docs[0];
         
             const userRef = doc(db, 'users', userSettingsDocument.id);
-            let updateData = { beginnerMode: changeBeginnerMode };
+            let updateData = {};
+        
+            // Only update beginnerMode if the checkbox value has changed and is not null
+            if (changeBeginnerMode !== null && changeBeginnerMode !== userSettingsDocument.data().beginnerMode) {
+                updateData.beginnerMode = changeBeginnerMode;
+            } else {
+                // If checkbox value hasn't changed or is null, retain the original value
+                updateData.beginnerMode = userSettingsDocument.data().beginnerMode;
+            }
         
             // Only add displayName to updateData if changeDisplayName is not an empty string
             if (changeDisplayName !== "") {
@@ -208,6 +192,9 @@ const fetchImage = async () => {
                 console.error("Error updating user: ", error);
             }
         };
+        
+        
+        
         
         
 
@@ -227,7 +214,7 @@ const fetchImage = async () => {
                     <Tab eventKey="profile" title="Profile" className="my-profile-profileTab">
                         <Card className="my-profile-profileCard">
                             <Card.Body>
-                                <Card.Img variant="top" src={imageUrl} className="my-profile-profileImage"/> 
+                                <Card.Img variant="top" src={pfp} className="my-profile-profileImage"/> 
                                 <Card.Title className="my-profile-cardTitle">Current User: {displayName}</Card.Title>
                                 <Card.Text className="my-profile-cardText">
                                     <div><label>Email: </label> {user.email}</div>
@@ -245,7 +232,7 @@ const fetchImage = async () => {
                                     <label>Change Profile Picture:</label>
                                     <input type="file" accept="image/*" onChange={uploadProfilePicture} className="my-profile-fileInput"/>
                                 </div>
-                                <Card.Img variant="top" src={imageUrl} className="my-profile-profileImage"/> 
+                                <Card.Img variant="top" src={pfp} className="my-profile-profileImage"/> 
                                 <div className="my-profile-inputGroup">
                                     <label>Display Name:</label>
                                     <input placeholder={displayName} onChange={(event) => {setChangeDisplayName(event.target.value)}} className="my-profile-inputField"/>
@@ -253,12 +240,41 @@ const fetchImage = async () => {
                                 <div className="my-profile-checkboxGroup">
                                     <input type="checkbox" checked={beginnerModeDefaultToggle} onChange={handleCheckboxChange} id="beginnerModeCheckbox"/>
                                     <label htmlFor="beginnerModeCheckbox">Enable My HuddleHero Beginner Mode</label>
+                                    <Button onClick={handleShow} style={{backgroundColor: 'grey', color: 'white', borderRadius: '50%', width: '20px', height: '20px', marginLeft: "2px", textAlign: 'center', padding: '0', fontSize: '0.8rem', fontWeight: 'bold'}}>?</Button>
                                 </div>
                                 <button onClick={updateUserProfile} className="my-profile-uploadChangesButton">Upload Changes</button>
                             </Card.Body>
                         </Card>
                     </Tab>
                 </Tabs>
+
+
+                <Offcanvas show={showTutorial} onHide={handleClose}>
+                    <Offcanvas.Header closeButton>
+                        <Offcanvas.Title>Beginner Mode</Offcanvas.Title>
+                    </Offcanvas.Header>
+                    <Offcanvas.Body>
+                    The "My HuddleHero" feature is designed to make fantasy football more accessible for beginners. Many traditional fantasy football systems can be overwhelming for new players, often requiring assistance from more experienced peers. This can hinder the enjoyment of the game for both beginners and their friends or family members.
+
+                    "My HuddleHero" aims to alleviate this issue by allowing novice users to keep pace with more experienced players. This feature provides a more user-friendly experience, reducing the need for constant guidance from others and enabling beginners to enjoy the game at their own pace. This is recommended for users who are new to fantasy football or those who prefer a more guided experience.
+
+                    When the "My HuddleHero" feature is enabled, you will see a Huddle Hero on various pages of the site. Clicking on this Hero will give you more explanation on the function of a page, tutorials, suggestions, and more. This interactive guide will help you navigate the site and understand the various features and functionalities at your own pace.
+                            <br></br>
+                            <br></br>
+                            <h1 style={{textAlign: 'center'}}>Introducing the Huddle Heroes!</h1>
+                    <Carousel indicators={false}>
+                        {imageList.map((src, index) => (
+                        <Carousel.Item interval={2000} key={index}>
+                            <img
+                            className="d-block w-100"
+                            src={src}
+                            alt={`Slide ${index}`}
+                            />
+                        </Carousel.Item>
+                        ))}
+                    </Carousel>
+                    </Offcanvas.Body>
+                    </Offcanvas>
             </div>
             </>
         } else {

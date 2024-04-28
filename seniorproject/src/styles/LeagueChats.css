@@ -8,15 +8,13 @@
     max-height: 500px; 
     overflow-y: auto;
     font-family: 'Quicksand', sans-serif;
-    word-wrap: break-word;
-    overflow-wrap: break-word;
-    display: flex;
     flex-direction: column;
     align-items: flex-start;
     /* Add a border with the light silver/grey color */
     border: 1px solid #93abbd;
     background-color: #2a454e;
     padding: 5px;
+    z-index: 1000 !important;
 }
   
 .chat-card {
@@ -26,8 +24,15 @@
     border: none; /* Remove the border */
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); /* Use a subtler shadow */
     border-radius: 40px !important; /* Increase border radius for a "bubble" effect */
+    position: relative !important; /* Set position to relative */
+    z-index: 1; /* Ensure the chat card is above other elements */
     
     
+}
+
+.chat-card:hover {
+    z-index: 2000 !important;
+    transform: scale(1.02);
 }
   
 .chat-card-image {
@@ -43,7 +48,9 @@
   
 .chat-card-text {
     overflow-wrap: break-word;
-    word-break: break-all;
+    word-wrap:normal !important;
+    
+    
     font-family: 'Quicksand', sans-serif;
     font-size: small;
     white-space: pre-wrap;
