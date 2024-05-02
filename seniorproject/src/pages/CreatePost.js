@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
 import { addDoc, collection } from "firebase/firestore";
-import { db, auth } from "../Firebase-config";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { auth, db } from "../Firebase-config";
 
 function CreatePost() {
   const [title, setTitle] = useState("");
@@ -19,7 +19,7 @@ function CreatePost() {
     navigate("/");
   };
 
-  
+
 
   return (
     <div className="createPostPage">

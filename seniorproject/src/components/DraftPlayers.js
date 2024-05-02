@@ -1,12 +1,11 @@
-import { collection, getDocs, query, where, updateDoc, arrayUnion, onSnapshot, doc, getDoc, addDoc } from 'firebase/firestore';
-import { useState, useEffect } from 'react';
-import { Form, Button, Card } from 'react-bootstrap';
+import { addDoc, arrayUnion, collection, doc, getDoc, getDocs, onSnapshot, query, updateDoc, where } from 'firebase/firestore';
+import { useEffect, useState } from 'react';
+import { Button, Card, Form } from 'react-bootstrap';
 import { db } from '../Firebase-config';
 //import {DragDropContext, Droppable, Draggable} from 'react-beautiful-dnd' 
 
-import playersData from '../NFLStats/SeasonStatsPlayers.json'
-import '../styles/DraftPlayers.css'
-import MyHuddleHero from './MyHuddleHero';
+import playersData from '../NFLStats/SeasonStatsPlayers.json';
+import '../styles/DraftPlayers.css';
 
 const DraftPlayers = ({ selectedLeague, user, beginnerMode }) => {
   const [players, setPlayers] = useState([]);
@@ -23,10 +22,10 @@ const DraftPlayers = ({ selectedLeague, user, beginnerMode }) => {
       const leagueDoc = leagueSnapshot.docs[0];
       const leagueData = leagueDoc.data();
       setLeagueData(leagueData);
-  
+
       // Get a reference to the teams subcollection
       const teamsRef = collection(leagueDoc.ref, 'teams');
-  
+
       // Set up the real-time listener on the teams
       const unsubscribeTeams = onSnapshot(teamsRef, (snapshot) => {
         snapshot.docChanges().forEach((change) => {
@@ -37,29 +36,29 @@ const DraftPlayers = ({ selectedLeague, user, beginnerMode }) => {
           }
         });
       });
-  
+
       // Set up the real-time listener on the league
       const unsubscribeLeague = onSnapshot(leagueDoc.ref, (doc) => {
         const updatedLeagueData = doc.data();
         setLeagueData({ ...updatedLeagueData });  // Create a new object when updating leagueData
       });
-  
+
       // Fetch the players initially
       await fetchPlayers(position);
-  
+
       // Clean up the listeners when the component is unmounted or `position` changes
       return () => {
         unsubscribeTeams();
         unsubscribeLeague();
       };
     };
-  
+
     fetchLeagueAndPlayers();
   }, [position]);
-  
-  
 
-  
+
+
+
 
 
   const fetchPlayers = async (position) => {
@@ -109,25 +108,25 @@ const DraftPlayers = ({ selectedLeague, user, beginnerMode }) => {
     const leagueSnapshot = await getDocs(query(leagueRef, where('id', '==', selectedLeague.id)));
     const leagueDoc = leagueSnapshot.docs[0];
     const leagueData = leagueDoc.data();
-  
+
     // Check if the draft is currently happening
-    if (!leagueData.draftStatus=="Not Started") {
+    if (!leagueData.draftStatus == "Not Started") {
       alert('The draft is not currently happening.');
       return;
     }
-  
+
     // Check if it's the current user's turn to draft
     if (leagueData.currentDrafter !== user.email) {
       alert("It's not your turn to draft.");
       return;
     }
-  
+
     // Get a reference to the team document with an owner field matching the user's email
     const teamsRef = collection(leagueDoc.ref, 'teams');
     const teamsSnapshot = await getDocs(query(teamsRef, where('owner', '==', user.email)));
     let teamDoc;
     let teamData;
-  
+
     // Check if a team document for the current user already exists
     if (teamsSnapshot.empty) {
       // If not, create a new document with the specified values
@@ -142,30 +141,30 @@ const DraftPlayers = ({ selectedLeague, user, beginnerMode }) => {
       teamDoc = teamsSnapshot.docs[0];
       teamData = teamDoc.data();
     }
-  
+
     // Calculate the maximum roster size
     let maxRosterSize = 0;
     if (selectedLeague && selectedLeague.settings.rosterSettings) {
       maxRosterSize = Object.values(selectedLeague.settings.rosterSettings).reduce((a, b) => a + b, 0);
       console.log('Max Roster Size:', maxRosterSize);
     }
-  
+
     // Check if the current player's roster is full
     if (teamData.players && teamData.players.length >= maxRosterSize) {
       alert('Your roster is full!');
       return;
     }
-  
+
     // Add the player's PlayerID field to the players array inside of the team document
     await updateDoc(teamDoc.ref, {
       players: arrayUnion(player.PlayerID)
     });
-  
+
     // Move on to the next drafter
     const currentDrafterIndex = leagueData.draftOrder.indexOf(user.email);
     let nextDrafterIndex = (currentDrafterIndex + 1) % leagueData.draftOrder.length;
     let nextDrafter = leagueData.draftOrder[nextDrafterIndex];
-  
+
     // Check if we're at the end of a round
     if (nextDrafterIndex === 0) {
       // Reverse the draft order
@@ -175,12 +174,12 @@ const DraftPlayers = ({ selectedLeague, user, beginnerMode }) => {
       // Since we reversed the draft order, the next drafter is now at index 0
       nextDrafter = leagueData.draftOrder[0];
     }
-  
+
     // Update the current drafter
     await updateDoc(leagueDoc.ref, {
       currentDrafter: nextDrafter
     });
-  
+
     // Check if all teams are full
     const allTeamsSnapshot = await getDocs(teamsRef);
     let allTeamsAreFull = true;
@@ -190,7 +189,7 @@ const DraftPlayers = ({ selectedLeague, user, beginnerMode }) => {
         allTeamsAreFull = false;
       }
     });
-  
+
     // If all teams are full, update the draftStatus to "Finished"
     if (allTeamsAreFull) {
       await updateDoc(leagueDoc.ref, {
@@ -198,7 +197,7 @@ const DraftPlayers = ({ selectedLeague, user, beginnerMode }) => {
       });
     }
   };
-  
+
 
 
   const loadMore = () => {
@@ -224,15 +223,15 @@ const DraftPlayers = ({ selectedLeague, user, beginnerMode }) => {
     let sortedArr2 = [...arr2].sort();
 
     for (let i = 0; i < sortedArr1.length; i++) {
-        if (sortedArr1[i] !== sortedArr2[i]) return false;
+      if (sortedArr1[i] !== sortedArr2[i]) return false;
     }
 
     return true;
-}
+  }
 
 
   const startDraft = async () => {
-    
+
     if (leagueData.members.length !== leagueData.amountofPlayers) {
       alert('The draft cannot start till the league is full!');
       return;
@@ -242,20 +241,20 @@ const DraftPlayers = ({ selectedLeague, user, beginnerMode }) => {
       alert('League members must match the draft order. Please randomize the draft order again before starting the draft');
       return;
     }
-  
+
     // Get a reference to the current league's document
     const leagueRef = collection(db, 'leagues');
     const leagueSnapshot = await getDocs(query(leagueRef, where('id', '==', selectedLeague.id)));
     const leagueDoc = leagueSnapshot.docs[0];
-  
+
     // Get a reference to the 'teams' subcollection
     const teamsRef = collection(leagueDoc.ref, 'teams');
-  
+
     // Create a team document for each member
     for (const memberEmail of selectedLeague.members) {
       // Check if a team document for the current member already exists
       const teamsSnapshot = await getDocs(query(teamsRef, where('owner', '==', memberEmail)));
-  
+
       if (teamsSnapshot.empty) {
         // If not, create a new document with the specified values
         await addDoc(teamsRef, {
@@ -264,156 +263,156 @@ const DraftPlayers = ({ selectedLeague, user, beginnerMode }) => {
         });
       }
     }
-  
+
     // Fetch the updated league document from Firestore
-  const updatedLeagueDoc = await getDoc(leagueDoc.ref);
-  const updatedLeagueData = updatedLeagueDoc.data();
+    const updatedLeagueDoc = await getDoc(leagueDoc.ref);
+    const updatedLeagueData = updatedLeagueDoc.data();
 
-  // Set the draftStatus field to true and currentDrafter to the first drafter in the list
-  console.log(updatedLeagueData.draftOrder[0]);
-  await updateDoc(leagueDoc.ref, {
-    draftStatus: "Drafting",
-    currentDrafter: updatedLeagueData.draftOrder[0]
-  });
+    // Set the draftStatus field to true and currentDrafter to the first drafter in the list
+    console.log(updatedLeagueData.draftOrder[0]);
+    await updateDoc(leagueDoc.ref, {
+      draftStatus: "Drafting",
+      currentDrafter: updatedLeagueData.draftOrder[0]
+    });
 
-  alert('The draft has started!');
-};
-  
-
-  
-// Function to randomize the order
-const randomizeOrder = async () => {
-  // Always use the current members of the league for the draft order
-  let draftOrder = [...leagueData.members];
-
-  for (let i = draftOrder.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [draftOrder[i], draftOrder[j]] = [draftOrder[j], draftOrder[i]];
-  }
-  console.log(draftOrder)
-
-  // Get a reference to the league document
-  const leagueRef = collection(db, 'leagues');
-  const leagueSnapshot = await getDocs(query(leagueRef, where('id', '==', leagueData.id)));
-  const leagueDoc = leagueSnapshot.docs[0];
-
-  // Update the draftOrder in the league document
-  await updateDoc(leagueDoc.ref, { draftOrder });
-};
+    alert('The draft has started!');
+  };
 
 
 
-  
-  
+  // Function to randomize the order
+  const randomizeOrder = async () => {
+    // Always use the current members of the league for the draft order
+    let draftOrder = [...leagueData.members];
+
+    for (let i = draftOrder.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [draftOrder[i], draftOrder[j]] = [draftOrder[j], draftOrder[i]];
+    }
+    console.log(draftOrder)
+
+    // Get a reference to the league document
+    const leagueRef = collection(db, 'leagues');
+    const leagueSnapshot = await getDocs(query(leagueRef, where('id', '==', leagueData.id)));
+    const leagueDoc = leagueSnapshot.docs[0];
+
+    // Update the draftOrder in the league document
+    await updateDoc(leagueDoc.ref, { draftOrder });
+  };
+
+
+
+
+
   const handleDragEnd = async (result) => {
     if (!result.destination) return;
     const items = Array.from(selectedLeague.draftOrder);
     const [reorderedItem] = items.splice(result.source.index, 1);
     items.splice(result.destination.index, 0, reorderedItem);
-  
+
     // Update the draftOrder in the league document
     const leagueRef = doc(db, 'leagues', selectedLeague.id);
     await updateDoc(leagueRef, { draftOrder: items });
   };
-  
+
 
   return (
-    
+
     <div>
 
-{user.email === selectedLeague.commissioner && leagueData.draftStatus === 'Not Started' && (
-  <>
-    <h1 className="commissioner-draft-controls">Commissioner Controls:</h1>
-    <div className="commissioner-controls">
-      <Button className="draft-button randomize-order" onClick={randomizeOrder}>
-        Randomize Order
-      </Button>
-      <Button variant="primary" className="draft-button start-draft" onClick={startDraft}>
-        Start Draft
-      </Button>
-    </div>
-  </>
-)}
+      {user.email === selectedLeague.commissioner && leagueData.draftStatus === 'Not Started' && (
+        <>
+          <h1 className="commissioner-draft-controls">Commissioner Controls:</h1>
+          <div className="commissioner-controls">
+            <Button className="draft-button randomize-order" onClick={randomizeOrder}>
+              Randomize Order
+            </Button>
+            <Button variant="primary" className="draft-button start-draft" onClick={startDraft}>
+              Start Draft
+            </Button>
+          </div>
+        </>
+      )}
 
 
 
 
-<Card className={`draft-status-card ${leagueData.draftStatus === 'Drafting' ? 'drafting' : leagueData.draftStatus === 'Not Started' ? 'not-started' : 'finished'}`}>
-  <Card.Body>
-    <Card.Text>
-      Draft status: {leagueData.draftStatus}
-    </Card.Text>
-  </Card.Body>
-</Card>
+      <Card className={`draft-status-card ${leagueData.draftStatus === 'Drafting' ? 'drafting' : leagueData.draftStatus === 'Not Started' ? 'not-started' : 'finished'}`}>
+        <Card.Body>
+          <Card.Text>
+            Draft status: {leagueData.draftStatus}
+          </Card.Text>
+        </Card.Body>
+      </Card>
 
 
-{ leagueData.draftOrder && (
-<div>
-<h2 className="draft-order-heading">Draft Order</h2>
+      {leagueData.draftOrder && (
+        <div>
+          <h2 className="draft-order-heading">Draft Order</h2>
 
-<div className="d-flex flex-wrap">
-  {leagueData.draftOrder && leagueData.draftOrder.map((userEmail, index) => (
-    <Card key={index} className={`draft-card ${userEmail === leagueData.currentDrafter ? 'current-drafter' : 'non-current-drafter'}`}>
-    <Card.Body>
-      <Card.Title className="draft-card-title">
-        {selectedLeague.memberDisplayNames[selectedLeague.members.indexOf(userEmail)]}
-      </Card.Title>
-      <Card.Text>
-        {leagueData && leagueData.currentDrafter && userEmail === leagueData.currentDrafter ? 'Currently Drafting' : 'Waiting for turn'}
-      </Card.Text>
-    </Card.Body>
-  </Card>
-  
-  ))}
-</div>
+          <div className="d-flex flex-wrap">
+            {leagueData.draftOrder && leagueData.draftOrder.map((userEmail, index) => (
+              <Card key={index} className={`draft-card ${userEmail === leagueData.currentDrafter ? 'current-drafter' : 'non-current-drafter'}`}>
+                <Card.Body>
+                  <Card.Title className="draft-card-title">
+                    {selectedLeague.memberDisplayNames[selectedLeague.members.indexOf(userEmail)]}
+                  </Card.Title>
+                  <Card.Text>
+                    {leagueData && leagueData.currentDrafter && userEmail === leagueData.currentDrafter ? 'Currently Drafting' : 'Waiting for turn'}
+                  </Card.Text>
+                </Card.Body>
+              </Card>
 
-</div>
+            ))}
+          </div>
 
-)}
-      
-  
-<Form>
-      <Form.Control className='player-filter' as="select" value={position} onChange={handlePositionChange}>
-        {['All Positions', 'QB', 'RB', 'WR', 'TE', 'K', 'DEF'].map((position) => (
-          <option key={position} value={position}>{position}</option>
-        ))}
-      </Form.Control>
-    </Form>
-    <div className='free-agents'>
-      {players.map((player, index) => (
-        <Card className="free-agent-card" key={index}>
-          <Card.Body className="card-body d-flex align-items-center">
-            <Button variant="primary" className="button" onClick={() => draftPlayer(player)}>+</Button>
-            <div className="player-details">
-              <Card.Title className="player-name">{player.Name}</Card.Title>
-              {(player.Position === 'DEF') &&<strong><Card.Text className="player-card-text">{player.Team}</Card.Text></strong>}
-              <div className="d-flex flex-wrap">
-                <Card.Text className="player-card-text"> Position: {player.Position}</Card.Text>
-                {(player.Position != 'DEF') &&<Card.Text className="player-card-text"> Team: {player.Team}</Card.Text>}
-                {(player.Position === 'QB') && player.PassingYards && <Card.Text className="player-card-text">PassYRD: {player.PassingYards}</Card.Text>}
-                {(player.Position === 'QB') && player.PassingTouchdowns && <Card.Text className="player-card-text">PassTD: {player.PassingTouchdowns}</Card.Text>}
-                {(player.Position === 'QB') && player.PassingInterceptions && <Card.Text className="player-card-text">INT: {player.PassingInterceptions}</Card.Text>}
-                {(player.Position === 'QB' || player.Position === 'RB') && player.RushingYards && <Card.Text className="player-card-text">RushYRD: {player.RushingYards}</Card.Text>}
-                {(player.Position === 'QB' || player.Position === 'RB') && player.RushingTouchdowns && <Card.Text className="player-card-text">RushTD: {player.RushingTouchdowns}</Card.Text>}
-                {(player.Position === 'RB' || player.Position === 'WR' || player.Position === 'TE') && player.ReceivingYards && <Card.Text className="player-card-text">ReceivingYRD: {player.ReceivingYards}</Card.Text>}
-                {(player.Position === 'RB' || player.Position === 'WR' || player.Position === 'TE') && player.ReceivingTouchdowns && <Card.Text className="player-card-text">ReceivingTD: {player.ReceivingTouchdowns}</Card.Text>}
-                {(player.Position === 'RB' || player.Position === 'WR' || player.Position === 'TE') && player.Receptions && <Card.Text className="player-card-text">Receptions: {player.Receptions}</Card.Text>}
-                {player.Position === 'K' && <Card.Text className="player-card-text">FG Attempted: {player.FieldGoalsAttempted}</Card.Text>}
-                {player.Position === 'K' && player.FieldGoalsMade && <Card.Text className="player-card-text">FG Made: {player.FieldGoalsMade}</Card.Text>}
-                {player.Position === 'K' && player.ExtraPointsMade && <Card.Text className="player-card-text">Extra Points Made: {player.ExtraPointsMade}</Card.Text>}
-                {player.Position === 'DEF' && player.PointsAllowed && <Card.Text className="player-card-text">Points Allowed: {player.PointsAllowed}</Card.Text>}
-                {player.Position === 'DEF' && player.Sacks && <Card.Text className="player-card-text">Sacks: {player.Sacks}</Card.Text>}
-                {player.Position === 'DEF' && player.Interceptions && <Card.Text className="player-card-text">Interceptions: {player.Interceptions}</Card.Text>}
-                {player.Position === 'DEF' && player.FumblesForced && <Card.Text className="player-card-text">Fumbles Forced: {player.FumblesForced}</Card.Text>}
+        </div>
+
+      )}
+
+
+      <Form>
+        <Form.Control className='player-filter' as="select" value={position} onChange={handlePositionChange}>
+          {['All Positions', 'QB', 'RB', 'WR', 'TE', 'K', 'DEF'].map((position) => (
+            <option key={position} value={position}>{position}</option>
+          ))}
+        </Form.Control>
+      </Form>
+      <div className='free-agents'>
+        {players.map((player, index) => (
+          <Card className="free-agent-card" key={index}>
+            <Card.Body className="card-body d-flex align-items-center">
+              <Button variant="primary" className="button" onClick={() => draftPlayer(player)}>+</Button>
+              <div className="player-details">
+                <Card.Title className="player-name">{player.Name}</Card.Title>
+                {(player.Position === 'DEF') && <strong><Card.Text className="player-card-text">{player.Team}</Card.Text></strong>}
+                <div className="d-flex flex-wrap">
+                  <Card.Text className="player-card-text"> Position: {player.Position}</Card.Text>
+                  {(player.Position != 'DEF') && <Card.Text className="player-card-text"> Team: {player.Team}</Card.Text>}
+                  {(player.Position === 'QB') && player.PassingYards && <Card.Text className="player-card-text">PassYRD: {player.PassingYards}</Card.Text>}
+                  {(player.Position === 'QB') && player.PassingTouchdowns && <Card.Text className="player-card-text">PassTD: {player.PassingTouchdowns}</Card.Text>}
+                  {(player.Position === 'QB') && player.PassingInterceptions && <Card.Text className="player-card-text">INT: {player.PassingInterceptions}</Card.Text>}
+                  {(player.Position === 'QB' || player.Position === 'RB') && player.RushingYards && <Card.Text className="player-card-text">RushYRD: {player.RushingYards}</Card.Text>}
+                  {(player.Position === 'QB' || player.Position === 'RB') && player.RushingTouchdowns && <Card.Text className="player-card-text">RushTD: {player.RushingTouchdowns}</Card.Text>}
+                  {(player.Position === 'RB' || player.Position === 'WR' || player.Position === 'TE') && player.ReceivingYards && <Card.Text className="player-card-text">ReceivingYRD: {player.ReceivingYards}</Card.Text>}
+                  {(player.Position === 'RB' || player.Position === 'WR' || player.Position === 'TE') && player.ReceivingTouchdowns && <Card.Text className="player-card-text">ReceivingTD: {player.ReceivingTouchdowns}</Card.Text>}
+                  {(player.Position === 'RB' || player.Position === 'WR' || player.Position === 'TE') && player.Receptions && <Card.Text className="player-card-text">Receptions: {player.Receptions}</Card.Text>}
+                  {player.Position === 'K' && <Card.Text className="player-card-text">FG Attempted: {player.FieldGoalsAttempted}</Card.Text>}
+                  {player.Position === 'K' && player.FieldGoalsMade && <Card.Text className="player-card-text">FG Made: {player.FieldGoalsMade}</Card.Text>}
+                  {player.Position === 'K' && player.ExtraPointsMade && <Card.Text className="player-card-text">Extra Points Made: {player.ExtraPointsMade}</Card.Text>}
+                  {player.Position === 'DEF' && player.PointsAllowed && <Card.Text className="player-card-text">Points Allowed: {player.PointsAllowed}</Card.Text>}
+                  {player.Position === 'DEF' && player.Sacks && <Card.Text className="player-card-text">Sacks: {player.Sacks}</Card.Text>}
+                  {player.Position === 'DEF' && player.Interceptions && <Card.Text className="player-card-text">Interceptions: {player.Interceptions}</Card.Text>}
+                  {player.Position === 'DEF' && player.FumblesForced && <Card.Text className="player-card-text">Fumbles Forced: {player.FumblesForced}</Card.Text>}
+                </div>
               </div>
-            </div>
-          </Card.Body>
-        </Card>
-      ))}
+            </Card.Body>
+          </Card>
+        ))}
+      </div>
+      <button onClick={loadMore}>Load More</button>
     </div>
-    <button onClick={loadMore}>Load More</button>
-  </div>
-);
+  );
 };
 
 export default DraftPlayers;

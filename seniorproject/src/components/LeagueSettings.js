@@ -1,11 +1,9 @@
+import { collection, getDocs, onSnapshot, query, where } from "firebase/firestore";
 import React, { useEffect, useState } from 'react';
 import { Card } from 'react-bootstrap';
-import { doc, onSnapshot } from "firebase/firestore";
-import { auth, db } from "../Firebase-config";
-import { query, collection, where, getDocs } from 'firebase/firestore';
+import { db } from "../Firebase-config";
 
-import "../styles/LeagueSettings.css"
-import MyHuddleHero from './MyHuddleHero';
+import "../styles/LeagueSettings.css";
 
 
 const LeagueSettings = ({ selectedLeague, beginnerMode }) => {
@@ -13,12 +11,12 @@ const LeagueSettings = ({ selectedLeague, beginnerMode }) => {
 
   const scoringSettingsOrder = ['Passing', 'Rushing', 'Receiving', 'Kicking', 'Defence']
 
-  const defenceScoringOrder = ['shutout', 'points1_6', 'points7_13', 'points14_20', 'points21_27', 'points28_34', 'points35Plus', 'sack', 'defInterception', 'fumbleRecovery', 'safety', 'returnTD', 'blockedKick' ]
-  
+  const defenceScoringOrder = ['shutout', 'points1_6', 'points7_13', 'points14_20', 'points21_27', 'points28_34', 'points35Plus', 'sack', 'defInterception', 'fumbleRecovery', 'safety', 'returnTD', 'blockedKick']
+
   const getDisplayName = async (email) => {
     const userRef = collection(db, 'users');
     const q = query(userRef, where('email', '==', email));
-  
+
     const querySnapshot = await getDocs(q);
     if (!querySnapshot.empty) {
       // Assuming each email is unique and there's only one document with the given email
@@ -30,21 +28,22 @@ const LeagueSettings = ({ selectedLeague, beginnerMode }) => {
 
   useEffect(() => {
     if (selectedLeague) {
-    const q = query(collection(db, 'leagues'), where('id', '==', selectedLeague.id));
-  
-    const unsubscribe = onSnapshot(q, async (querySnapshot) => {
-      const leaguesData = await Promise.all(querySnapshot.docs.map(async doc => {
-        const league = doc.data();
-        // Fetch the display names of the members
-        league.memberDisplayNames = await Promise.all(league.members.map(getDisplayName));
-        setLeagueData(league);
-      }));
-    });
+      const q = query(collection(db, 'leagues'), where('id', '==', selectedLeague.id));
+
+      const unsubscribe = onSnapshot(q, async (querySnapshot) => {
+        const leaguesData = await Promise.all(querySnapshot.docs.map(async doc => {
+          const league = doc.data();
+          // Fetch the display names of the members
+          league.memberDisplayNames = await Promise.all(league.members.map(getDisplayName));
+          setLeagueData(league);
+        }));
+      });
 
 
-    // Clean up the subscription on unmount
-    return () => unsubscribe();
-  }}, [selectedLeague]);
+      // Clean up the subscription on unmount
+      return () => unsubscribe();
+    }
+  }, [selectedLeague]);
 
 
   if (!leagueData) {
@@ -134,44 +133,44 @@ const LeagueSettings = ({ selectedLeague, beginnerMode }) => {
         </Card>
       </div>
       <Card className="show-league-settings-card show-league-settings-scoring-card">
-      <Card.Body>
-        <Card.Title className="show-league-settings-title">Scoring Settings</Card.Title>
-        <div className="show-league-settings-scoring-flex">
-          {scoringSettingsOrder.map((category, index) => {
-            const settings = leagueData.settings.scoringSettings[category];
-            if (!settings) return null;
-            const order = category === 'Defence' ? defenceScoringOrder : Object.keys(settings);
-            return (
-              <Card key={index} className={`show-league-settings-subcard show-league-settings-scoring-category ${category === 'Defence' ? 'defence-category' : ''}`}>
+        <Card.Body>
+          <Card.Title className="show-league-settings-title">Scoring Settings</Card.Title>
+          <div className="show-league-settings-scoring-flex">
+            {scoringSettingsOrder.map((category, index) => {
+              const settings = leagueData.settings.scoringSettings[category];
+              if (!settings) return null;
+              const order = category === 'Defence' ? defenceScoringOrder : Object.keys(settings);
+              return (
+                <Card key={index} className={`show-league-settings-subcard show-league-settings-scoring-category ${category === 'Defence' ? 'defence-category' : ''}`}>
 
-                <Card.Body>
-                  <Card.Title className="show-league-settings-scoring-title">{category}</Card.Title>
-                  {order.map((key, i) => {
-                    const value = settings[key];
-                    if (value === undefined) return null;
-                    return (
-                      <Card key={i} className="show-league-settings-subcard show-league-settings-scoring-subcard">
-                        <Card.Body>
-                          <Card.Text className="show-league-settings-scoring-text">
-                             <strong>{keyMapping[key] || key}:</strong> {value}
-                          </Card.Text>
-                        </Card.Body>
-                      </Card>
-                    );
-                  })}
-                </Card.Body>
-              </Card>
-            );
-          })}
-        </div>
-      </Card.Body>
-    </Card>
-  </div>
-);
-  
-  
-  
-  
+                  <Card.Body>
+                    <Card.Title className="show-league-settings-scoring-title">{category}</Card.Title>
+                    {order.map((key, i) => {
+                      const value = settings[key];
+                      if (value === undefined) return null;
+                      return (
+                        <Card key={i} className="show-league-settings-subcard show-league-settings-scoring-subcard">
+                          <Card.Body>
+                            <Card.Text className="show-league-settings-scoring-text">
+                              <strong>{keyMapping[key] || key}:</strong> {value}
+                            </Card.Text>
+                          </Card.Body>
+                        </Card>
+                      );
+                    })}
+                  </Card.Body>
+                </Card>
+              );
+            })}
+          </div>
+        </Card.Body>
+      </Card>
+    </div>
+  );
+
+
+
+
 };
 
 export default LeagueSettings;

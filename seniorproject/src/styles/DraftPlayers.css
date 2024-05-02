@@ -1,135 +1,150 @@
     /* Conditional styles for draft status */
-  .draft-status-card.drafting {
-    background-color: #4CAF50; /* Drafting status color */
-  }
-  
-  .draft-status-card.not-started {
-    background-color: #FF7f7F; /* Not Started status color */
-  }
+    .draft-status-card.drafting {
+      background-color: #4CAF50;
+      /* Drafting status color */
+    }
 
-  .draft-status-card.finished {
-    background-color: #FF7f7F !important; /* Not Started status color */
-  }
-  
+    .draft-status-card.not-started {
+      background-color: #FF7f7F;
+      /* Not Started status color */
+    }
 
-
-/* Draft Status Card */
-.draft-status-card {
-    width: 100%;
-    height: 2rem !important;
-    margin: 1rem;
-    background-color: #FF7f7F;
-    border-radius: 1.5rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: bold;
-    color: white;
-    font-family: 'Quicksand', sans-serif;
-  }
-  
-  /* Individual Draft Order Cards */
-  .draft-card {
-    width: 8rem;
-    height: 4rem !important;
-    margin: 1rem;
-    background-color: #FFFFFF;
-    border-radius: 0.5rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    font-size: 12px;
-    color: #333;
-    transition: transform 0.2s ease;
-    font-family: 'Quicksand', sans-serif;
-    box-shadow:  4px 4px 0 rgba(0, 0, 0, 0.2) !important;
-  }
-
-  .draft-card-title {
-    font-size: 14px !important; /* Adjust font size as desired */
-    font-weight: bold !important;
-    color: white !important; /* Text color */
-    /* Add any other styles you want for the title */
-  }
-
-  /* Modern styling for draft order cards */
-  .draft-card:hover {
-    transform: scale(1.05);
-  }
-  
-  /* Current Drafter Styles */
-  .draft-card.current-drafter {
-    background-color: #fe4a2a; /* Green for current drafter */
-    color: white;
-  }
-  
-  /* Non-Current Drafter Styles */
-  .draft-card.non-current-drafter {
-    background-color:#96aabb; /* Light gray for non-current drafters */
-    color: white;
-  }
+    .draft-status-card.finished {
+      background-color: #FF7f7F !important;
+      /* Not Started status color */
+    }
 
 
-  .commissioner-draft-controls, .draft-order-heading {
-    font-family: 'Quicksand', sans-serif;
-    font-weight: bold;
-    color:white
 
-  }
+    /* Draft Status Card */
+    .draft-status-card {
+      width: 100%;
+      height: 2rem !important;
+      margin: 1rem;
+      background-color: #FF7f7F;
+      border-radius: 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      color: white;
+      font-family: 'Quicksand', sans-serif;
+    }
 
- /* fantasy-league.css */
+    /* Individual Draft Order Cards */
+    .draft-card {
+      width: 8rem;
+      height: 4rem !important;
+      margin: 1rem;
+      background-color: #FFFFFF;
+      border-radius: 0.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      font-size: 12px;
+      color: #333;
+      transition: transform 0.2s ease;
+      font-family: 'Quicksand', sans-serif;
+      box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.2) !important;
+    }
 
-/* Commissioner Controls */
-.commissioner-controls {
-    display: flex;
-    align-items: center; /* Vertically center the buttons */
-  }
-  
-  /* Randomize Order Button */
-  .draft-button.randomize-order {
-    width: 50%;
-    font-size: 14px;
-    font-weight: bold;
-    color: white;
-    background-color: #fe4a2a !important;
-    border: 2px solid transparent; /* Add a border */
-    padding: 0.5rem 1rem;
-    cursor: pointer;
-    transition: background-color 0.2s ease, border-color 0.2s ease; /* Add transition for border color */
-    box-shadow:  4px 4px 0 rgba(0, 0, 0, 0.2) !important;
-    border-radius: 0.5rem 0 0 0.5rem;
-  }
-  
-  .draft-button.randomize-order:hover {
-    background-color:#fF4F2a !important; /* Darker color on hover */
-    border-color: #96aabb; /* Show border on hover */
-  }
-  
-  /* Start Draft Button */
-  .draft-button.start-draft {
-    width: 50%;
-    font-size: 14px;
-    font-weight: bold;
-    color: white;
-    background-color: #96aabb;
-    border: 2px solid transparent; /* Add a border */
-    padding: 0.5rem 1rem;
-    cursor: pointer;
-    transition: background-color 0.2s ease, border-color 0.2s ease; /* Add transition for border color */
-    box-shadow:  4px 4px 0 rgba(0, 0, 0, 0.2) !important;
-    border-radius: 0 0.5rem 0.5rem 0;
-  }
-  
-  .draft-button.start-draft:hover {
-    border-color: #96aabb; /* Show border on hover */
-    background-color: #2a454e;
-  }
+    .draft-card-title {
+      font-size: 14px !important;
+      /* Adjust font size as desired */
+      font-weight: bold !important;
+      color: white !important;
+      /* Text color */
+      /* Add any other styles you want for the title */
+    }
 
-@media (max-width: 991px) {
-  .draft-card {
-    margin-right:.1em;
-  }
+    /* Modern styling for draft order cards */
+    .draft-card:hover {
+      transform: scale(1.05);
+    }
 
-}
+    /* Current Drafter Styles */
+    .draft-card.current-drafter {
+      background-color: #fe4a2a;
+      /* Green for current drafter */
+      color: white;
+    }
+
+    /* Non-Current Drafter Styles */
+    .draft-card.non-current-drafter {
+      background-color: #96aabb;
+      /* Light gray for non-current drafters */
+      color: white;
+    }
+
+
+    .commissioner-draft-controls,
+    .draft-order-heading {
+      font-family: 'Quicksand', sans-serif;
+      font-weight: bold;
+      color: white
+    }
+
+    /* fantasy-league.css */
+
+    /* Commissioner Controls */
+    .commissioner-controls {
+      display: flex;
+      align-items: center;
+      /* Vertically center the buttons */
+    }
+
+    /* Randomize Order Button */
+    .draft-button.randomize-order {
+      width: 50%;
+      font-size: 14px;
+      font-weight: bold;
+      color: white;
+      background-color: #fe4a2a !important;
+      border: 2px solid transparent;
+      /* Add a border */
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+      transition: background-color 0.2s ease, border-color 0.2s ease;
+      /* Add transition for border color */
+      box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.2) !important;
+      border-radius: 0.5rem 0 0 0.5rem;
+    }
+
+    .draft-button.randomize-order:hover {
+      background-color: #fF4F2a !important;
+      /* Darker color on hover */
+      border-color: #96aabb;
+      /* Show border on hover */
+    }
+
+    /* Start Draft Button */
+    .draft-button.start-draft {
+      width: 50%;
+      font-size: 14px;
+      font-weight: bold;
+      color: white;
+      background-color: #96aabb;
+      border: 2px solid transparent;
+      /* Add a border */
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+      transition: background-color 0.2s ease, border-color 0.2s ease;
+      /* Add transition for border color */
+      box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.2) !important;
+      border-radius: 0 0.5rem 0.5rem 0;
+    }
+
+    .draft-button.start-draft:hover {
+      border-color: #96aabb;
+      /* Show border on hover */
+      background-color: #2a454e;
+    }
+
+    @media (max-width: 991px) {
+      .draft-card {
+        margin-right: .1em;
+      }
+
+    }

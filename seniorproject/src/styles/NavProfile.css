@@ -1,125 +1,156 @@
 .nav {
-    height: 100%; /* Set a fixed height for the nav bar */
-  }
-  
+  height: 100%;
+  /* Set a fixed height for the nav bar */
+}
+
+.NavProfile {
+
+  height: 100%;
+  /* Make the NavProfile take up the full height of its container */
+  display: flex;
+  /* Use flexbox for layout */
+  flex-direction: column;
+  /* Stack items vertically */
+  align-items: center;
+  /* Center items horizontally */
+  justify-content: center;
+  /* Center items vertically */
+}
+
+.NavProfile .card {
+  width: inherit;
+  /* Make the card take up the full width of its container */
+  height: inherit;
+  /* Make the card take up the full height of its container */
+  align-items: center;
+  background-color: #2a454e;
+  border-radius: 0;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  padding-right: 20px;
+}
+
+.NavProfile .card .card-body {
+  height: inherit;
+  width: inherit;
+  display: flex;
+  /* Use flexbox for layout */
+  flex-direction: row;
+  /* Stack items vertically */
+  align-items: center;
+  /* Center items horizontally */
+  justify-content: center;
+  /* Center items vertically */
+}
+
+
+.NavProfile .card .card-body .profile-img {
+  width: auto;
+  /* Adjust this value as needed */
+  height: 100%;
+  /* Adjust this value as needed */
+  border: 3px solid #93abbd;
+  /* Add a border to the image */
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  border-radius: 50%;
+}
+
+.dropdown-container {
+  display: flex;
+  /* Use flexbox for layout */
+  flex-direction: column;
+  /* Stack items vertically */
+  justify-content: center;
+  /* Center items vertically */
+  align-items: center;
+  /* Center items horizontally */
+  width: 100%;
+  /* Make the dropdown container take up the full width of its container */
+
+  padding-left: 10px;
+
+}
+
+.my-dropdown-toggle {
+  background-color: #fe4a2a;
+  border: none
+}
+
+.my-dropdown-toggle {
+  background-color: #fe4a2a;
+  color: white;
+}
+
+
+.my-dropdown-toggle:focus,
+.my-dropdown-toggle:active {
+  background-color: #fe4a2a !important;
+  /* The color when the button is clicked or focused */
+  color: white;
+
+}
+
+.my-dropdown-toggle:hover {
+  background-color: #ca2f1a;
+  /* The color when the button is clicked or focused */
+  color: white;
+
+}
+
+
+.my-dropdown-menu {
+  background-color: #2a454e;
+  /* Light gray background */
+  border: none;
+  /* Remove the border */
+  border-radius: 0.25rem;
+  /* Slightly rounded corners */
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+  /* A subtle shadow */
+  width: 80%;
+
+
+}
+
+.my-dropdown-menu>.dropdown-item {
+  padding: 0.5rem 1rem;
+  /* More padding */
+  background-color: #2a454e;
+  color: white;
+  font-size: 14px;
+}
+
+.my-dropdown-menu>.dropdown-item:hover {
+  background-color: #93abbd;
+  /* Light gray background on hover */
+}
+
+
+
+
+
+@media (max-width: 768px) {
   .NavProfile {
-   
-    height: 100%; /* Make the NavProfile take up the full height of its container */
-    display: flex; /* Use flexbox for layout */
-    flex-direction: column; /* Stack items vertically */
-    align-items: center; /* Center items horizontally */
-    justify-content: center; /* Center items vertically */
+    width: auto;
+    justify-content: flex-end;
+    /* Align items to the end */
   }
-  
-  .NavProfile .card {
-    width: inherit; /* Make the card take up the full width of its container */
-    height: inherit; /* Make the card take up the full height of its container */
-    align-items: center;
-    background-color:  #2a454e;
-    border-radius: 0;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-    padding-right: 20px;
-  }
-  
+
   .NavProfile .card .card-body {
-    height: inherit;
-    width: inherit;
-    display: flex; /* Use flexbox for layout */
-    flex-direction: row; /* Stack items vertically */
-    align-items: center; /* Center items horizontally */
-    justify-content: center; /* Center items vertically */
+    flex-direction: row;
+    /* Stack items horizontally */
+    align-items: center;
+    /* Center items vertically */
   }
-  
-  
+
   .NavProfile .card .card-body .profile-img {
-    width: auto; /* Adjust this value as needed */
-    height: 100%; /* Adjust this value as needed */
-    border: 3px solid #93abbd; /* Add a border to the image */
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-    border-radius: 50%;
+    width: auto;
+    /* Adjust this value as needed */
+    height: 100%;
+    /* Adjust this value as needed */
   }
-  
-  .dropdown-container {
-    display: flex; /* Use flexbox for layout */
-    flex-direction: column; /* Stack items vertically */
-    justify-content: center; /* Center items vertically */
-    align-items: center; /* Center items horizontally */
-    width: 100%; /* Make the dropdown container take up the full width of its container */
-
-    padding-left: 10px;
-    
-  }
-
-  .my-dropdown-toggle {
-    background-color: #fe4a2a;
-    border:none
-  }
-  .my-dropdown-toggle {
-    background-color: #fe4a2a ;
-    color: white ;
-  }
-
-  
-  .my-dropdown-toggle:focus,
-  .my-dropdown-toggle:active {
-    background-color: #fe4a2a !important ; /* The color when the button is clicked or focused */
-    color: white ;
-    
-  }
-  .my-dropdown-toggle:hover {
-    background-color: #ca2f1a ; /* The color when the button is clicked or focused */
-    color: white ;
-
-  }
-  
 
   .my-dropdown-menu {
-    background-color:  #2a454e; /* Light gray background */
-    border: none; /* Remove the border */
-    border-radius: 0.25rem; /* Slightly rounded corners */
-    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15); /* A subtle shadow */
-    width: 80%;
-    
-    
+    width: 100%;
+    /* Make the dropdown menu take up the full width on small screens */
   }
-  
-  .my-dropdown-menu > .dropdown-item {
-    padding: 0.5rem 1rem; /* More padding */
-    background-color:  #2a454e;
-    color:white;
-    font-size: 14px;
-  }
-  
-  .my-dropdown-menu > .dropdown-item:hover {
-    background-color:  #93abbd; /* Light gray background on hover */
-  }
-  
-
-  
-  
-  
-  @media (max-width: 768px) {
-    .NavProfile {
-        width: auto;
-      justify-content: flex-end; /* Align items to the end */
-    }
-  
-    .NavProfile .card .card-body {
-      flex-direction: row; /* Stack items horizontally */
-      align-items: center; /* Center items vertically */
-    }
-  
-    .NavProfile .card .card-body .profile-img {
-      width: auto; /* Adjust this value as needed */
-      height: 100%; /* Adjust this value as needed */
-    }
-  
-    .my-dropdown-menu {
-      width: 100%; /* Make the dropdown menu take up the full width on small screens */
-    }
-  }
-  
-  
-  
-  
-  
+}

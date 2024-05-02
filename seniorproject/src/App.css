@@ -2,6 +2,7 @@
   text-align: center;
   font-family: 'Quicksand', sans-serif;
 }
+
 body {
   padding: 0%;
   margin: 0%;
@@ -18,17 +19,21 @@ nav {
   align-items: center;
   color: white;
   text-decoration: none;
-  position: relative; /* Make the navigation relative by default */
+  position: relative;
+  /* Make the navigation relative by default */
   top: 0;
-  z-index: 100; /* Ensure it's above other content */
+  z-index: 100;
+  /* Ensure it's above other content */
   font-family: 'Quicksand', sans-serif;
 }
 
 
 
 .logo {
-  width: auto; /* This will maintain the aspect ratio */
-  height: 100%; /* This will make the image's height match the nav bar's height */
+  width: auto;
+  /* This will maintain the aspect ratio */
+  height: 100%;
+  /* This will make the image's height match the nav bar's height */
   position: absolute;
   left: 0;
 }
@@ -38,7 +43,7 @@ nav {
   display: flex;
   flex-direction: column;
   align-items: center;
-  
+
 }
 
 .welcome-message {
@@ -51,7 +56,8 @@ nav {
 .horizontal-divider {
   width: 100%;
   height: 1px;
-  background-color: #000; /* or any color you want */
+  background-color: #000;
+  /* or any color you want */
 }
 
 .content-area {
@@ -89,75 +95,105 @@ nav {
 .league-card {
   width: calc(50% - 10px) !important;
   margin-bottom: 20px !important;
-  border: 2px solid #96aabb !important; /* Adjust as needed */
-  box-shadow:  8px 8px 0 rgba(0, 0, 0, 0.2) !important; /* This adds a shadow */
-  background-color:#cbd8e7 !important;
+  border: 2px solid #96aabb !important;
+  /* Adjust as needed */
+  box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.2) !important;
+  /* This adds a shadow */
+  background-color: #cbd8e7 !important;
 }
 
 /* Individual Invite Card */
 .invite-card {
   width: calc(50% - 10px) !important;
   margin-bottom: 20px !important;
-  border: 2px solid #96aabb !important; /* Adjust as needed */
-  box-shadow: -8px 8px 0 rgba(0, 0, 0, 0.2) !important; /* This adds a shadow to the top and left */
-  background-color:#cbd8e7 !important;
+  border: 2px solid #96aabb !important;
+  /* Adjust as needed */
+  box-shadow: -8px 8px 0 rgba(0, 0, 0, 0.2) !important;
+  /* This adds a shadow to the top and left */
+  background-color: #cbd8e7 !important;
 }
 
 
 
 .button-accept {
-  background-color: #2a454e !important; /* Green background */
-  border: none !important; /* Remove borders */
-  color: white !important; /* White text */
-  padding: 15px 32px !important; /* Some padding */
-  text-align: center !important; /* Centered text */
-  text-decoration: none !important; /* Remove underline */
+  background-color: #2a454e !important;
+  /* Green background */
+  border: none !important;
+  /* Remove borders */
+  color: white !important;
+  /* White text */
+  padding: 15px 32px !important;
+  /* Some padding */
+  text-align: center !important;
+  /* Centered text */
+  text-decoration: none !important;
+  /* Remove underline */
   display: inline-block !important;
   font-size: 12px !important;
   margin: 4px 2px !important;
-  transition-duration: 0.4s !important; /* Transition effects */
-  cursor: pointer !important; /* Pointer/hand icon */
-  border-radius: 10px !important; /* Rounded corners */
+  transition-duration: 0.4s !important;
+  /* Transition effects */
+  cursor: pointer !important;
+  /* Pointer/hand icon */
+  border-radius: 10px !important;
+  /* Rounded corners */
   box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1) !important;
   font-family: 'Quicksand', sans-serif;
 }
 
 .button-accept:hover {
-  background-color: #1f3942 !important; /* White background */
-  color: #92aabd !important; /* Black text */
+  background-color: #1f3942 !important;
+  /* White background */
+  color: #92aabd !important;
+  /* Black text */
   font-family: 'Quicksand', sans-serif;
 }
 
 .button-decline {
-  background-color: #d13223 !important; /* Green background */
-  border: none !important; /* Remove borders */
-  color: white !important; /* White text */
-  padding: 15px 32px !important; /* Some padding */
-  text-align: center !important; /* Centered text */
-  text-decoration: none !important; /* Remove underline */
+  background-color: #d13223 !important;
+  /* Green background */
+  border: none !important;
+  /* Remove borders */
+  color: white !important;
+  /* White text */
+  padding: 15px 32px !important;
+  /* Some padding */
+  text-align: center !important;
+  /* Centered text */
+  text-decoration: none !important;
+  /* Remove underline */
   display: inline-block !important;
   font-size: 12px !important;
   margin: 4px 2px !important;
-  transition-duration: 0.4s !important; /* Transition effects */
-  cursor: pointer !important; /* Pointer/hand icon */
-  border-radius: 10px !important; /* Rounded corners */
+  transition-duration: 0.4s !important;
+  /* Transition effects */
+  cursor: pointer !important;
+  /* Pointer/hand icon */
+  border-radius: 10px !important;
+  /* Rounded corners */
   box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1) !important;
   font-family: 'Quicksand', sans-serif;
 }
 
 .button-decline:hover {
-  background-color: #d13223 !important; /* White background */
-  color: #92aabd !important; /* Black text */
+  background-color: #d13223 !important;
+  /* White background */
+  color: #92aabd !important;
+  /* Black text */
   font-family: 'Quicksand', sans-serif;
 }
 
 .invite-league-button {
   width: 100%;
-  border: 1px solid #333 !important; /* Add a small border */
-  box-shadow: 8px 5px 7px rgba(0, 0, 0, 0.2); /* Add a box shadow */
-  transition: all 0.3s ease; /* Smooth transition for hover effect */
+  border: 1px solid #333 !important;
+  /* Add a small border */
+  box-shadow: 8px 5px 7px rgba(0, 0, 0, 0.2);
+  /* Add a box shadow */
+  transition: all 0.3s ease;
+  /* Smooth transition for hover effect */
   background-color: #fe4a2a !important;
 }
+
 .invite-league-button:disabled {
   opacity: 1 !important;
 }
@@ -167,13 +203,15 @@ nav {
   top: 50%;
   right: 10px;
   transform: translateY(-50%);
-  background-color: #fe4a2a !important ;
+  background-color: #fe4a2a !important;
   border: none !important;
 }
 
 .login-button:hover {
-  background-color: #d13223 !important; /* White background */
-  color: #92aabd !important; /* Black text */
+  background-color: #d13223 !important;
+  /* White background */
+  color: #92aabd !important;
+  /* Black text */
   font-family: 'Quicksand', sans-serif;
 }
 
@@ -183,16 +221,17 @@ nav {
 }
 
 .offcanvas {
-  z-index: 2000 !important;  /* Adjust this value as needed */
+  z-index: 2000 !important;
+  /* Adjust this value as needed */
   width: 70% !important;
   background-color: rgba(42, 69, 78, 0.9) !important;
-  color:white !important;
+  color: white !important;
 }
 
 .myHuddleHero-icon {
   width: 10%;
-  height: auto; 
-  border: 10px solid #fe4a2a 
+  height: auto;
+  border: 10px solid #fe4a2a
 }
 
 
@@ -203,72 +242,94 @@ nav {
 }
 
 .carousel-item img {
-  max-width: 300px; /* Adjust this to change the width */
-  max-height: auto; /* Adjust this to change the height */
+  max-width: 300px;
+  /* Adjust this to change the width */
+  max-height: auto;
+  /* Adjust this to change the height */
   width: auto;
   height: auto;
-  margin: auto; /* This will center the image */
+  margin: auto;
+  /* This will center the image */
 }
 
 
 /* CSS for the Accordion with className 'About' */
 .About {
-  font-family: 'Quicksand', sans-serif; /* Use the Quicksand font */
+  font-family: 'Quicksand', sans-serif;
+  /* Use the Quicksand font */
 }
 
 .About .accordion-header {
-  background-color: #2a454e; /* Main theme color for the header */
-  color: white; /* White text for better contrast */
-  font-size: 20px; /* Larger font size for a modern look */
-  padding: 20px; /* Increased padding for taller headers */
-  transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth transition for a modern look */
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); /* Subtle box shadow for a modern look */
+  background-color: #2a454e;
+  /* Main theme color for the header */
+  color: white;
+  /* White text for better contrast */
+  font-size: 20px;
+  /* Larger font size for a modern look */
+  padding: 20px;
+  /* Increased padding for taller headers */
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  /* Smooth transition for a modern look */
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  /* Subtle box shadow for a modern look */
 }
 
 .About .accordion-header:hover {
-  background-color: #1d353a; /* Darker shade of the main theme color when hovered */
-  transform: scale(1.008); /* Slightly larger when hovered for a modern look */
+  background-color: #1d353a;
+  /* Darker shade of the main theme color when hovered */
+  transform: scale(1.008);
+  /* Slightly larger when hovered for a modern look */
 }
 
 .About .accordion-header.active {
-  background-color: #93abbd; /* Tertiary color when active */
+  background-color: #93abbd;
+  /* Tertiary color when active */
 }
 
 .About .accordion-body {
-  background-color: white; /* White color for the body */
-  color: #2a454e; /* Main theme color for the text */
-  font-size: 16px; /* Slightly smaller font size for the body */
-  padding: 20px; /* Increased padding for taller bodies */
-  transition: background-color 0.3s ease; /* Smooth transition for a modern look */
+  background-color: white;
+  /* White color for the body */
+  color: #2a454e;
+  /* Main theme color for the text */
+  font-size: 16px;
+  /* Slightly smaller font size for the body */
+  padding: 20px;
+  /* Increased padding for taller bodies */
+  transition: background-color 0.3s ease;
+  /* Smooth transition for a modern look */
   border: 3px solid #93abbd;
 }
 
-.About .accordion-body:hover {
-  
-  
-}
+.About .accordion-body:hover {}
 
 .About .accordion-button {
-  background-color: white; /* Main theme color for the button */
-  color: #2a454e; /* Secondary theme color for the text */
+  background-color: white;
+  /* Main theme color for the button */
+  color: #2a454e;
+  /* Secondary theme color for the text */
   font-weight: bold;
-  transition: background-color 0.3s ease; /* Smooth transition for a modern look */
+  transition: background-color 0.3s ease;
+  /* Smooth transition for a modern look */
   text-align: center;
 }
 
 .About .accordion-button:not(.collapsed) {
-  background-color: #93abbd; /* Tertiary color when the accordion item is opened */
-  color: white; /* White color for the text when the accordion item is opened */
+  background-color: #93abbd;
+  /* Tertiary color when the accordion item is opened */
+  color: white;
+  /* White color for the text when the accordion item is opened */
 }
 
 .About .accordion-button:focus {
-  box-shadow: none/* Remove the box-shadow */
+  box-shadow: none
+    /* Remove the box-shadow */
 }
 
 
 @media (max-width: 768px) {
   nav {
-    position: sticky; /* Make the navigation sticky for devices with a width of 768px or less */
+    position: sticky;
+    /* Make the navigation sticky for devices with a width of 768px or less */
     font-family: 'Quicksand', sans-serif;
   }
 }
@@ -283,41 +344,51 @@ a {
 
 .align-center {
   display: flex;
-  justify-content: center; /* Horizontally center */
-  align-items: center; /* Vertically center */
+  justify-content: center;
+  /* Horizontally center */
+  align-items: center;
+  /* Vertically center */
 }
 
 .centered-image {
-  max-width: 100%; /* Ensure the image doesn't exceed the container width */
-  max-height: 100%; /* Ensure the image doesn't exceed the container height */
+  max-width: 100%;
+  /* Ensure the image doesn't exceed the container width */
+  max-height: 100%;
+  /* Ensure the image doesn't exceed the container height */
 }
 
 .offcanvas-image {
-  width:30% !important;
+  width: 30% !important;
   justify-content: center !important;
 }
 
 /* Media query for smaller screens (e.g., mobile devices) */
 @media (max-width: 768px) {
   nav {
-    padding: 0; /* Remove padding */
+    padding: 0;
+    /* Remove padding */
     font-family: 'Quicksand', sans-serif;
   }
+
   a {
-    margin: 5px 0; /* Reduce vertical spacing */
-    font-size: 16px; /* Decrease font size for mobile */
+    margin: 5px 0;
+    /* Reduce vertical spacing */
+    font-size: 16px;
+    /* Decrease font size for mobile */
     font-family: 'Quicksand', sans-serif;
   }
+
   .offcanvas {
-    z-index: 2000 !important;  /* Adjust this value as needed */
+    z-index: 2000 !important;
+    /* Adjust this value as needed */
     width: 100% !important;
     background-color: rgba(42, 69, 78, 0.9) !important;
-    color:white !important;
+    color: white !important;
   }
+
   .offcanvas-image {
-    width:50% !important;
+    width: 50% !important;
     justify-content: center !important;
   }
 
 }
-

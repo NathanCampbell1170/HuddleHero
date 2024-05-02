@@ -1,11 +1,8 @@
-.chat-page {
+.chat-page {}
 
 
-  }
-  
-  
 .chat-container {
-    max-height: 500px; 
+    max-height: 500px;
     overflow-y: auto;
     font-family: 'Quicksand', sans-serif;
     flex-direction: column;
@@ -16,48 +13,55 @@
     padding: 5px;
     z-index: 1000 !important;
 }
-  
+
 .chat-card {
     max-width: 100%;
-    margin-bottom: 10px; /* Increase the space between messages */
-    color: white; /* Set the text color to white for better contrast */
-    border: none; /* Remove the border */
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); /* Use a subtler shadow */
-    border-radius: 40px !important; /* Increase border radius for a "bubble" effect */
-    position: relative !important; /* Set position to relative */
-    z-index: 1; /* Ensure the chat card is above other elements */
-    
-    
+    margin-bottom: 10px;
+    /* Increase the space between messages */
+    color: white;
+    /* Set the text color to white for better contrast */
+    border: none;
+    /* Remove the border */
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    /* Use a subtler shadow */
+    border-radius: 40px !important;
+    /* Increase border radius for a "bubble" effect */
+    position: relative !important;
+    /* Set position to relative */
+    z-index: 1;
+    /* Ensure the chat card is above other elements */
+
+
 }
 
 .chat-card:hover {
     z-index: 2000 !important;
     transform: scale(1.02);
 }
-  
+
 .chat-card-image {
     width: 50px;
     height: 50%;
     border-radius: 50%;
     border: 2px solid #93abbd;
 }
-  
+
 .chat-card-text-container {
     margin-left: 10px;
 }
-  
+
 .chat-card-text {
     overflow-wrap: break-word;
-    word-wrap:normal !important;
-    
-    
+    word-wrap: normal !important;
+
+
     font-family: 'Quicksand', sans-serif;
     font-size: small;
     white-space: pre-wrap;
     hyphens: auto;
     color: #2a454e
-
 }
+
 .chat-card-text .message-user {
     overflow-wrap: break-word;
     word-break: break-all;
@@ -67,7 +71,7 @@
     hyphens: auto;
     color: #fe4a2a;
 }
-  
+
 .chat-form {
     /* Add styles for the chat form here */
     padding-top: 2px;
@@ -75,24 +79,27 @@
     justify-content: space-between;
     align-items: center;
 }
-  
+
 .new-message-input {
     resize: none;
-    flex-grow: 1; /* New property */
+    flex-grow: 1;
+    /* New property */
     height: 15%;
-    border-radius: 15px 0 0 15px !important; /* Top left and bottom left corners are rounded */
+    border-radius: 15px 0 0 15px !important;
+    /* Top left and bottom left corners are rounded */
 }
 
-  
+
 .send-button {
-    border-radius: 0 15px 15px 0 !important; /* Top right and bottom right corners are rounded */
-    border:none !important;
+    border-radius: 0 15px 15px 0 !important;
+    /* Top right and bottom right corners are rounded */
+    border: none !important;
     color: white !important;
     cursor: pointer !important;
     /* The lighter orange is just supposed to be an accent or on smaller parts, like the send button */
     background-color: #fe4a2a !important;
 }
-  
+
 .send-button:hover {
     opacity: 0.8 !important;
 }

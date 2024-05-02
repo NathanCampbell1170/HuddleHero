@@ -1,13 +1,12 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { collection, query, orderBy, where, startAfter, limit, getDocs, arrayUnion, doc, updateDoc, getDoc, onSnapshot, documentId } from 'firebase/firestore';
-import {db} from "../Firebase-config";
-import Card from 'react-bootstrap/Card';
+import { arrayUnion, collection, getDocs, onSnapshot, query, updateDoc, where } from 'firebase/firestore';
+import React, { useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
+import Card from 'react-bootstrap/Card';
 import Form from 'react-bootstrap/Form';
-import "../styles/AddPlayers.css"
-import MyHuddleHero from './MyHuddleHero';
+import { db } from "../Firebase-config";
+import "../styles/AddPlayers.css";
 
-import playersData from '../NFLStats/SeasonStatsPlayers.json'
+import playersData from '../NFLStats/SeasonStatsPlayers.json';
 
 const AddFreeAgents = ({ selectedLeague, user, beginnerMode }) => {
   const [players, setPlayers] = useState([]);
@@ -60,10 +59,10 @@ const AddFreeAgents = ({ selectedLeague, user, beginnerMode }) => {
       // Get the current league's document using selectedLeague.id
       const leagueSnapshot = await getDocs(query(collection(db, 'leagues'), where('id', '==', selectedLeague.id)));
       const leagueDoc = leagueSnapshot.docs[0];
-  
+
       // Get a reference to the teams subcollection
       const teamsRef = collection(leagueDoc.ref, 'teams');
-  
+
       // Set up the real-time listener
       const unsubscribe = onSnapshot(teamsRef, (snapshot) => {
         snapshot.docChanges().forEach((change) => {
@@ -74,14 +73,14 @@ const AddFreeAgents = ({ selectedLeague, user, beginnerMode }) => {
           }
         });
       });
-  
+
       // Fetch the players initially
       await fetchPlayers(position);
-  
+
       // Clean up the listener when the component is unmounted or `position` changes
       return () => unsubscribe();
     };
-  
+
     fetchLeagueAndPlayers();
   }, [position]);
 
@@ -96,35 +95,35 @@ const AddFreeAgents = ({ selectedLeague, user, beginnerMode }) => {
 
     // Now you can access draftStatus
     if (leagueData.draftStatus == "Finished") {
-   
-    // Get a reference to the team document with an owner field matching the user's email
-    const teamsRef = collection(leagueDoc.ref, 'teams');
-    const teamsSnapshot = await getDocs(query(teamsRef, where('owner', '==', user.email)));
-    const teamDoc = teamsSnapshot.docs[0];
-    const teamData = teamDoc.data();
-  
-    // Calculate the maximum roster size
-    let maxRosterSize = 0;
-    if (selectedLeague && selectedLeague.rosterSettings) {
-      maxRosterSize = Object.values(selectedLeague.rosterSettings).reduce((a, b) => a + b, 0);
-    }
-  
-    // Check if the current player's roster is full
-    if (teamData.players && teamData.players.length >= maxRosterSize) {
-      alert('Your roster is full!');
-      return;
-    }
-    
-    // Add the player's PlayerID field to the players array inside of the team document
-    await updateDoc(teamDoc.ref, {
-      players: arrayUnion(player.PlayerID)
-    });
+
+      // Get a reference to the team document with an owner field matching the user's email
+      const teamsRef = collection(leagueDoc.ref, 'teams');
+      const teamsSnapshot = await getDocs(query(teamsRef, where('owner', '==', user.email)));
+      const teamDoc = teamsSnapshot.docs[0];
+      const teamData = teamDoc.data();
+
+      // Calculate the maximum roster size
+      let maxRosterSize = 0;
+      if (selectedLeague && selectedLeague.rosterSettings) {
+        maxRosterSize = Object.values(selectedLeague.rosterSettings).reduce((a, b) => a + b, 0);
+      }
+
+      // Check if the current player's roster is full
+      if (teamData.players && teamData.players.length >= maxRosterSize) {
+        alert('Your roster is full!');
+        return;
+      }
+
+      // Add the player's PlayerID field to the players array inside of the team document
+      await updateDoc(teamDoc.ref, {
+        players: arrayUnion(player.PlayerID)
+      });
     } else {
       alert("Players cannot be added until the draft is over!")
     }
 
   };
-  
+
 
   const loadMore = () => {
     if (!isLoading) {  // Only fetch more players if not currently loading
@@ -157,10 +156,10 @@ const AddFreeAgents = ({ selectedLeague, user, beginnerMode }) => {
               <Button variant="primary" className="button" onClick={() => addPlayer(player)}>+</Button>
               <div className="player-details">
                 <Card.Title className="player-name">{player.Name}</Card.Title>
-                {(player.Position === 'DEF') &&<strong><Card.Text className="player-card-text">{player.Team}</Card.Text></strong>}
+                {(player.Position === 'DEF') && <strong><Card.Text className="player-card-text">{player.Team}</Card.Text></strong>}
                 <div className="d-flex flex-wrap">
                   <Card.Text className="player-card-text"> Position: {player.Position}</Card.Text>
-                  {(player.Position != 'DEF') &&<Card.Text className="player-card-text"> Team: {player.Team}</Card.Text>}
+                  {(player.Position != 'DEF') && <Card.Text className="player-card-text"> Team: {player.Team}</Card.Text>}
                   {(player.Position === 'QB') && player.PassingYards && <Card.Text className="player-card-text">PassYRD: {player.PassingYards}</Card.Text>}
                   {(player.Position === 'QB') && player.PassingTouchdowns && <Card.Text className="player-card-text">PassTD: {player.PassingTouchdowns}</Card.Text>}
                   {(player.Position === 'QB') && player.PassingInterceptions && <Card.Text className="player-card-text">INT: {player.PassingInterceptions}</Card.Text>}
@@ -185,9 +184,9 @@ const AddFreeAgents = ({ selectedLeague, user, beginnerMode }) => {
       <button onClick={loadMore}>Load More</button>
     </div>
   );
-  
-  
-  
+
+
+
 };
 
 export default AddFreeAgents;

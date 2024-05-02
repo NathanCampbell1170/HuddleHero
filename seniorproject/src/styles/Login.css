@@ -66,16 +66,17 @@ button:hover {
 
 
 .login-tabs {
-  background-color: #ffffff; /* White background */
+  background-color: #ffffff;
+  /* White background */
   justify-content: center;
-  width:100% !important;
+  width: 100% !important;
   align-self: center !important;
 }
 
 .login-tabs .nav {
   display: flex;
   justify-content: center;
-  width:40%
+  width: 40%
 }
 
 .login-tabs .nav-item {
@@ -89,7 +90,7 @@ button:hover {
 }
 
 .login-tabs .nav-item .login-tab {
-  width:100%;
+  width: 100%;
 }
 
 .login-tabs .nav-item:last-child {
@@ -110,11 +111,10 @@ button:hover {
   font-family: 'Quicksand', sans-serif;
   outline: none !important;
   border: none !important;
-  
+
 }
 
 .login-tabs .nav-link:hover {
   border: none !important;
   color: white;
 }
-

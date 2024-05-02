@@ -1,13 +1,13 @@
 .friend-chat-page .modal-content {
     background-color: #2a454e;
-    color:white;
-    text-wrap:balance;
+    color: white;
+    text-wrap: balance;
     word-wrap: break-word !important;
     font-size: ;
 }
 
 .friend-chat-container {
-    max-height: 500px; 
+    max-height: 500px;
     overflow-y: auto;
     font-family: 'Quicksand', sans-serif;
     word-wrap: break-word;
@@ -22,19 +22,27 @@
 
 .friend-chat-card {
     max-width: 100%;
-    margin-bottom: 10px; /* Increase the space between messages */
-    color: white; /* Set the text color to white for better contrast */
-    border: none; /* Remove the border */
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); /* Use a subtler shadow */
-    border-radius: 40px !important; /* Increase border radius for a "bubble" effect */
-    position: relative !important; /* Set position to relative */
-    z-index: 1; /* Ensure the chat card is above other elements */
+    margin-bottom: 10px;
+    /* Increase the space between messages */
+    color: white;
+    /* Set the text color to white for better contrast */
+    border: none;
+    /* Remove the border */
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    /* Use a subtler shadow */
+    border-radius: 40px !important;
+    /* Increase border radius for a "bubble" effect */
+    position: relative !important;
+    /* Set position to relative */
+    z-index: 1;
+    /* Ensure the chat card is above other elements */
 }
 
 .friend-chat-card:hover {
     z-index: 2000 !important;
     transform: scale(1.02);
 }
+
 .friend-chat-card-image {
     width: 50px;
     height: 50%;
@@ -77,14 +85,14 @@
 
 .new-friend-message-input {
     resize: none;
-    flex-grow: 1; 
+    flex-grow: 1;
     height: 15%;
-    border-radius: 15px 0 0 15px !important; 
+    border-radius: 15px 0 0 15px !important;
 }
 
 .send-friend-button {
-    border-radius: 0 15px 15px 0 !important; 
-    border:none !important;
+    border-radius: 0 15px 15px 0 !important;
+    border: none !important;
     color: white !important;
     cursor: pointer !important;
     background-color: #fe4a2a !important;
@@ -99,8 +107,7 @@
 }
 
 @media (max-width: 991px) {
-    .friend-chat-page .modal-content .h4{
+    .friend-chat-page .modal-content .h4 {
         font-size: 14px;
     }
 }
-

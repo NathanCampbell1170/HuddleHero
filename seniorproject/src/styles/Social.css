@@ -1,149 +1,155 @@
 /* Main content area */
 .main-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-   
-  }
-  
-  /* Friend Invite Cards Container */
-  .friend-invite-cards {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-start;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
-  }
-  
-  /* Friends List Cards Container */
-  .friend-cards {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-  }
-  
-  /* Individual Friend Invite Card */
-  .friend-invite-card {
-    margin-bottom: 20px !important;
-    border: 2px solid #96aabb !important; /* Adjust as needed */
-    box-shadow: -8px 8px 0 rgba(0, 0, 0, 0.2) !important; /* This adds a shadow to the top and left */
-    background-color:#cbd8e7 !important;
-  }
-  
-  /* Individual Friend Card */
+}
+
+/* Friend Invite Cards Container */
+.friend-invite-cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+
+}
+
+/* Friends List Cards Container */
+.friend-cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+
+/* Individual Friend Invite Card */
+.friend-invite-card {
+  margin-bottom: 20px !important;
+  border: 2px solid #96aabb !important;
+  /* Adjust as needed */
+  box-shadow: -8px 8px 0 rgba(0, 0, 0, 0.2) !important;
+  /* This adds a shadow to the top and left */
+  background-color: #cbd8e7 !important;
+}
+
+/* Individual Friend Card */
+.friend-card {
+  margin-bottom: 20px !important;
+  border: 2px solid #96aabb !important;
+  /* Adjust as needed */
+  box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.2) !important;
+  /* This adds a shadow */
+  background-color: #cbd8e7 !important;
+  color: #2a454e;
+  font-size: 16px !important
+}
+
+@media (max-width: 991px) {
   .friend-card {
-    margin-bottom: 20px !important;
-    border: 2px solid #96aabb !important; /* Adjust as needed */
-    box-shadow:  8px 8px 0 rgba(0, 0, 0, 0.2) !important; /* This adds a shadow */
-    background-color:#cbd8e7 !important;
-    color:#2a454e;
-    font-size: 16px !important
+    font-size: 12px !important
   }
 
-  @media (max-width: 991px) {
-    .friend-card { 
-      font-size: 12px !important
-    }
-
-    .friend-card .card-title { 
-      font-size: 12px !important
-    }
-
-    .friend-chat-button {
-      padding: 5px 20px !important;
-    }
-
-    
+  .friend-card .card-title {
+    font-size: 12px !important
   }
-
 
   .friend-chat-button {
-    display: flex;
-    justify-content: center;
-    margin-top: 10px;
-    padding: 10px 20px;
-    border-radius: 5px;
-    border: none;
-    color: white;
-    cursor: pointer;
-    background-color: #fe4a2a; /* Your theme color */
-  }
-  
-  .friend-chat-button:hover {
-    opacity: 0.8;
-    background-color: #fe4a2a;
-  }
-  
- .friend-header {
-
-    color:#2a454e !important;
-    font-family: 'Quicksand', sans-serif;
+    padding: 5px 20px !important;
   }
 
 
-  .add-friend-section {
-    padding-top: 1%;
-    padding-bottom: 1%;
-    width:100%;
-  }
-  .add-friend-modal {
-    border: 2px solid #2a454e;
-    border-radius: 10px;
-  }
-  
-  .add-friend-modal .modal-header,
-  .add-friend-modal .modal-footer {
-    background-color: #2a454e;
-    color: white;
-    font-family: 'Quicksand', sans-serif;
-    border-radius: 10px 10px 0 0;
-  }
-  
-  .add-friend-modal .modal-body {
-    background-color: white;
-    color: black;
-    font-family: 'Quicksand', sans-serif;
-    padding: 20px;
-  }
-  
-  .add-friend-modal .modal-footer {
-    border-radius: 0 0 10px 10px;
-  }
-  
-  .add-friend-button {
-    width:100%;
-    padding: 10px 20px;
-    border-radius: 5px;
-    border: none;
-    color: white;
-    cursor: pointer;
-    background-color: #fe4a2a;
-  }
+}
 
-  .add-friend-button .btn {
-    width:100%
-  }
-  
-  .add-friend-button:hover {
-    opacity: 0.8;
-    background-color: #fe4a2a !important
-  }
-  .add-friend-button:active {
-    background-color: #fe4a2a !important ;
-    
-  }
-  
-  .add-friend-modal .modal-content {
-    border: none;
-    border-radius: 20px;
-  }
 
-  .add-friend-modal .Button {
-    background-color: #fe4a2a !important;
-  }
-  
+.friend-chat-button {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+  padding: 10px 20px;
+  border-radius: 5px;
+  border: none;
+  color: white;
+  cursor: pointer;
+  background-color: #fe4a2a;
+  /* Your theme color */
+}
+
+.friend-chat-button:hover {
+  opacity: 0.8;
+  background-color: #fe4a2a;
+}
+
+.friend-header {
+
+  color: #2a454e !important;
+  font-family: 'Quicksand', sans-serif;
+}
+
+
+.add-friend-section {
+  padding-top: 1%;
+  padding-bottom: 1%;
+  width: 100%;
+}
+
+.add-friend-modal {
+  border: 2px solid #2a454e;
+  border-radius: 10px;
+}
+
+.add-friend-modal .modal-header,
+.add-friend-modal .modal-footer {
+  background-color: #2a454e;
+  color: white;
+  font-family: 'Quicksand', sans-serif;
+  border-radius: 10px 10px 0 0;
+}
+
+.add-friend-modal .modal-body {
+  background-color: white;
+  color: black;
+  font-family: 'Quicksand', sans-serif;
+  padding: 20px;
+}
+
+.add-friend-modal .modal-footer {
+  border-radius: 0 0 10px 10px;
+}
+
+.add-friend-button {
+  width: 100%;
+  padding: 10px 20px;
+  border-radius: 5px;
+  border: none;
+  color: white;
+  cursor: pointer;
+  background-color: #fe4a2a;
+}
+
+.add-friend-button .btn {
+  width: 100%
+}
+
+.add-friend-button:hover {
+  opacity: 0.8;
+  background-color: #fe4a2a !important
+}
+
+.add-friend-button:active {
+  background-color: #fe4a2a !important;
+
+}
+
+.add-friend-modal .modal-content {
+  border: none;
+  border-radius: 20px;
+}
+
+.add-friend-modal .Button {
+  background-color: #fe4a2a !important;
+}
+
 
 .add-friend-modal .button-accept {
   background-color: #cbd8e7 !important;
   color: black !important;
 }
-

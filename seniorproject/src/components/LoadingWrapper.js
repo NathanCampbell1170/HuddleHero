@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom"; // Import useLocation
 import Spinner from 'react-bootstrap/Spinner';
+import { useLocation } from "react-router-dom"; // Import useLocation
 
 function LoadingWrapper({ children }) {
   const [loading, setLoading] = useState(false);

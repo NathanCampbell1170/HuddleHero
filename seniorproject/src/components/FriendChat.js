@@ -1,12 +1,12 @@
-import { useEffect, useState, useRef } from 'react';
-import { auth, db, storage } from "../Firebase-config";
-import { addDoc, collection, getDocs, query, where, doc, updateDoc, onSnapshot, orderBy, limit, serverTimestamp, } from "firebase/firestore";
-import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import Modal from 'react-bootstrap/Modal';
+import { addDoc, collection, getDocs, limit, onSnapshot, orderBy, query, where } from "firebase/firestore";
+import { getDownloadURL, ref } from "firebase/storage";
+import { useEffect, useRef, useState } from 'react';
 import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
 import Card from 'react-bootstrap/Card';
-import "../styles/FriendChat.css"
+import Form from 'react-bootstrap/Form';
+import Modal from 'react-bootstrap/Modal';
+import { auth, db, storage } from "../Firebase-config";
+import "../styles/FriendChat.css";
 
 
 function FriendChat({ friendEmail }) {
@@ -71,30 +71,30 @@ function FriendChat({ friendEmail }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (newMessage === '') return;
-  
+
     // Query the 'Users' collection to get the current user's document
     const userQuery = query(collection(db, 'users'), where('email', '==', auth.currentUser.email));
     const userSnapshot = await getDocs(userQuery);
-  
+
     if (!userSnapshot.empty) {
       // Get the user's profilePicture and beginnerMode from the user's document
       const userDocument = userSnapshot.docs[0].data();
       let { profilePicture, beginnerMode } = userDocument;
-  
+
       // If there is no profilePicture, set a default based on beginnerMode
       if (!profilePicture) {
         const defaultPFPRef = ref(storage, beginnerMode ? 'ProfilePictures/DefaultPFPBeginner.jpeg' : 'ProfilePictures/DefaultPFPExperienced.jpeg');
         profilePicture = await getDownloadURL(defaultPFPRef);
       }
-  
+
       // Query the 'Friends' collection to find the document where the current user's email is 'user1' and friendEmail is 'user2'
       const friendsQuery1 = query(collection(db, 'Friends'), where('user1', '==', auth.currentUser.email), where('user2', '==', friendEmail));
       const friendsSnapshot1 = await getDocs(friendsQuery1);
-  
+
       // Query the 'Friends' collection to find the document where the current user's email is 'user2' and friendEmail is 'user1'
       const friendsQuery2 = query(collection(db, 'Friends'), where('user1', '==', friendEmail), where('user2', '==', auth.currentUser.email));
       const friendsSnapshot2 = await getDocs(friendsQuery2);
-  
+
       let friendDocId;
       if (!friendsSnapshot1.empty) {
         // Get the actual ID of the document
@@ -106,10 +106,10 @@ function FriendChat({ friendEmail }) {
         console.log('No friend document found with the given emails.');
         return;
       }
-  
+
       // Now you can create a reference to the 'messages' subcollection
       const messagesRef = collection(db, 'Friends', friendDocId, 'messages');
-  
+
       // Add a new document to the 'messages' subcollection
       await addDoc(messagesRef, {
         text: newMessage,
@@ -117,21 +117,21 @@ function FriendChat({ friendEmail }) {
         user: userDocument.displayName,
         picture: profilePicture
       });
-  
+
       // Clear the newMessage state
       setNewMessage('');
     } else {
       console.log('No user document found with the current user\'s email.');
     }
   };
-  
+
 
   return (
     <>
       <Button variant="primary" onClick={handleShow} className='friend-chat-button'>
         Message
       </Button>
-  
+
       <Modal show={show} onHide={handleClose} className='friend-chat-page'>
         <Modal.Header closeButton>
           <Modal.Title>Chat with {friendEmail}</Modal.Title>
@@ -180,7 +180,7 @@ function FriendChat({ friendEmail }) {
     </>
   );
 
-  
+
 }
 
 export default FriendChat;

@@ -1,20 +1,19 @@
+import { collection, getDocs, onSnapshot, query, where } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react';
-import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
+import Card from 'react-bootstrap/Card';
 import Modal from 'react-bootstrap/Modal';
-import { collection, query, where, getDocs, onSnapshot } from 'firebase/firestore';
-import {auth, db} from "../Firebase-config";
-import Tabs from 'react-bootstrap/Tabs';
 import Tab from 'react-bootstrap/Tab';
-import {Row, Col} from 'react-bootstrap'
+import Tabs from 'react-bootstrap/Tabs';
+import { db } from "../Firebase-config";
 import "../styles/LeagueCards.css";
-import EditLeagueSettings from './EditLeagueSettings';
-import LeagueChat from './LeagueChat'
 import AddFreeAgents from './AddFreeAgents';
-import MyTeam from "./MyTeam"
 import DraftPlayers from './DraftPlayers';
+import EditLeagueSettings from './EditLeagueSettings';
+import LeagueChat from './LeagueChat';
 import LeagueSettings from "./LeagueSettings";
 import Matchup from './Matchup';
+import MyTeam from "./MyTeam";
 
 import MyHuddleHero from './MyHuddleHero';
 
@@ -29,13 +28,13 @@ function LeagueCards({ user, beginnerMode }) {
   const isUserCommissioner = selectedLeague && selectedLeague.commissioner === user.email;
   const [activeTab, setActiveTab] = useState("myTeam")
 
-  
+
 
   useEffect(() => {
     const fetchLeagues = () => {
       const leaguesRef = collection(db, 'leagues');
       const q = query(leaguesRef, where('members', 'array-contains', user.email));
-  
+
       const unsubscribe = onSnapshot(q, async (querySnapshot) => {
         const leaguesData = await Promise.all(querySnapshot.docs.map(async doc => {
           const league = doc.data();
@@ -45,22 +44,22 @@ function LeagueCards({ user, beginnerMode }) {
         }));
         setLeagues(leaguesData);
       });
-  
+
       // Clean up the listener when the component is unmounted
       return () => unsubscribe();
     };
-  
+
     fetchLeagues();
   }, [user]);
-  
-  
-  
+
+
+
 
 
   async function getDisplayName(email) {
     const userRef = collection(db, 'users');
     const q = query(userRef, where('email', '==', email));
-  
+
     const querySnapshot = await getDocs(q);
     if (!querySnapshot.empty) {
       // Assuming each email is unique and there's only one document with the given email
@@ -101,83 +100,83 @@ function LeagueCards({ user, beginnerMode }) {
 
 
   };
-  
+
   return (
     <>
-        
-        {leagues.map((league, index) => (
-          <Card key={index} className='league-card'>
-            <Card.Body>
-              <Card.Title>{league.leagueName}</Card.Title>
-              <Card.Text>
-                Created by: {league.creator}
-                {/* Add more league details here */}
-              </Card.Text>
-              <Button className="button-modern" variant="primary" onClick={() => setSelectedLeague(league)}>
-                View League
-              </Button>
-            </Card.Body>
-          </Card>
-          ))}
-     
+
+      {leagues.map((league, index) => (
+        <Card key={index} className='league-card'>
+          <Card.Body>
+            <Card.Title>{league.leagueName}</Card.Title>
+            <Card.Text>
+              Created by: {league.creator}
+              {/* Add more league details here */}
+            </Card.Text>
+            <Button className="button-modern" variant="primary" onClick={() => setSelectedLeague(league)}>
+              View League
+            </Button>
+          </Card.Body>
+        </Card>
+      ))}
+
 
       {/* Modal for displaying league details */}
       <Modal show={selectedLeague !== null} onHide={() => setSelectedLeague(null)} size="xl" dialogClassName="leagueModal">
-  <Modal.Header  closeButton className="league-title">
-    <Modal.Title >League: <strong>{selectedLeague?.leagueName}</strong></Modal.Title>
-    {beginnerMode && (<MyHuddleHero className="myHuddleHero-LeagueHeader" applyClassToImage>
-  {activeTab === 'myTeam' && <MyTeamContent />}
-  {activeTab === 'matchup' && <MatchupContent />}
-  {activeTab === 'addPlayers' && <AddFreeAgentsContent />}
-  {activeTab === 'leagueChat' && <LeagueChatContent />}
-  {activeTab === 'leagueSettings' && <LeagueSettingsContent />}
-  {activeTab === 'draft' && <DraftContent />}
-  {activeTab === 'leagueDetails' && <EditLeagueSettingsContent />}
-</MyHuddleHero>
-    )}
+        <Modal.Header closeButton className="league-title">
+          <Modal.Title >League: <strong>{selectedLeague?.leagueName}</strong></Modal.Title>
+          {beginnerMode && (<MyHuddleHero className="myHuddleHero-LeagueHeader" applyClassToImage>
+            {activeTab === 'myTeam' && <MyTeamContent />}
+            {activeTab === 'matchup' && <MatchupContent />}
+            {activeTab === 'addPlayers' && <AddFreeAgentsContent />}
+            {activeTab === 'leagueChat' && <LeagueChatContent />}
+            {activeTab === 'leagueSettings' && <LeagueSettingsContent />}
+            {activeTab === 'draft' && <DraftContent />}
+            {activeTab === 'leagueDetails' && <EditLeagueSettingsContent />}
+          </MyHuddleHero>
+          )}
 
 
-  </Modal.Header>
-  <Modal.Body>
-    <Tabs defaultActiveKey="myTeam" id="uncontrolled-tab-example" className="customTabs" onSelect={(k) => setActiveTab(k)}>
-      {(selectedLeague?.commissioner === user.email || selectedLeague?.draftStatus) && (
-        <Tab eventKey="draft" title="Draft" className="customTabContent">
-          {/* Content for Draft tab */}
-          <DraftPlayers selectedLeague={selectedLeague} beginnerMode={beginnerMode} user={user}/>
-        </Tab>
-      )}
-      <Tab eventKey="myTeam" title="My Team" className="customTabContent">
-        {/* Content for My Team tab */}
-        <MyTeam selectedLeague={selectedLeague} user={user} />
-      </Tab>
-      <Tab eventKey="matchup" title="Matchup" beginnerMode={beginnerMode} className="customTabContent">
-        <Matchup selectedLeague={selectedLeague} user={user} beginnerMode={beginnerMode}/>
-        {/* Content for Matchup tab */}
-      </Tab>
-      <Tab eventKey="addPlayers" title="Add Players" className="customTabContent">
-        {/* Content for Add Players tab */}
-        <AddFreeAgents selectedLeague={selectedLeague} user={user} beginnerMode={beginnerMode} orderByField="AverageDraftPosition" />
-      </Tab>
-      <Tab eventKey="leagueChat" title="League Chat" className="customTabContent">
-        {/* Content for League Chat tab */}
-        <LeagueChat selectedLeague={selectedLeague} beginnerMode={beginnerMode} user={user} />
-      </Tab>
-      <Tab eventKey="leagueSettings" title="League Settings" className="customTabContent">
-        <LeagueSettings selectedLeague = {selectedLeague} beginnerMode={beginnerMode}/>
-      </Tab>
-      {isUserCommissioner && 
-        <Tab eventKey="leagueDetails" title="Edit League Settings">
-          <EditLeagueSettings selectedLeague={selectedLeague} beginnerMode={beginnerMode} user={user} />
-        </Tab>
-      }
-    </Tabs>
-  </Modal.Body>
-  <Modal.Footer className="league-footer">
-    {/* Modal footer */}
-  </Modal.Footer>
-</Modal>
+        </Modal.Header>
+        <Modal.Body>
+          <Tabs defaultActiveKey="myTeam" id="uncontrolled-tab-example" className="customTabs" onSelect={(k) => setActiveTab(k)}>
+            {(selectedLeague?.commissioner === user.email || selectedLeague?.draftStatus) && (
+              <Tab eventKey="draft" title="Draft" className="customTabContent">
+                {/* Content for Draft tab */}
+                <DraftPlayers selectedLeague={selectedLeague} beginnerMode={beginnerMode} user={user} />
+              </Tab>
+            )}
+            <Tab eventKey="myTeam" title="My Team" className="customTabContent">
+              {/* Content for My Team tab */}
+              <MyTeam selectedLeague={selectedLeague} user={user} />
+            </Tab>
+            <Tab eventKey="matchup" title="Matchup" beginnerMode={beginnerMode} className="customTabContent">
+              <Matchup selectedLeague={selectedLeague} user={user} beginnerMode={beginnerMode} />
+              {/* Content for Matchup tab */}
+            </Tab>
+            <Tab eventKey="addPlayers" title="Add Players" className="customTabContent">
+              {/* Content for Add Players tab */}
+              <AddFreeAgents selectedLeague={selectedLeague} user={user} beginnerMode={beginnerMode} orderByField="AverageDraftPosition" />
+            </Tab>
+            <Tab eventKey="leagueChat" title="League Chat" className="customTabContent">
+              {/* Content for League Chat tab */}
+              <LeagueChat selectedLeague={selectedLeague} beginnerMode={beginnerMode} user={user} />
+            </Tab>
+            <Tab eventKey="leagueSettings" title="League Settings" className="customTabContent">
+              <LeagueSettings selectedLeague={selectedLeague} beginnerMode={beginnerMode} />
+            </Tab>
+            {isUserCommissioner &&
+              <Tab eventKey="leagueDetails" title="Edit League Settings">
+                <EditLeagueSettings selectedLeague={selectedLeague} beginnerMode={beginnerMode} user={user} />
+              </Tab>
+            }
+          </Tabs>
+        </Modal.Body>
+        <Modal.Footer className="league-footer">
+          {/* Modal footer */}
+        </Modal.Footer>
+      </Modal>
 
-    
+
     </>
   );
 }

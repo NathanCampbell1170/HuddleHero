@@ -3,108 +3,138 @@
   display: flex;
   justify-content: space-between;
   font-family: 'Quicksand', sans-serif;
-  border:none
+  border: none
 }
 
 /* Style for your team and the opponent's team */
-.matchupUser-card, .matchupOpponent-card {
+.matchupUser-card,
+.matchupOpponent-card {
   width: 100% !important;
   min-height: 150px !important;
-  background-color: #2a454e !important; /* Dark teal background for contrast */
-  color: white !important; /* White text for readability */
+  background-color: #2a454e !important;
+  /* Dark teal background for contrast */
+  color: white !important;
+  /* White text for readability */
   margin: .1em;
-  border-radius: 5px !important; /* Added border radius */
-  transition: all 0.3s ease !important; /* Added transition */
+  border-radius: 5px !important;
+  /* Added border radius */
+  transition: all 0.3s ease !important;
+  /* Added transition */
   border: 1px solid white !important;
 }
 
-.matchupUser-card:hover, .matchupOpponent-card:hover {
-  
-  box-shadow: 1px 2px 0px #93abbd !important; /* Added box shadow */
+.matchupUser-card:hover,
+.matchupOpponent-card:hover {
+
+  box-shadow: 1px 2px 0px #93abbd !important;
+  /* Added box shadow */
 }
 
 /* Style for the player details */
-.matchupUser-details, .matchupOpponent-details {
+.matchupUser-details,
+.matchupOpponent-details {
   display: flex !important;
   flex-direction: row !important;
   justify-content: space-between !important;
-  
+
 }
 
-.matchupUser-card:hover, .matchupOpponent-card:hover {
- 
-}
+.matchupUser-card:hover,
+.matchupOpponent-card:hover {}
 
 /* Style for the player name */
 .player-name div {
   display: block !important;
   margin-right: 10px !important;
   text-align: center !important;
-  color: #2a454e !important; /* Orange color for player names to make them stand out */
+  color: #2a454e !important;
+  /* Orange color for player names to make them stand out */
 }
 
 /* Style for the labels */
-.matchupUser-card-label, .matchupOpponent-card-label {
-  margin-right:10px !important; 
-  text-align:center !important; 
-  color:#93abbd !important; /* Orange color for labels */
+.matchupUser-card-label,
+.matchupOpponent-card-label {
+  margin-right: 10px !important;
+  text-align: center !important;
+  color: #93abbd !important;
+  /* Orange color for labels */
 }
 
 /* Style for the text */
-.matchupUser-card-text, .matchupOpponent-card-text {
+.matchupUser-card-text,
+.matchupOpponent-card-text {
   margin-right: 10px !important;
   text-align: center !important;
-  color: #2a454e !important; /* Dark teal color for text */
+  color: #2a454e !important;
+  /* Dark teal color for text */
 }
 
 /* Style for the stats */
-.matchupUser-stat, .matchupOpponent-stat {
+.matchupUser-stat,
+.matchupOpponent-stat {
   display: flex !important;
   flex-direction: column !important;
   justify-content: space-between !important;
   margin-bottom: 10px !important;
-  color: #2a454e !important; /* Dark teal color for stats */
+  color: #2a454e !important;
+  /* Dark teal color for stats */
 }
 
 /* Style for the player cards */
-.matchupUser-playerCard, .matchupOpponent-playerCard {
+.matchupUser-playerCard,
+.matchupOpponent-playerCard {
   width: 100% !important;
   min-height: 150px !important;
-  background-color: white !important; /* White background for player cards */
-  border: 2px solid #93abbd !important; /* Light blue border */
+  background-color: white !important;
+  /* White background for player cards */
+  border: 2px solid #93abbd !important;
+  /* Light blue border */
   margin-top: 2%;
-  border-radius: 5px !important; /* Added border radius */
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2) !important; /* Added box shadow */
-  transition: all 0.3s ease !important; /* Added transition */
+  border-radius: 5px !important;
+  /* Added border radius */
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2) !important;
+  /* Added box shadow */
+  transition: all 0.3s ease !important;
+  /* Added transition */
 }
 
-.matchupUser-playerCard:hover, .matchupOpponent-playerCard:hover {
+.matchupUser-playerCard:hover,
+.matchupOpponent-playerCard:hover {
   box-shadow: 0px 0px 15px 5px #fe4a2a !important;
 
 
 }
 
 /* Style for the card header */
-.matchupUser-playerCard-header, .matchupOpponent-playerCard-header {
-  background-color: #fe4a2a !important; /* Orange background for headers */
-  color: white !important; /* White text for headers */
+.matchupUser-playerCard-header,
+.matchupOpponent-playerCard-header {
+  background-color: #fe4a2a !important;
+  /* Orange background for headers */
+  color: white !important;
+  /* White text for headers */
   font-weight: bold;
 }
 
 /* Style for the card body */
-.matchupUser-playerCard-body, .matchupOpponent-playerCard-body {
-  background-color: white !important; /* White background for card body */
-  color: #2a454e !important; /* Dark teal text for card body */
+.matchupUser-playerCard-body,
+.matchupOpponent-playerCard-body {
+  background-color: white !important;
+  /* White background for card body */
+  color: #2a454e !important;
+  /* Dark teal text for card body */
 }
 
-.matchupUser-card .card-header, .matchupOpponent-card .card-header {
+.matchupUser-card .card-header,
+.matchupOpponent-card .card-header {
   font-size: 1em;
   font-weight: bold;
-  
+
 }
 
-.matchupUser-card h2, .matchupOpponent-card h2 {
-  font-size: 2em; /* Adjust as needed */
+.matchupUser-card h2,
+.matchupOpponent-card h2 {
+  font-size: 2em;
+  /* Adjust as needed */
   text-align: center;
 }
 
@@ -116,63 +146,85 @@
 }
 
 .matchupDropdown {
-background-color: #93abbd !important;
-    border: none !important;
-  }
+  background-color: #93abbd !important;
+  border: none !important;
+}
 
 @media (max-width: 992px) {
+
   /* Make the parent a grid container */
   .matchup {
     display: grid;
-    grid-template-columns: 1fr 1fr; /* Make two columns, each taking up half the screen */
-    grid-gap: 0px; /* Remove space between the cards */
+    grid-template-columns: 1fr 1fr;
+    /* Make two columns, each taking up half the screen */
+    grid-gap: 0px;
+    /* Remove space between the cards */
   }
 
   /* Style for your team and the opponent's team */
-  .matchupUser-card, .matchupOpponent-card {
-    font-size: 1.2em !important; /* Reduced font size */
+  .matchupUser-card,
+  .matchupOpponent-card {
+    font-size: 1.2em !important;
+    /* Reduced font size */
   }
 
   /* Style for the player details */
-  .matchupUser-details, .matchupOpponent-details {
-    flex-direction: column !important; /* Arrange details in a column */
-    font-size: 0.8em !important; /* Reduced font size */
+  .matchupUser-details,
+  .matchupOpponent-details {
+    flex-direction: column !important;
+    /* Arrange details in a column */
+    font-size: 0.8em !important;
+    /* Reduced font size */
   }
 
   /* Style for the player name */
   .player-name div {
-    font-size: 0.8em !important; /* Reduced font size */
+    font-size: 0.8em !important;
+    /* Reduced font size */
   }
 
   /* Style for the labels */
-  .matchupUser-card-label, .matchupOpponent-card-label {
-    font-size: 1em !important; /* Keep original font size */
+  .matchupUser-card-label,
+  .matchupOpponent-card-label {
+    font-size: 1em !important;
+    /* Keep original font size */
   }
 
   /* Style for the text */
-  .matchupUser-card-text, .matchupOpponent-card-text {
-    font-size: 0.8em !important; /* Reduced font size */
+  .matchupUser-card-text,
+  .matchupOpponent-card-text {
+    font-size: 0.8em !important;
+    /* Reduced font size */
   }
 
   /* Style for the stats */
-  .matchupUser-stat, .matchupOpponent-stat {
-    flex-direction: column !important; /* Arrange stats in a column */
-    font-size: 1em !important; /* Keep original font size */
+  .matchupUser-stat,
+  .matchupOpponent-stat {
+    flex-direction: column !important;
+    /* Arrange stats in a column */
+    font-size: 1em !important;
+    /* Keep original font size */
   }
+
   .player-name {
     font-size: 1em !important;
   }
-  .matchupUser-card .card-header, .matchupOpponent-card .card-header {
+
+  .matchupUser-card .card-header,
+  .matchupOpponent-card .card-header {
     font-size: .7em;
-    font-weight: bold; /* Example: Bold text */
+    font-weight: bold;
+    /* Example: Bold text */
     height: 5em;
     text-align: center;
   }
 
-  .matchupUser-card h2, .matchupOpponent-card h2 {
-    font-size: 1em; /* Adjust as needed */
+  .matchupUser-card h2,
+  .matchupOpponent-card h2 {
+    font-size: 1em;
+    /* Adjust as needed */
   }
-  
+
   .matchup-Team-Owner {
     font-size: .8em !important;
     font-weight: bold;
@@ -180,8 +232,3 @@ background-color: #93abbd !important;
     border-bottom: 3px solid #93abbd !important;
   }
 }
-
-
-
-
-

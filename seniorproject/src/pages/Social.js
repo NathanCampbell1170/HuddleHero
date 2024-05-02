@@ -1,17 +1,14 @@
+import { addDoc, collection, deleteDoc, doc, onSnapshot, query, updateDoc, where } from "firebase/firestore";
 import { useEffect, useState } from 'react';
-import { auth, db } from "../Firebase-config";
-import { addDoc, collection, getDocs, query, where, doc, updateDoc, onSnapshot, deleteDoc } from "firebase/firestore";
-import CreateLeague from './CreateLeague';
-import LeagueCards from '../components/LeagueCards';
-import Modal from 'react-bootstrap/Modal';
-import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
+import Card from 'react-bootstrap/Card';
 import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
+import Modal from 'react-bootstrap/Modal';
+import Row from 'react-bootstrap/Row';
+import { auth, db } from "../Firebase-config";
 
-import "../styles/Social.css"
+import "../styles/Social.css";
 
 import FriendChat from '../components/FriendChat';
 
@@ -44,15 +41,15 @@ function Social() {
   const handleAcceptRequest = async (requestID, fromEmail) => {
     // Get a reference to the friend request document
     const requestDocRef = doc(db, 'FriendRequests', requestID);
-  
+
     // Update the status field
     await updateDoc(requestDocRef, {
       status: 'accepted'
     });
-  
+
     // Get a reference to the Friends collection
     const friendsRef = collection(db, 'Friends');
-  
+
     // Add a new document to the Friends collection
     await addDoc(friendsRef, {
       user1: auth.currentUser.email,
@@ -70,7 +67,7 @@ function Social() {
   useEffect(() => {
     const friendRequestsRef = collection(db, 'FriendRequests');
     const q = query(friendRequestsRef, where("to", "==", auth.currentUser.email), where("status", "==", "pending"));
-  
+
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
       const requests = [];
       querySnapshot.forEach((doc) => {
@@ -78,11 +75,11 @@ function Social() {
       });
       setRequests(requests);
     });
-  
+
     // Clean up the listener when the component unmounts
     return () => unsubscribe();
   }, []);
-  
+
 
   useEffect(() => {
     const friendsRef = collection(db, 'Friends');
@@ -113,61 +110,61 @@ function Social() {
   }, []);
 
   return (
-    
-    <div className="main-content">
-        <div className="add-friend-section">
-    <Button variant="primary" className="add-friend-button" onClick={handleShow}>
-      Add Friend
-    </Button>
 
-    <Modal show={show} onHide={handleClose} className="add-friend-modal">
-      <Modal.Header closeButton>
-        <Modal.Title>Add Friend</Modal.Title>
-      </Modal.Header>
-      <Modal.Body>
-        <Form>
-          <Form.Group className="mb-3">
-            <Form.Label>Friend's Email</Form.Label>
-            <Form.Control type="email" placeholder="Enter email" value={email} onChange={e => setEmail(e.target.value)} />
-          </Form.Group>
-          <Form.Group className="mb-3">
-            <Form.Label>Message</Form.Label>
-            <Form.Control as="textarea" placeholder='Enter a greeting message here' rows={3} value={message} onChange={e => setMessage(e.target.value)} />
-          </Form.Group>
-        </Form>
-      </Modal.Body>
-      <Modal.Footer>
-        <Button variant="secondary" className="button-decline" onClick={handleClose}>
-          Close
+    <div className="main-content">
+      <div className="add-friend-section">
+        <Button variant="primary" className="add-friend-button" onClick={handleShow}>
+          Add Friend
         </Button>
-        <Button variant="primary" className="button-accept"  onClick={handleSendRequest}>
-          Send Request
-        </Button>
-      </Modal.Footer>
-    </Modal>
-    </div>
+
+        <Modal show={show} onHide={handleClose} className="add-friend-modal">
+          <Modal.Header closeButton>
+            <Modal.Title>Add Friend</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <Form>
+              <Form.Group className="mb-3">
+                <Form.Label>Friend's Email</Form.Label>
+                <Form.Control type="email" placeholder="Enter email" value={email} onChange={e => setEmail(e.target.value)} />
+              </Form.Group>
+              <Form.Group className="mb-3">
+                <Form.Label>Message</Form.Label>
+                <Form.Control as="textarea" placeholder='Enter a greeting message here' rows={3} value={message} onChange={e => setMessage(e.target.value)} />
+              </Form.Group>
+            </Form>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" className="button-decline" onClick={handleClose}>
+              Close
+            </Button>
+            <Button variant="primary" className="button-accept" onClick={handleSendRequest}>
+              Send Request
+            </Button>
+          </Modal.Footer>
+        </Modal>
+      </div>
       <Container fluid>
         <Row className="justify-content-md-center">
-            {requests.length > 0 && (
-          <Card>
-            <Card.Header><h1 className='friend-header'>Friend Invites</h1></Card.Header>
-            <Card.Body className="friend-invite-cards">
-              {requests.map((request, index) => (
-                <Card key={index} className="friend-invite-card m-2">
-                  <Card.Body>
-                    <Card.Title>Friend Request</Card.Title>
-                    <Card.Text>
-                      <strong>From:</strong> {request.from} <br></br>
-                      <strong>Message:</strong> {request.message}
-                    </Card.Text>
-                    <Button variant="primary" onClick={() => handleAcceptRequest(request.id, request.from)}>Accept</Button>
-                    <Button variant="secondary" onClick={() => handleDeclineRequest(request.id)}>Decline</Button>
-                  </Card.Body>
-                </Card>
-              ))}
-            </Card.Body>
-          </Card>
-        )}
+          {requests.length > 0 && (
+            <Card>
+              <Card.Header><h1 className='friend-header'>Friend Invites</h1></Card.Header>
+              <Card.Body className="friend-invite-cards">
+                {requests.map((request, index) => (
+                  <Card key={index} className="friend-invite-card m-2">
+                    <Card.Body>
+                      <Card.Title>Friend Request</Card.Title>
+                      <Card.Text>
+                        <strong>From:</strong> {request.from} <br></br>
+                        <strong>Message:</strong> {request.message}
+                      </Card.Text>
+                      <Button variant="primary" onClick={() => handleAcceptRequest(request.id, request.from)}>Accept</Button>
+                      <Button variant="secondary" onClick={() => handleDeclineRequest(request.id)}>Decline</Button>
+                    </Card.Body>
+                  </Card>
+                ))}
+              </Card.Body>
+            </Card>
+          )}
         </Row>
         <hr />
         <Row className="justify-content-md-center">
@@ -188,12 +185,12 @@ function Social() {
       </Container>
     </div>
   );
-  
-  
-  
-  
-  
-  
+
+
+
+
+
+
 }
 
 export default Social;

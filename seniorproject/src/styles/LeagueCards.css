@@ -1,21 +1,22 @@
 .leagueTab {
-    display: flex;
-    justify-content: center;
-    background-color: #2a454e !important;
-  }
+  display: flex;
+  justify-content: center;
+  background-color: #2a454e !important;
+}
 
-.leagueModal{
+.leagueModal {
   height: 80vh;
   background-color: #2a454e !important;
 }
 
 .leagueModal {
-  
+
   height: 80vh;
   border: none;
   border-radius: 50px;
-  
+
 }
+
 .leagueModal .modal-content {
   border: none;
   border-radius: 10px;
@@ -24,50 +25,66 @@
 
 .league-title {
   display: flex !important;
-  background-color: #2a454e; /* Replace with your desired color */
+  background-color: #2a454e;
+  /* Replace with your desired color */
   color: white;
   font-family: 'Quicksand', sans-serif;
   margin-right: 1vw;
 }
 
 .league-footer {
-  background-color: #93abbd; /* Replace with your desired color */
+  background-color: #93abbd;
+  /* Replace with your desired color */
 }
 
 
 
 /* Modern Button */
 .button-modern {
-  background-color: #2a454e !important; /* Green background */
-  border: none !important; /* Remove borders */
-  color: white !important; /* White text */
-  padding: 15px 32px !important; /* Some padding */
-  text-align: center !important; /* Centered text */
-  text-decoration: none !important; /* Remove underline */
+  background-color: #2a454e !important;
+  /* Green background */
+  border: none !important;
+  /* Remove borders */
+  color: white !important;
+  /* White text */
+  padding: 15px 32px !important;
+  /* Some padding */
+  text-align: center !important;
+  /* Centered text */
+  text-decoration: none !important;
+  /* Remove underline */
   display: inline-block !important;
   font-size: 16px !important;
   margin: 4px 2px !important;
-  transition-duration: 0.4s !important; /* Transition effects */
-  cursor: pointer !important; /* Pointer/hand icon */
-  border-radius: 10px !important; /* Rounded corners */
+  transition-duration: 0.4s !important;
+  /* Transition effects */
+  cursor: pointer !important;
+  /* Pointer/hand icon */
+  border-radius: 10px !important;
+  /* Rounded corners */
   box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1) !important;
   font-family: 'Quicksand', sans-serif;
 }
 
 .button-modern:hover {
-  background-color: #1f3942 !important; /* White background */
-  color: #92aabd !important; /* Black text */
+  background-color: #1f3942 !important;
+  /* White background */
+  color: #92aabd !important;
+  /* Black text */
   font-family: 'Quicksand', sans-serif;
 }
 
 .customTabs .nav-link {
-  background-color: gray; /* non-selected tab color */
-color: white; /* text color */
-font-family: 'Quicksand', sans-serif;
+  background-color: gray;
+  /* non-selected tab color */
+  color: white;
+  /* text color */
+  font-family: 'Quicksand', sans-serif;
 }
 
 .customTabs .nav-link.active {
-  background-color: #2a454e; /* selected tab color */
+  background-color: #2a454e;
+  /* selected tab color */
   color: white;
   font-family: 'Quicksand', sans-serif;
 
@@ -75,9 +92,11 @@ font-family: 'Quicksand', sans-serif;
 
 .customTabContent {
   /*background-color: #2a454e; /* Replace with your desired color */
-  padding: 20px; /* Adjust as needed */
-  border-radius: 5px; /* Optional, for rounded corners */
-  
+  padding: 20px;
+  /* Adjust as needed */
+  border-radius: 5px;
+  /* Optional, for rounded corners */
+
 }
 
 .myHuddleHero-LeagueHeader {
@@ -85,15 +104,15 @@ font-family: 'Quicksand', sans-serif;
   border-radius: 50% !important;
   width: 80px !important;
   height: 80px !important;
-  
-  border: 2px solid #fe4a2a 
+
+  border: 2px solid #fe4a2a
 }
 
 @media (max-width: 768px) {
   .modal-content {
     width: 100%;
 
-  
+
   }
 
   .modal {

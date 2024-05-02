@@ -13,10 +13,12 @@
 .league-commissionercard .card-title {
     width: 50% !important;
 }
+
 .league-commissionercard .card-body {
     display: flex !important;
     flex-direction: column !important;
-    justify-content: center !important; /* This will center the items vertically */
+    justify-content: center !important;
+    /* This will center the items vertically */
 }
 
 .league-commissionercard .card-body .card-text {
@@ -30,19 +32,27 @@
 
 @media (max-width: 991px) {
     .league-commissionercard .card-title {
-        width: 100%; /* Adjust width to fit mobile screens */
+        width: 100%;
+        /* Adjust width to fit mobile screens */
     }
+
     .league-commissionercard .card-body {
-        padding: 10px; /* Add padding for better spacing on smaller screens */
+        padding: 10px;
+        /* Add padding for better spacing on smaller screens */
     }
+
     .league-commissionercard .card-body .card-text {
-        flex-direction: column; /* Stack elements vertically */
-        align-items: flex-start; /* Align items to the start of the flex container */
+        flex-direction: column;
+        /* Stack elements vertically */
+        align-items: flex-start;
+        /* Align items to the start of the flex container */
         font-size: smaller;
     }
+
     .league-commissionercard .card-body .card-text button {
-        margin-top: 10px; /* Add margin above button when stacked */
-        width: 100%; /* Full-width button for better mobile interaction */
+        margin-top: 10px;
+        /* Add margin above button when stacked */
+        width: 100%;
+        /* Full-width button for better mobile interaction */
     }
 }
-

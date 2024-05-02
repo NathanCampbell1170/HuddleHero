@@ -1,7 +1,7 @@
 /* Existing CSS */
 .createLeague {
     width: 50vw;
-   
+
     font-family: 'Quicksand', sans-serif;
 }
 
@@ -30,7 +30,8 @@
 }
 
 .customTabs .nav-item {
-    border-right: 1px solid #2a454e; /* Change the color as needed */
+    border-right: 1px solid #2a454e;
+    /* Change the color as needed */
 }
 
 .customTabs .nav-item:last-child {
@@ -47,9 +48,10 @@
     background-color: #fe4a2a !important;
     color: white !important;
     font-family: 'Quicksand', sans-serif;
-    outline:none !important;
+    outline: none !important;
     border: none !important;
 }
+
 .customTabs .nav-link:hover {
     border: none !important;
     color: white
@@ -62,20 +64,26 @@
 
 .createleague-createleaguebutton {
     background-color: #fe4a2a !important;
-    border: none !important   
+    border: none !important
 }
 
 
-.leagueInfo-card, .rosterSettings-card, .scoringSettings-card, .inviteUsers-card {
+.leagueInfo-card,
+.rosterSettings-card,
+.scoringSettings-card,
+.inviteUsers-card {
     background-color: #2a454e !important;
     border-radius: 15px;
-   border:none !important;
+    border: none !important;
     color: white !important;
     font-size: larger;
     font-size: 1em;
 }
 
-.leagueInfo-card input, .rosterSettings-card select, .scoringSettings-card input, .inviteUsers-card input {
+.leagueInfo-card input,
+.rosterSettings-card select,
+.scoringSettings-card input,
+.inviteUsers-card input {
     width: 100%;
     padding: 12px 20px;
     margin: 8px 0;
@@ -85,17 +93,20 @@
     box-sizing: border-box;
 }
 
-.leagueInfo-card input:hover, .leagueInfo-card input:focus {
+.leagueInfo-card input:hover,
+.leagueInfo-card input:focus {
     box-shadow: 0px 0px 5px 3px #93abbd !important;
     outline: none;
 }
 
-.scoringSettings-card input:hover, .scoringSettings-card input:focus {
+.scoringSettings-card input:hover,
+.scoringSettings-card input:focus {
     box-shadow: 0px 0px 5px 3px #93abbd !important;
     outline: none;
 }
 
-.inviteUsers input:hover, .inviteUsers input:focus {
+.inviteUsers input:hover,
+.inviteUsers input:focus {
     box-shadow: 0px 0px 5px 3px #93abbd !important;
     outline: none;
 }
@@ -123,18 +134,20 @@
 }
 
 .rosterSettings-card {
-    width: 100% !important; /* The value 21% is calculated based on (100% - (margins + paddings)) / number of cards. Adjust accordingly. */
-    
+    width: 100% !important;
+    /* The value 21% is calculated based on (100% - (margins + paddings)) / number of cards. Adjust accordingly. */
+
 }
 
 /* New additions */
 .rosterSettings-card .rosterSettings-subcard {
-    width: fit-content !important ;
-    flex: 1 0 calc(100% / 10); /* Adjust this value to change the size of the subcards. */
+    width: fit-content !important;
+    flex: 1 0 calc(100% / 10);
+    /* Adjust this value to change the size of the subcards. */
     margin: .1em;
 }
 
-.rosterSettings-card .rosterSettings-subcard > div {
+.rosterSettings-card .rosterSettings-subcard>div {
     flex: 1 0 auto;
     margin: 0.5em;
 }
@@ -163,12 +176,13 @@
     flex-wrap: wrap;
 }
 
-.scoringSettings-passing > div,
-.scoringSettings-rushing > div,
-.scoringSettings-receiving > div,
-.scoringSettings-defence > div,
-.scoringSettings-kicking > div {
-    flex: 1 0 calc(100% / 6); /* Adjust this value to change the size of the items. */
+.scoringSettings-passing>div,
+.scoringSettings-rushing>div,
+.scoringSettings-receiving>div,
+.scoringSettings-defence>div,
+.scoringSettings-kicking>div {
+    flex: 1 0 calc(100% / 6);
+    /* Adjust this value to change the size of the items. */
     margin: 0.5em;
 }
 
@@ -179,7 +193,7 @@
 }
 
 .scoringSettings h4 {
-    font-weight: bold 
+    font-weight: bold
 }
 
 .inviteUsers {
@@ -205,21 +219,25 @@
 }
 
 @media (max-width: 991px) {
-    .createLeague, .invite-cards {
+
+    .createLeague,
+    .invite-cards {
         width: 100vw;
     }
 
     .rosterSettings .card-body {
         display: flex !important;
-        flex-wrap: wrap; /* Allow items to wrap to the next row */
+        flex-wrap: wrap;
+        /* Allow items to wrap to the next row */
         justify-content: space-between !important;
         align-items: center;
         font-size: smaller;
     }
 
     .rosterSettings-card .rosterSettings-subcard {
-        width: fit-content !important ;
-        flex: 1 0 calc(100% / 3); /* Adjust this value to change the size of the subcards. */
+        width: fit-content !important;
+        flex: 1 0 calc(100% / 3);
+        /* Adjust this value to change the size of the subcards. */
         margin: .1em;
     }
 
@@ -235,22 +253,24 @@
         min-height: max-content !important;
         width: 100% !important
     }
-    .scoringSettings-passing > div,
-    .scoringSettings-rushing > div,
-    .scoringSettings-receiving > div,
-    .scoringSettings-defence > div,
-    .scoringSettings-kicking > div {
-        flex: 1 0 calc(100% / 3); /* Adjust this value to change the size of the items. */
-        
+
+    .scoringSettings-passing>div,
+    .scoringSettings-rushing>div,
+    .scoringSettings-receiving>div,
+    .scoringSettings-defence>div,
+    .scoringSettings-kicking>div {
+        flex: 1 0 calc(100% / 3);
+        /* Adjust this value to change the size of the items. */
+
     }
 
     .scoringSettings-option {
         min-height: fit-content;
         min-width: fit-content;
         font-size: smaller;
-        width:100%
-        
+        width: 100%
     }
+
     .inviteUsers-card .input-container .input {
         font-size: 11px;
     }
@@ -260,4 +280,3 @@
     }
 
 }
-

@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
 import { confirmPasswordReset, verifyPasswordResetCode } from "firebase/auth";
-import { auth } from '../Firebase-config';
+import React, { useEffect, useState } from 'react';
 import Alert from 'react-bootstrap/Alert';
-import "../styles/ResetPassword.css"
+import { useLocation } from 'react-router-dom';
+import { auth } from '../Firebase-config';
+import "../styles/ResetPassword.css";
 
 function ResetPassword() {
   const location = useLocation();
@@ -49,7 +49,7 @@ function ResetPassword() {
   if (error === 'Invalid or expired action code') {
     return <Alert variant="danger">{error}</Alert>;
   }
-  
+
   if (success) {
     return (
       <div className="reset-success">
@@ -58,7 +58,7 @@ function ResetPassword() {
       </div>
     );
   }
-  
+
   return (
     <div className="reset-container">
       <h1>Reset your Password</h1>
@@ -100,7 +100,7 @@ function ResetPassword() {
       </div>
     </div>
   );
-  
+
 }
 
 export default ResetPassword;
